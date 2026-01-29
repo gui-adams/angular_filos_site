@@ -1,0 +1,59 @@
+<section class="section" id="cursos" aria-labelledby="cursos-title">
+  <div class="head">
+    <div class="titleBox">
+      <p class="kicker">
+        <mat-icon aria-hidden="true">school</mat-icon>
+        Cursos
+      </p>
+
+      <h2 id="cursos-title" class="title">O que você deseja estudar?</h2>
+
+      <p class="subtitle">
+        A escolha da sua carreira é o primeiro passo para o seu futuro!
+      </p>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Categorias de cursos">
+      <button
+        type="button"
+        role="tab"
+        class="tabBtn"
+        [class.active]="activeTab === 'graduacao'"
+        (click)="setTab('graduacao')"
+        [attr.aria-selected]="activeTab === 'graduacao'"
+      >
+        Graduação
+      </button>
+    </div>
+  </div>
+
+  <ul id="cursos-grid" class="grid">
+    <li *ngFor="let c of filteredCourses; trackBy: trackById" class="card">
+      <div class="media">
+        <img
+          [ngSrc]="c.imageSrc"
+          [alt]="c.title"
+          width="520"
+          height="320"
+          class="image"
+          sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, (max-width: 1200px) 30vw, 25vw"
+        />
+      </div>
+
+      <div class="badges">
+        <span class="badgeMuted">{{ c.type }}</span>
+        <span class="badgeMuted">{{ c.modality }}</span>
+      </div>
+
+      <h3 class="cardTitle">{{ c.title }}</h3>
+
+      <div class="actions">
+        <a class="btnPrimary" [attr.href]="c.applyHref">
+          Inscreva-se <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+        </a>
+
+        <a class="linkMore" [routerLink]="c.learnHref">Saiba mais</a>
+      </div>
+    </li>
+  </ul>
+</section>
