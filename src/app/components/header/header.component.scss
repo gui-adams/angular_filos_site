@@ -1,0 +1,380 @@
+/* =================== Top bar =================== */
+.topBar {
+  height: 8px;
+  background: var(--brand);
+}
+
+/* =================== Header base =================== */
+.header {
+  background: var(--bg);
+  border-bottom: 1px solid #e6e8ef;
+  position: sticky;
+  top: 0;
+  z-index: 60;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  height: 72px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+
+  position: relative;
+}
+
+/* =================== Logo =================== */
+.brand,
+.brandMini {
+  display: inline-flex;
+  align-items: center;
+}
+
+.brand {
+  justify-self: start;
+}
+
+.logo {
+  width: 180px;
+  height: auto;
+  max-width: none;
+}
+
+.logoMini {
+  width: 120px;
+  height: auto;
+  max-width: none;
+}
+
+/* =================== Toggle drawer =================== */
+.toggle {
+  display: none;
+}
+
+/* =================== Burger =================== */
+.burger {
+  display: none;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--brand);
+  z-index: 90;
+}
+
+.burger mat-icon {
+  width: 26px;
+  height: 26px;
+  font-size: 26px;
+  line-height: 26px;
+}
+
+/* Alternância Menu/X */
+.iconMenu {
+  display: inline-flex;
+}
+.iconClose {
+  display: none;
+}
+
+.toggle:checked ~ .burger .iconMenu {
+  display: none;
+}
+.toggle:checked ~ .burger .iconClose {
+  display: inline-flex;
+}
+
+/* =================== Desktop nav =================== */
+.navDesktop {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+
+  > ul {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: var(--text);
+    font-weight: 500;
+    line-height: 72px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--brand-600);
+    }
+  }
+}
+
+.hasDropdown {
+  position: relative;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.caret {
+  font-size: 0.85em;
+  transform: translateY(-1px);
+}
+
+/* Dropdown */
+.dropdown {
+  position: absolute;
+  top: 64px;
+  left: 0;
+
+  min-width: 220px;
+  padding: 8px;
+  border: 1px solid #e6e8ef;
+  border-radius: 12px;
+  background: var(--bg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+  display: none;
+  z-index: 70;
+
+  li {
+    list-style: none;
+  }
+
+  a {
+    display: block;
+    padding: 10px 12px;
+    line-height: 1.2;
+    border-radius: 10px;
+    color: var(--text);
+
+    &:hover {
+      background: #f2f5fb;
+      color: var(--brand-600);
+    }
+  }
+}
+
+@media (hover: hover) {
+  .hasDropdown:hover .dropdown {
+    display: block;
+  }
+}
+.hasDropdown:focus-within .dropdown {
+  display: block;
+}
+
+/* =================== Actions =================== */
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btnPrimary,
+.btnOutline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+
+  font-weight: 800;
+  text-decoration: none;
+
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.btnPrimary {
+  background: var(--brand);
+  color: #fff;
+  border: 1px solid var(--brand);
+
+  &:hover {
+    transform: translateY(-1px);
+    background: var(--brand-600);
+    border-color: var(--brand-600);
+  }
+}
+
+.btnOutline {
+  background: var(--bg);
+  color: var(--brand);
+  border: 1.5px solid var(--brand);
+
+  &:hover {
+    transform: translateY(-1px);
+    background: #f4f7ff;
+  }
+}
+
+/* =================== Mobile drawer =================== */
+.mobileNav {
+  display: none;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  height: 100%;
+  width: 85vw;
+  max-width: 380px;
+
+  background: var(--bg);
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+
+  box-shadow: -12px 0 24px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+
+  z-index: 80;
+}
+
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.close {
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 10px;
+
+  &:hover {
+    background: #f2f5fb;
+  }
+}
+
+.menuList {
+  list-style: none;
+  padding: 8px 0 16px;
+  margin: 0;
+
+  display: grid;
+  gap: 8px;
+
+  a {
+    display: block;
+    padding: 10px 4px;
+    color: var(--text);
+    font-weight: 800;
+
+    &:hover {
+      color: var(--brand-600);
+    }
+  }
+}
+
+.mobileActions {
+  margin-top: 8px;
+  display: grid;
+  gap: 10px;
+}
+
+.social {
+  margin-top: auto;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+
+    &:hover {
+      background: #f4f7ff;
+    }
+  }
+
+  mat-icon {
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+    line-height: 22px;
+    color: var(--text);
+  }
+
+  a:hover mat-icon {
+    color: var(--brand-600);
+  }
+}
+
+/* Toggle abre drawer/backdrop */
+.toggle:checked ~ .mobileNav .backdrop {
+  opacity: 1;
+  visibility: visible;
+}
+
+.toggle:checked ~ .mobileNav .drawer {
+  transform: translateX(0);
+}
+
+/* =================== Mobile breakpoint =================== */
+@media (max-width: 1024px) {
+  .navDesktop,
+  .actions {
+    display: none;
+  }
+
+  .mobileNav {
+    display: block;
+  }
+
+  .burger {
+    display: inline-flex;
+  }
+
+  .inner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .brand {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .logo {
+    width: 170px;
+    max-width: none;
+  }
+
+  .burger {
+    justify-self: end;
+  }
+}

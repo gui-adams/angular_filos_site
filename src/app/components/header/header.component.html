@@ -1,0 +1,166 @@
+<div class="topBar" aria-hidden="true"></div>
+
+<header class="header">
+  <div class="inner">
+    <!-- Logo (desktop) -->
+    <a routerLink="/" class="brand" aria-label="Página inicial - Faculdade Filos">
+      <img
+        [ngSrc]="logoSrc"
+        width="180"
+        height="48"
+        priority
+        alt="Faculdade Filos"
+        class="logo"
+      />
+    </a>
+
+    <!-- Toggle drawer (CSS only) -->
+    <input id="nav-toggle" type="checkbox" class="toggle" aria-hidden="true" />
+
+    <label
+      for="nav-toggle"
+      class="burger"
+      aria-label="Abrir menu"
+      aria-controls="mobile-drawer"
+    >
+      <mat-icon class="iconMenu" aria-hidden="true">menu</mat-icon>
+      <mat-icon class="iconClose" aria-hidden="true">close</mat-icon>
+    </label>
+
+    <!-- Desktop nav -->
+    <nav class="navDesktop" aria-label="Menu principal">
+      <ul>
+        <li>
+          <a
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Home
+          </a>
+        </li>
+
+        <li class="hasDropdown">
+          <a routerLink="/cursos" class="trigger" aria-haspopup="menu">
+            Cursos <span class="caret" aria-hidden="true">▾</span>
+          </a>
+          <ul class="dropdown" role="menu">
+            <li role="none"><a role="menuitem" routerLink="/cursos/graduacao">Graduação</a></li>
+            <li role="none"><a role="menuitem" routerLink="/cursos/pos-graduacao">Pós-graduação</a></li>
+            <li role="none"><a role="menuitem" routerLink="/cursos/extensao">Extensão</a></li>
+          </ul>
+        </li>
+
+        <li class="hasDropdown">
+          <a routerLink="/about" class="trigger" aria-haspopup="menu">
+            A Filos <span class="caret" aria-hidden="true">▾</span>
+          </a>
+          <ul class="dropdown" role="menu">
+            <li role="none"><a role="menuitem" routerLink="/about">Sobre</a></li>
+            <li role="none"><a role="menuitem" routerLink="/about/infraestrutura">Infraestrutura</a></li>
+          </ul>
+        </li>
+
+        <li class="hasDropdown">
+          <a routerLink="/institucional" class="trigger" aria-haspopup="menu">
+            Institucional <span class="caret" aria-hidden="true">▾</span>
+          </a>
+          <ul class="dropdown" role="menu">
+            <li role="none"><a role="menuitem" routerLink="/institucional/revista">Revista</a></li>
+            <li role="none"><a role="menuitem" routerLink="/institucional/editais">Editais</a></li>
+            <li role="none"><a role="menuitem" routerLink="/institucional/regulamentos">Regulamentos</a></li>
+            <li role="none"><a role="menuitem" routerLink="/institucional/cpa">CPA</a></li>
+            <li role="none"><a role="menuitem" routerLink="/institucional/ouvidoria">Ouvidoria</a></li>
+            <li role="none"><a role="menuitem" routerLink="/institucional/biblioteca">Biblioteca</a></li>
+          </ul>
+        </li>
+
+        <li class="hasDropdown">
+          <a routerLink="/grupo" class="trigger" aria-haspopup="menu">
+            Instituições do Grupo <span class="caret" aria-hidden="true">▾</span>
+          </a>
+          <ul class="dropdown" role="menu">
+            <li role="none"><a role="menuitem" routerLink="/grupo/colegio-x">Colégio Filos</a></li>
+            <li role="none"><a role="menuitem" routerLink="/grupo/fundacao-y">Fundação</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Desktop actions -->
+    <div class="actions">
+      <a
+        href="https://faculdadefilos.jacad.com.br/academico/professor/login"
+        class="btnOutline"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Portal
+      </a>
+
+      <a routerLink="/admissions" class="btnPrimary">
+        Inscreva-se
+      </a>
+    </div>
+
+    <!-- Mobile drawer -->
+    <nav class="mobileNav" aria-label="Menu móvel">
+      <label for="nav-toggle" class="backdrop" aria-hidden="true"></label>
+
+      <aside
+        id="mobile-drawer"
+        class="drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+      >
+        <div class="drawerHeader">
+          <a routerLink="/" class="brandMini" aria-label="Página inicial - Faculdade Filos">
+            <img
+              [ngSrc]="logoSrc"
+              width="120"
+              height="32"
+              alt="Faculdade Filos"
+              class="logoMini"
+            />
+          </a>
+
+          <label for="nav-toggle" class="close" aria-label="Fechar menu"></label>
+        </div>
+
+        <ul class="menuList">
+          <li><a routerLink="/">Home</a></li>
+          <li><a routerLink="/cursos">Cursos</a></li>
+          <li><a routerLink="/about">A Filos</a></li>
+          <li><a routerLink="/institucional">Institucional</a></li>
+          <li><a routerLink="/grupo">Instituições do Grupo</a></li>
+        </ul>
+
+        <div class="mobileActions">
+          <a routerLink="/portal-aluno" class="btnOutline">Portal do Aluno</a>
+          <a routerLink="/admissions" class="btnPrimary">Inscreva-se</a>
+        </div>
+
+        <div class="social" aria-label="Redes sociais">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <mat-icon aria-hidden="true">facebook</mat-icon>
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <mat-icon aria-hidden="true">instagram</mat-icon>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <mat-icon aria-hidden="true">linkedin</mat-icon>
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <mat-icon aria-hidden="true">youtube</mat-icon>
+          </a>
+
+          <!-- X não existe oficial no Material; usamos "close" como fallback visual -->
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+            <mat-icon aria-hidden="true">close</mat-icon>
+          </a>
+        </div>
+      </aside>
+    </nav>
+  </div>
+</header>
