@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { SubscriptionService } from '../../services/subscription.service';
 
 @Component({
   selector: 'app-footer',
@@ -12,4 +13,5 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class FooterComponent {
   readonly year = new Date().getFullYear();
+  constructor(public subscriptionService: SubscriptionService) {}
 }

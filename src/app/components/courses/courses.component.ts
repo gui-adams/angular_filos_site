@@ -5,6 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { COURSES } from './courses.data';
 import { Course, CourseLevel } from './courses.model';
+// 1. Importe o serviço
+import { SubscriptionService } from '../../services/subscription.service'; 
 
 @Component({
   selector: 'app-courses',
@@ -16,6 +18,8 @@ import { Course, CourseLevel } from './courses.model';
 export class CoursesComponent {
   readonly courses: Course[] = COURSES;
   activeTab: CourseLevel = 'graduacao';
+
+  constructor(public subscriptionService: SubscriptionService) {}
 
   setTab(tab: CourseLevel) {
     this.activeTab = tab;

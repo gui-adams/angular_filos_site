@@ -2,7 +2,6 @@
 
 <header class="header">
   <div class="inner">
-    <!-- Logo (desktop) -->
     <a routerLink="/" class="brand" aria-label="Página inicial - Faculdade Filos">
       <img
         [ngSrc]="logoSrc"
@@ -14,7 +13,6 @@
       />
     </a>
 
-    <!-- Toggle drawer (CSS only) -->
     <input id="nav-toggle" type="checkbox" class="toggle" aria-hidden="true" />
 
     <label
@@ -27,7 +25,6 @@
       <mat-icon class="iconClose" aria-hidden="true">close</mat-icon>
     </label>
 
-    <!-- Desktop nav -->
     <nav class="navDesktop" aria-label="Menu principal">
       <ul>
         <li>
@@ -45,7 +42,10 @@
             Cursos <span class="caret" aria-hidden="true">▾</span>
           </a>
           <ul class="dropdown" role="menu">
-            <li role="none"><a role="menuitem" routerLink="/cursos/graduacao">Graduação</a></li>
+            <li role="none"><a role="menuitem" routerLink="/cursos/administracao">Administração</a></li>
+            <li role="none"><a role="menuitem" routerLink="/cursos/direito">Direito</a></li>
+            <li role="none"><a role="menuitem" routerLink="/cursos/pedagogia">Pedagogia</a></li>
+            <li role="none"><a role="menuitem" routerLink="/cursos/radiologia">Radiologia</a></li>
           </ul>
         </li>
 
@@ -54,8 +54,9 @@
             A Filos <span class="caret" aria-hidden="true">▾</span>
           </a>
           <ul class="dropdown" role="menu">
-            <li role="none"><a role="menuitem" routerLink="/about">Sobre</a></li>
-            <li role="none"><a role="menuitem" routerLink="/about/infraestrutura">Infraestrutura</a></li>
+            <li role="none">
+            <a role="menuitem" routerLink="/about">Sobre</a>
+          </li>
           </ul>
         </li>
 
@@ -78,14 +79,16 @@
             Instituições do Grupo <span class="caret" aria-hidden="true">▾</span>
           </a>
           <ul class="dropdown" role="menu">
-            <li role="none"><a role="menuitem" routerLink="/grupo/colegio-x">Colégio Filos</a></li>
-            <li role="none"><a role="menuitem" routerLink="/grupo/fundacao-y">Fundação</a></li>
+            <li role="none">
+              <a role="menuitem" href="https://colegiofilos.com.br/" target="_blank" rel="noopener noreferrer">
+                Colégio Filos
+              </a>
+            </li>
           </ul>
         </li>
       </ul>
     </nav>
 
-    <!-- Desktop actions -->
     <div class="actions">
       <a
         href="https://faculdadefilos.jacad.com.br/academico/professor/login"
@@ -101,7 +104,6 @@
       </a>
     </div>
 
-    <!-- Mobile drawer -->
     <nav class="mobileNav" aria-label="Menu móvel">
       <label for="nav-toggle" class="backdrop" aria-hidden="true"></label>
 
@@ -128,7 +130,9 @@
 
         <ul class="menuList">
           <li><a routerLink="/">Home</a></li>
+          
           <li><a routerLink="/cursos">Cursos</a></li>
+          
           <li><a routerLink="/about">A Filos</a></li>
           <li><a routerLink="/institucional">Institucional</a></li>
           <li><a routerLink="/grupo">Instituições do Grupo</a></li>
@@ -152,8 +156,6 @@
           <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
             <mat-icon aria-hidden="true">youtube</mat-icon>
           </a>
-
-          <!-- X não existe oficial no Material; usamos "close" como fallback visual -->
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
             <mat-icon aria-hidden="true">close</mat-icon>
           </a>

@@ -1,7 +1,5 @@
 <footer class="footer" role="contentinfo">
-  <!-- TOP -->
   <div class="top container">
-    <!-- Brand / Social -->
     <div class="brandBox">
       <a routerLink="/" class="logoLink" aria-label="Página inicial - Faculdade Filos">
         <img
@@ -50,7 +48,6 @@
       </div>
     </div>
 
-    <!-- Links -->
     <nav class="cols" aria-label="Rodapé">
       <div class="col">
         <p class="title">Cursos</p>
@@ -95,22 +92,17 @@
         </ul>
 
         <div class="ctaRow">
-          <a routerLink="/admissions" class="btnPrimary">Inscreva-se</a>
-
-          <a
-            href="https://faculdadefilos.jacad.com.br/academico/professor/login"
-            class="btnOutline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Portal do Aluno
-          </a>
+         <button 
+  type="button" 
+  (click)="subscriptionService.openForm('Rodapé do Site')" 
+  class="btnPrimary">
+  Inscreva-se
+</button>
         </div>
       </div>
     </nav>
   </div>
 
-  <!-- BOTTOM -->
   <div class="bottom container">
     <p class="copy">
       © {{ year }} Faculdade Filos. Todos os direitos reservados.

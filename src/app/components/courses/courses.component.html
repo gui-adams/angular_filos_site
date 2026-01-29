@@ -14,14 +14,8 @@
     </div>
 
     <div class="tabs" role="tablist" aria-label="Categorias de cursos">
-      <button
-        type="button"
-        role="tab"
-        class="tabBtn"
-        [class.active]="activeTab === 'graduacao'"
-        (click)="setTab('graduacao')"
-        [attr.aria-selected]="activeTab === 'graduacao'"
-      >
+      <button type="button" role="tab" class="tabBtn" [class.active]="activeTab === 'graduacao'"
+        (click)="setTab('graduacao')" [attr.aria-selected]="activeTab === 'graduacao'">
         Graduação
       </button>
     </div>
@@ -30,14 +24,8 @@
   <ul id="cursos-grid" class="grid">
     <li *ngFor="let c of filteredCourses; trackBy: trackById" class="card">
       <div class="media">
-        <img
-          [ngSrc]="c.imageSrc"
-          [alt]="c.title"
-          width="520"
-          height="320"
-          class="image"
-          sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, (max-width: 1200px) 30vw, 25vw"
-        />
+        <img [ngSrc]="c.imageSrc" [alt]="c.title" width="520" height="320" class="image"
+          sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, (max-width: 1200px) 30vw, 25vw" />
       </div>
 
       <div class="badges">
@@ -48,9 +36,11 @@
       <h3 class="cardTitle">{{ c.title }}</h3>
 
       <div class="actions">
-        <a class="btnPrimary" [attr.href]="c.applyHref">
-          Inscreva-se <mat-icon aria-hidden="true">arrow_forward</mat-icon>
-        </a>
+<button 
+  type="button" 
+  class="btnPrimary" 
+  (click)="subscriptionService.openForm(c.title)"> Inscreva-se <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+</button>
 
         <a class="linkMore" [routerLink]="c.learnHref">Saiba mais</a>
       </div>

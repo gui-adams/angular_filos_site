@@ -57,10 +57,11 @@
       </div>
     </div>
 
-    <div class="ctaRow">
-      <a routerLink="/admissions" class="btnLight">
-        Inscreva-se agora <mat-icon aria-hidden="true">arrow_forward</mat-icon>
-      </a>
-    </div>
+<div class="ctaRow">
+  <button type="button" class="btnLight" (click)="subscriptionService.openForm()">
+    Inscreva-se agora 
+    <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+  </button>
+</div>
   </div>
 </section>

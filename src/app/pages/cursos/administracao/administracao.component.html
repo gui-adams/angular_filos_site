@@ -1,0 +1,85 @@
+<section class="hero">
+  <div class="heroContent">
+    <span class="kicker">Graduação</span>
+
+    <h1 class="title">Administração</h1>
+
+    <p class="lead">
+      Formação de profissionais capazes de atuar de maneira estratégica, ética e inovadora na gestão de
+      organizações públicas e privadas.
+    </p>
+
+    <p class="coordinator">
+      Coordenação: <strong>Professora Patricia de Carvalho</strong>
+    </p>
+
+    <div class="actions">
+      <a class="ctaPrimary" [routerLink]="['/admissions']" [queryParams]="{ curso: 'administracao' }">
+        Inscreva-se agora
+      </a>
+
+      <a class="ctaSecondary" href="/docs/matriz-adm.pdf" target="_blank" rel="noopener noreferrer">
+        Matriz Curricular
+      </a>
+    </div>
+  </div>
+
+  <div class="heroMedia" aria-hidden="true">
+    <img
+      [ngSrc]="heroImg"
+      width="520"
+      height="360"
+      priority
+      alt="Curso de Administração"
+      class="heroImg"
+      sizes="(max-width: 900px) 92vw, 520px"
+    />
+  </div>
+</section>
+
+<section class="details">
+  <div class="detailGrid">
+
+    <article class="detailCard">
+      <h2 class="cardTitle">Objetivos do Curso</h2>
+      <ul class="list">
+        <li>Proporcionar uma formação sólida em gestão, liderança e tomada de decisão.</li>
+        <li>Desenvolver competências para planejar, organizar, dirigir e controlar processos.</li>
+        <li>Preparar profissionais para os desafios do mercado globalizado.</li>
+        <li>Estimular o empreendedorismo, a pesquisa e a inovação.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard">
+      <h2 class="cardTitle">Estrutura Curricular</h2>
+      <p class="cardText">O curso é estruturado em 8 semestres (4 anos) e contempla:</p>
+      <ul class="list">
+        <li><strong>Formação Básica:</strong> Economia, Contabilidade, Matemática Financeira.</li>
+        <li><strong>Formação Profissional:</strong> Gestão de Pessoas, Marketing, Finanças, Logística.</li>
+        <li><strong>Gestão Pública e Social:</strong> Políticas Públicas e Sustentabilidade.</li>
+        <li><strong>Prática Profissional:</strong> Projetos, estágios e simulações de negócios.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard">
+      <h2 class="cardTitle">Diferenciais</h2>
+      <ul class="list">
+        <li>Coordenação dedicada e corpo docente qualificado.</li>
+        <li>Parcerias com empresas para estágios e projetos práticos.</li>
+        <li>Incentivo ao empreendedorismo com laboratórios de inovação.</li>
+        <li>Biblioteca atualizada e recursos tecnológicos.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard">
+      <h2 class="cardTitle">Perfil do Egresso</h2>
+      <ul class="list">
+        <li>Capaz de atuar em diferentes áreas da gestão organizacional.</li>
+        <li>Preparado para liderar equipes e tomar decisões estratégicas.</li>
+        <li>Comprometido com ética e responsabilidade social.</li>
+        <li>Habilitado para empreender e contribuir para a sociedade.</li>
+      </ul>
+    </article>
+
+  </div>
+</section>

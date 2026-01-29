@@ -178,6 +178,11 @@ section {
   font-weight: 900;
   text-decoration: none;
 
+  /* IMPORTANTE: Adicionado para funcionar como botão */
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+
   background: var(--brand, #576a90);
   color: #fff;
   border: 1px solid var(--brand, #576a90);
