@@ -1,0 +1,66 @@
+<section class="section" id="market-ready" aria-labelledby="market-ready-title">
+  <!-- Coluna de mídia -->
+  <div class="mediaCol">
+    <img
+      [ngSrc]="imageSrc"
+      alt="Formação acadêmica preparada para o mercado de trabalho"
+      width="720"
+      height="520"
+      class="image"
+      priority
+      sizes="(max-width: 1100px) 92vw, 60vw"
+    />
+  </div>
+
+  <!-- Coluna de conteúdo -->
+  <div class="contentCol">
+    <h2 id="market-ready-title" class="title">
+      Você já sai com todo o preparo <br /> para o mercado
+    </h2>
+
+    <p class="lead">
+      Aqui você encontra orientação profissional, programas de estágio
+      e uma formação alinhada às reais demandas do mercado de trabalho.
+    </p>
+
+    <div class="stats">
+      <div class="card">
+        <mat-icon class="icon" aria-hidden="true">groups</mat-icon>
+        <div>
+          <p class="kpi">Diversos</p>
+          <p class="desc">Estudantes matriculados em todo o Brasil.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <mat-icon class="icon" aria-hidden="true">work</mat-icon>
+        <div>
+          <p class="kpi">90%</p>
+          <p class="desc">Dos estudantes inseridos no mercado.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <mat-icon class="icon" aria-hidden="true">verified</mat-icon>
+        <div>
+          <p class="kpi">+5</p>
+          <p class="desc">Cursos com avaliação máxima no MEC.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <mat-icon class="icon" aria-hidden="true">public</mat-icon>
+        <div>
+          <p class="kpi">Cursos atuais</p>
+          <p class="desc">Formação alinhada às exigências do mercado.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ctaRow">
+      <a routerLink="/admissions" class="btnLight">
+        Inscreva-se agora <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+      </a>
+    </div>
+  </div>
+</section>

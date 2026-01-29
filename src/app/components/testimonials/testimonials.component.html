@@ -1,0 +1,52 @@
+<section
+  class="section"
+  id="testimonials"
+  aria-labelledby="testimonials-title"
+>
+  <!-- Intro -->
+  <div class="introPanel">
+    <h2 id="testimonials-title" class="title">
+      Experiências reais de quem<br />
+      estudou na Faculdade Filos
+    </h2>
+
+    <span class="titleBar" aria-hidden="true"></span>
+
+    <p class="lead">
+      Depoimentos de alunos que escolheram estudar perto de casa, com ensino
+      sério e professores presentes em Águas Lindas de Goiás.
+    </p>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards">
+    <article
+      *ngFor="let t of testimonials; trackBy: trackById"
+      class="card"
+    >
+      <div class="gradient" aria-hidden="true"></div>
+
+      <div class="photoWrap">
+        <img
+          ngSrc="{{ t.photo }}"
+          width="360"
+          height="240"
+          class="photo"
+          alt="Foto de {{ t.name }}"
+          priority="false"
+        />
+      </div>
+
+      <div class="content">
+        <p class="comment">“{{ t.comment }}”</p>
+
+        <div class="person">
+          <p class="name">{{ t.name }}</p>
+          <p class="meta">
+            Egresso em <strong>{{ t.program }}</strong>
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,124 @@
+.section {
+  background: #f6f7f9;
+  padding: 3rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1.05fr 2fr;
+  gap: 1.5rem;
+
+  @media (max-width: 1000px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Intro ===== */
+.introPanel {
+  background: #f1f3f6;
+  border: 1px solid #e6e8ef;
+  border-radius: 14px;
+  padding: 2rem;
+}
+
+.title {
+  margin: 0 0 0.75rem;
+  color: #0b3a74;
+  font-weight: 900;
+  line-height: 1.15;
+  font-size: clamp(1.6rem, 2.2vw + 1rem, 2.4rem);
+}
+
+.titleBar {
+  display: inline-block;
+  width: 44px;
+  height: 4px;
+  background: #f59e0b;
+  border-radius: 999px;
+  margin: 0.25rem 0 1rem;
+}
+
+.lead {
+  margin: 0;
+  color: #374151;
+  line-height: 1.75;
+}
+
+/* ===== Cards ===== */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 720px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #edf2f7;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  position: relative;
+}
+
+/* Faixa superior */
+.gradient {
+  height: 58px;
+  background: linear-gradient(
+    180deg,
+    #0b3a74 0%,
+    #204f86 50%,
+    rgba(32, 79, 134, 0) 100%
+  );
+}
+
+/* Foto */
+.photoWrap {
+  padding: 0 18px;
+  margin-top: -24px;
+}
+
+.photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+}
+
+/* Conteúdo */
+.content {
+  padding: 16px 18px 20px;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.comment {
+  margin: 0;
+  color: #374151;
+  line-height: 1.65;
+}
+
+.person {
+  margin-top: 0.25rem;
+}
+
+.name {
+  margin: 0;
+  color: #0b3a74;
+  font-weight: 900;
+}
+
+.meta {
+  margin: 0;
+  color: #4b5563;
+}
