@@ -1,56 +1,67 @@
 .hero {
-  background: #f6f7f9; // mesmo fundo dos outros blocos claros
+  background: #f6f7f9;
   border-bottom: 1px solid #e6e8ef;
+  overflow: hidden; // Previne scroll horizontal durante a animação
 }
 
 .inner {
-  max-width: 1200px;
+  // Reduzido para aproximar os elementos do centro
+  max-width: 1100px; 
   margin: 0 auto;
-  padding: 2.5rem 1.5rem;
+  padding: 4rem 1.5rem;
 
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  // Colunas equilibradas para centralizar o conjunto
+  grid-template-columns: 1fr 1fr; 
   align-items: center;
-  gap: 2rem;
+  // Gap reduzido para aproximar texto e carrossel
+  gap: 1.5rem; 
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
     text-align: center;
-    padding: 2rem 1rem;
+    gap: 2.5rem;
+    padding: 3rem 1rem;
   }
 }
 
-.copy h1 {
-  font-size: 2.3rem;
-  line-height: 1.2;
-  margin: 0 0 1rem;
-
-  /* 🔵 Azul institucional */
-  color: var(--brand, #0b3a74);
-  font-weight: 900;
-
-  @media (max-width: 768px) {
-    font-size: 2rem;
-  }
-}
-
-.lead {
-  font-size: 1.15rem;
-  line-height: 1.75rem;
-  max-width: 48ch;
-  margin: 0 0 1.75rem;
-
-  /* azul suave (igual Why / Courses) */
-  color: #475569;
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
 
   @media (max-width: 1024px) {
-    margin-inline: auto;
+    align-items: center;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 3.2rem;
+    line-height: 1.1;
+    margin: 0 0 1rem;
+    color: var(--brand, #0b3a74);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+
+    @media (max-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    max-width: 38ch;
+    margin: 0 0 2rem;
+    color: #475569;
+    font-weight: 500;
   }
 }
 
 .actions {
   display: flex;
-  gap: 0.75rem;
+  gap: 1rem;
   flex-wrap: wrap;
   justify-content: flex-start;
 
@@ -59,52 +70,85 @@
   }
 }
 
-.ctaPrimary,
-.ctaSecondary {
+.ctaPrimary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  font-weight: 800;
+  font-weight: 700;
   text-decoration: none;
-  border-radius: 999px;
-  padding: 0.9rem 1.75rem;
-  line-height: 1;
-
-  transition: transform 0.2s ease, background 0.2s ease;
-  cursor: pointer;
-}
-
-.ctaPrimary {
+  border-radius: 50px;
+  padding: 1rem 2.2rem;
   background: var(--brand, #0b3a74);
   color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(11, 58, 116, 0.2);
 
   &:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     background: #083061;
-  }
-}
-
-.ctaSecondary {
-  border: 1px solid #cbd5e1;
-  color: #0f172a;
-  background: #fff;
-
-  &:hover {
-    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(11, 58, 116, 0.3);
   }
 }
 
 .media {
   display: flex;
-  align-items: center;
   justify-content: center;
+  position: relative;
+
+  .carousel-wrapper {
+    width: 100%;
+    max-width: 550px; 
+    aspect-ratio: 1 / 1; // Formato quadrado para flyers
+    border-radius: 24px;
+    overflow: hidden; // Essencial para o efeito de "corte" do zoom
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .image {
+    width: 100%;
+    height: 100%;
+    
+    /* ✂️ Ajuste de Corte/Zoom 
+       O scale(1.1) aumenta a imagem em 10%, cortando as bordas
+       e focando no conteúdo principal da arte. */
+    object-fit: cover;
+    transform: scale(1.1); 
+    object-position: center;
+    
+    display: block;
+    animation: imageEnter 0.8s ease-out forwards;
+  }
 }
 
-.image {
-  width: 100%;
-  height: auto;
-  max-width: 560px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+.dots {
+  position: absolute;
+  bottom: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+
+  span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease;
+
+    &.active {
+      background: #fff;
+      transform: scale(1.2);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+@keyframes imageEnter {
+  from {
+    opacity: 0;
+    transform: scale(1.15); // Começa com um pouco mais de zoom
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.1); // Estabiliza no corte de 1.1
+  }
 }

@@ -1,36 +1,23 @@
-<section
-  class="hero"
-  id="Introduction"
-  aria-labelledby="hero-title"
->
+<section class="hero" id="Introduction" aria-labelledby="hero-title">
   <div class="inner">
     <div class="copy">
       <h1 id="hero-title">Faculdade Filos</h1>
-
-      <h2 class="lead">
-        Ensino de qualidade para o seu futuro!
-      </h2>
+      <h2 class="lead">Ensino de qualidade para o seu futuro!</h2>
 
       <div class="actions">
-        <a
-          routerLink="/admissions"
-          class="ctaPrimary"
-        >
+        <a href="https://wa.me/5561999061757?text=Olá! Gostaria de mais informações sobre a Faculdade Filos."
+          target="_blank" class="ctaPrimary">
           Vem ser Filos
         </a>
       </div>
     </div>
 
     <div class="media">
-        <img
-        [ngSrc]="imageSrc"
-        width="560"
-        height="420"
-        priority
-        alt="Campus da Faculdade Filos"
-        class="image"
-        />
-
+      <div class="carousel-wrapper">
+        @if (imageSrc) {
+        <img [ngSrc]="imageSrc" width="600" height="600" priority alt="Destaque Faculdade Filos" class="image" />
+        }
+      </div>
     </div>
   </div>
 </section>
