@@ -8,7 +8,7 @@ export const routes: Routes = [
       import('./pages/home/home.component').then((m) => m.HomeComponent),
   },
 
-  // --- CURSOS ---
+  // --- GRADUAÇÃO (CURSOS) ---
   {
     path: 'cursos/administracao',
     loadComponent: () =>
@@ -30,19 +30,37 @@ export const routes: Routes = [
         (m) => m.PedagogiaComponent
       ),
   },
-  // Adicionei Radiologia para não dar erro 404 ao clicar no menu (verifique se o caminho existe)
-
-
-  // --- INSTITUCIONAL / SOBRE (Aqui está o que você pediu) ---
   {
-    path: 'about',
+    path: 'cursos/radiologia',
     loadComponent: () =>
-      // Ajuste o caminho './components/...' se necessário, baseado na sua pasta raiz
+      import('./pages/cursos/radiologia/radiologia.component').then(
+        (m) => m.RadiologiaComponent
+      ),
+  },
+
+  // --- INSTITUCIONAL ---
+  {
+    path: 'institucional/cpa',
+    loadComponent: () =>
+      import('./pages/institucional/cpa/cpa.component').then(
+        (m) => m.CpaComponent
+      ),
+  },
+  {
+    path: 'institucional/ouvidoria',
+    loadComponent: () =>
+      import('./pages/institucional/ouvidoria/ouvidoria.component').then(
+        (m) => m.OuvidoriaComponent
+      ),
+  },
+  {
+    path: 'sobre-nos',
+    loadComponent: () =>
       import('./components/why-college/why-college.component').then(
         (m) => m.WhyCollegeComponent
       ),
   },
 
-  // Wildcard: Sempre deixe por último!
+  // Wildcard: Redireciona qualquer rota não encontrada para a Home
   { path: '**', redirectTo: '' },
 ];

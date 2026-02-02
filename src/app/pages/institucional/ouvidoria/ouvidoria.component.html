@@ -1,0 +1,64 @@
+<section class="hero">
+  <div class="heroContent">
+    <span class="kicker">Atendimento</span>
+    <h1 class="title">Ouvidoria</h1>
+    <p class="lead">Sua voz ajuda a construir uma Faculdade Filos cada vez melhor.</p>
+  </div>
+</section>
+
+<section class="container">
+  <div class="mainGrid">
+    <div class="infoColumn">
+      <article class="infoCard">
+        <div class="iconHeader">
+          <div class="iconCircle"><mat-icon>gavel</mat-icon></div>
+          <h2>Canal Ético</h2>
+        </div>
+        <p>Atuamos de forma imparcial e sigilosa para mediar demandas acadêmicas e administrativas.</p>
+      </article>
+
+      <article class="infoCard">
+        <div class="iconHeader">
+          <div class="iconCircle"><span class="wa-mask"></span></div>
+          <h2>Atendimento Ágil</h2>
+        </div>
+        <p>Para respostas imediatas, utilize nosso canal de atendimento via WhatsApp:</p>
+        <div class="actions">
+          <a href="https://wa.me/5561999061757" target="_blank" class="ctaWa">WhatsApp Ouvidoria</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="formWrapper">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-w">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="nome">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-w">
+          <mat-label>E-mail</mat-label>
+          <input matInput formControlName="email" type="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-w">
+          <mat-label>Mensagem</mat-label>
+          <textarea matInput formControlName="mensagem" rows="4"></textarea>
+        </mat-form-field>
+
+        <div class="captcha-box">
+          <re-captcha (resolved)="resolved($event)" siteKey="SUA_SITE_KEY" formControlName="recaptcha"></re-captcha>
+        </div>
+
+        <button mat-flat-button color="primary" class="btn-send" [disabled]="form.invalid || loading">
+          <span *ngIf="!loading">ENVIAR RELATO</span>
+          <mat-spinner *ngIf="loading" diameter="24"></mat-spinner>
+        </button>
+
+        <div *ngIf="feedbackMsg" [className]="isSuccess ? 'msg-ok' : 'msg-err'">
+          {{ feedbackMsg }}
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

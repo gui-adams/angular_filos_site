@@ -14,15 +14,14 @@ export class AdministracaoComponent {
   private title = inject(Title);
   private meta = inject(Meta);
 
-  heroImg = '/cursos/administracao.webp';
+  // Verifique se a imagem está exatamente nesta pasta dentro de 'public' ou 'assets'
+  heroImg = 'assets/cursos/administracao.webp';
 
   constructor() {
-    // SEO (SSR friendly)
     this.title.setTitle('Curso de Administração | Faculdade Filos');
     this.meta.updateTag({
       name: 'description',
-      content:
-        'Formar profissionais capazes de atuar de maneira estratégica, ética e inovadora na gestão de organizações públicas e privadas.',
+      content: 'Formar profissionais capazes de atuar de maneira estratégica, ética e inovadora na gestão de organizações públicas e privadas.',
     });
   }
 }

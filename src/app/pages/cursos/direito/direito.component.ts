@@ -4,7 +4,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-administracao',
+  selector: 'app-direito',
   standalone: true,
   imports: [RouterLink, NgOptimizedImage],
   templateUrl: './direito.component.html',
@@ -14,14 +14,15 @@ export class DireitoComponent {
   private title = inject(Title);
   private meta = inject(Meta);
 
-  heroImg = '/cursos/direito.webp';
+  // Caminho da imagem otimizada no servidor
+  heroImg = 'assets/cursos/direito.webp';
 
   constructor() {
+    // Configuração de SEO amigável para SSR (Server-Side Rendering)
     this.title.setTitle('Curso de Direito | Faculdade Filos');
     this.meta.updateTag({
       name: 'description',
-      content:
-        'Formar profissionais capazes de atuar de maneira estratégica, ética e inovadora na gestão de organizações públicas e privadas.',
+      content: 'Formar profissionais éticos, críticos e comprometidos com a promoção da justiça e da cidadania.',
     });
   }
 }

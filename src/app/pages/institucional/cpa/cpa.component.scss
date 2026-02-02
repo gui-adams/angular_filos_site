@@ -1,0 +1,235 @@
+/* --- Variáveis de Marca --- */
+$brand-blue: #0b3a74;
+$text-slate: #0f172a;
+$muted-slate: #475569;
+$bg-light: #f6f7f9;
+
+/* --- Hero Section (Ajustado para Centralização e Padrão Premium) --- */
+.hero {
+  background-color: $bg-light;
+  padding: 5rem 1.5rem; 
+  text-align: center;
+  border-bottom: 1px solid #e6e8ef;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .heroContent {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .kicker {
+    display: inline-block;
+    font-weight: 800;
+    color: $brand-blue;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    background: #eef2ff;
+    padding: 0.25rem 1rem;
+    border-radius: 999px;
+  }
+
+  .title {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    line-height: 1.1;
+    color: $brand-blue;
+    font-weight: 950;
+    margin: 0 0 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .lead {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: $muted-slate;
+    max-width: 65ch;
+    margin: 0 auto;
+  }
+}
+
+/* --- Container Geral --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* --- Grid Principal (Corrigindo o Enquadramento Lateral) --- */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  padding: 4rem 0;
+  align-items: center;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 3rem 0;
+  }
+}
+
+/* --- Media Wrapper (Garante que a imagem preencha o espaço) --- */
+.mediaWrapper {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  background: #e2e8f0; // Placeholder enquanto carrega
+  aspect-ratio: 4 / 3;
+
+  .mainImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // 🚀 ESSENCIAL: Preenche o quadro sem achatar
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* --- Cards de Informação --- */
+.infoColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.infoCard {
+  .iconHeader {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1rem;
+    
+    .iconCircle {
+      width: 52px;
+      height: 52px;
+      background: #eef2ff;
+      color: $brand-blue;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      mat-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+    
+    h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 850;
+      color: $text-slate;
+    }
+  }
+
+  p {
+    color: $muted-slate;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin: 0;
+    
+    @media (min-width: 641px) {
+      padding-left: 4.25rem; // Alinha o texto com o título, pulando o ícone
+    }
+  }
+}
+
+/* --- Seção de Documentos/Downloads --- */
+.docsSection {
+  background: #f8fafc;
+  padding: 5rem 0;
+  border-top: 1px solid #e2e8f0;
+
+  .sectionTitle {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 900;
+    color: $brand-blue;
+    margin-bottom: 3rem;
+  }
+}
+
+.docsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.docItem {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $brand-blue;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1);
+    
+    .downloadIcon {
+      color: $brand-blue;
+      transform: translateY(2px);
+    }
+  }
+
+  .pdfIcon { 
+    color: #ef4444; 
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    margin-right: 1.25rem; 
+  }
+  
+  .docText {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    .docLabel { font-weight: 850; color: $text-slate; }
+    .docYear { font-size: 0.9rem; color: #64748b; margin-top: 2px; }
+  }
+
+  .downloadIcon { 
+    color: #94a3b8; 
+    transition: all 0.2s ease;
+  }
+}
+
+/* --- Botões de Ação --- */
+.actions {
+  margin-top: 1rem;
+  
+  .ctaPrimary {
+    display: inline-flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: $brand-blue;
+    color: white;
+    font-weight: 700;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #083061;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(11, 58, 116, 0.3);
+    }
+  }
+}
