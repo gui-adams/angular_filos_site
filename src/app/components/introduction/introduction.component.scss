@@ -1,13 +1,10 @@
-/* Usa variáveis globais do styles.scss:
-  --brand, --brand-700, --brand-900, --bg, --text
-*/
+
 
 .hero {
   background: #f6f7f9;
   border-bottom: 1px solid #e6e8ef;
   overflow: hidden;
 
-  /* ✅ respiro abaixo do header */
   padding-top: 18px;
 }
 
