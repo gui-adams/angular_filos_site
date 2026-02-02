@@ -2,6 +2,7 @@
 
 <header class="header">
   <div class="inner">
+    <!-- Logo -->
     <a routerLink="/" class="brand" aria-label="Página inicial - Faculdade Filos">
       <img
         [ngSrc]="logoSrc"
@@ -13,30 +14,24 @@
       />
     </a>
 
+    <!-- Toggle -->
     <input id="nav-toggle" #navToggle type="checkbox" class="toggle" aria-hidden="true" />
 
-    <label
-      for="nav-toggle"
-      class="burger"
-      aria-label="Abrir menu"
-      aria-controls="mobile-drawer"
-    >
+    <!-- Burger -->
+    <label for="nav-toggle" class="burger" aria-label="Abrir menu" aria-controls="mobile-drawer">
       <mat-icon class="iconMenu" aria-hidden="true">menu</mat-icon>
       <mat-icon class="iconClose" aria-hidden="true">close</mat-icon>
     </label>
 
+    <!-- Desktop nav -->
     <nav class="navDesktop" aria-label="Menu principal">
       <ul>
         <li>
-          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-            Home
-          </a>
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
         </li>
 
         <li class="hasDropdown">
-          <a class="trigger" aria-haspopup="menu">
-            Cursos <span class="caret" aria-hidden="true">▾</span>
-          </a>
+          <a class="trigger" aria-haspopup="menu">Cursos <span class="caret" aria-hidden="true">▾</span></a>
           <ul class="dropdown" role="menu">
             <li><a routerLink="/cursos/administracao">Administração</a></li>
             <li><a routerLink="/cursos/direito">Direito</a></li>
@@ -46,98 +41,136 @@
         </li>
 
         <li class="hasDropdown">
-          <a class="trigger" aria-haspopup="menu">
-            A Filos <span class="caret" aria-hidden="true">▾</span>
-          </a>
+          <a class="trigger" aria-haspopup="menu">A Filos <span class="caret" aria-hidden="true">▾</span></a>
           <ul class="dropdown" role="menu">
             <li><a routerLink="/sobre-nos">Sobre</a></li>
           </ul>
         </li>
 
         <li class="hasDropdown">
-          <a class="trigger" aria-haspopup="menu">
-            Institucional <span class="caret" aria-hidden="true">▾</span>
-          </a>
+          <a class="trigger" aria-haspopup="menu">Institucional <span class="caret" aria-hidden="true">▾</span></a>
           <ul class="dropdown" role="menu">
-            <li><a href="https://revistafaculdadefilos.com.br/index.php/ojs01" target="_blank">Revista</a></li>
+            <li><a href="https://revistafaculdadefilos.com.br/index.php/ojs01" target="_blank" rel="noopener">Revista</a></li>
             <li><a routerLink="/institucional/cpa">CPA</a></li>
             <li><a routerLink="/institucional/ouvidoria">Ouvidoria</a></li>
-<li>
-  <a routerLink="/institucional/biblioteca">
-     Biblioteca
-  </a>
-</li>
-
+            <li><a routerLink="/institucional/biblioteca">Biblioteca</a></li>
           </ul>
         </li>
 
         <li class="hasDropdown">
-          <a class="trigger" aria-haspopup="menu">
-            Instituições do Grupo <span class="caret" aria-hidden="true">▾</span>
-          </a>
+          <a class="trigger" aria-haspopup="menu">Instituições do Grupo <span class="caret" aria-hidden="true">▾</span></a>
           <ul class="dropdown" role="menu">
-            <li><a href="https://colegiofilos.com.br/" target="_blank">Colégio Filos</a></li>
+            <li><a href="https://colegiofilos.com.br/" target="_blank" rel="noopener">Colégio Filos</a></li>
           </ul>
         </li>
       </ul>
     </nav>
 
+    <!-- Desktop actions -->
     <div class="actions">
       <div class="hasDropdown">
-        <a class="btnOutline trigger" aria-haspopup="menu">
-          Portais <span class="caret" aria-hidden="true">▾</span>
-        </a>
-
+        <a class="btnOutline trigger" aria-haspopup="menu">Portais <span class="caret" aria-hidden="true">▾</span></a>
         <ul class="dropdown" role="menu">
           <li>
-            <a href="https://faculdadefilos.jacad.com.br/academico/aluno-v2/login" target="_blank">
+            <a href="https://faculdadefilos.jacad.com.br/academico/aluno-v2/login" target="_blank" rel="noopener">
               Portal Aluno
             </a>
           </li>
           <li>
-            <a href="https://faculdadefilos.jacad.com.br/academico/professor/login" target="_blank">
+            <a href="https://faculdadefilos.jacad.com.br/academico/professor/login" target="_blank" rel="noopener">
               Portal Professor
             </a>
           </li>
         </ul>
       </div>
 
-      <button (click)="openInscricao()" class="btnPrimary">
+      <button type="button" (click)="openInscricao()" class="btnPrimary">
         Inscreva-se
       </button>
     </div>
 
+    <!-- Mobile drawer -->
     <nav class="mobileNav" aria-label="Menu móvel">
       <label for="nav-toggle" class="backdrop" aria-hidden="true"></label>
 
       <aside id="mobile-drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Menu">
         <div class="drawerHeader">
-          <a routerLink="/" class="brandMini" (click)="navToggle.checked = false">
+          <a routerLink="/" class="brandMini" (click)="navToggle.checked = false" aria-label="Página inicial">
             <img [ngSrc]="logoSrc" width="120" height="32" alt="Faculdade Filos" class="logoMini" />
           </a>
-          <label for="nav-toggle" class="close" aria-label="Fechar menu"></label>
+
+          <!-- X real -->
+          <label for="nav-toggle" class="closeBtn" aria-label="Fechar menu">
+            <mat-icon aria-hidden="true">close</mat-icon>
+          </label>
         </div>
 
-        <ul class="menuList">
-          <li><a routerLink="/" (click)="navToggle.checked = false">Home</a></li>
-          <li><a routerLink="/cursos/direito" (click)="navToggle.checked = false">Cursos</a></li>
-          <li><a routerLink="/sobre-nos" (click)="navToggle.checked = false">A Filos</a></li>
-          <li><a routerLink="/institucional/ouvidoria" (click)="navToggle.checked = false">Ouvidoria</a></li>
-          <li><a href="https://revistafaculdadefilos.com.br/index.php/ojs01" target="_blank">Revista</a></li>
-        </ul>
+        <div class="drawerBody">
+          <!-- Seção: Principal -->
+          <p class="sectionTitle">Menu</p>
+          <ul class="menuList">
+            <li><a routerLink="/" (click)="navToggle.checked = false">Home</a></li>
+            <li><a routerLink="/sobre-nos" (click)="navToggle.checked = false">A Filos</a></li>
+          </ul>
 
-        <div class="mobileActions">
-          <a
-            href="https://faculdadefilos.jacad.com.br/academico/aluno-v2/login"
-            target="_blank"
-            class="btnOutline"
+          <div class="divider"></div>
+
+          <!-- Seção: Cursos -->
+          <p class="sectionTitle">Cursos</p>
+          <ul class="menuList">
+            <li><a routerLink="/cursos/administracao" (click)="navToggle.checked = false">Administração</a></li>
+            <li><a routerLink="/cursos/direito" (click)="navToggle.checked = false">Direito</a></li>
+            <li><a routerLink="/cursos/pedagogia" (click)="navToggle.checked = false">Pedagogia</a></li>
+            <li><a routerLink="/cursos/radiologia" (click)="navToggle.checked = false">Radiologia</a></li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <!-- Seção: Institucional -->
+          <p class="sectionTitle">Institucional</p>
+          <ul class="menuList">
+            <li><a routerLink="/institucional/cpa" (click)="navToggle.checked = false">CPA</a></li>
+            <li><a routerLink="/institucional/ouvidoria" (click)="navToggle.checked = false">Ouvidoria</a></li>
+            <li><a routerLink="/institucional/biblioteca" (click)="navToggle.checked = false">Biblioteca</a></li>
+            <li>
+              <a href="https://revistafaculdadefilos.com.br/index.php/ojs01" target="_blank" rel="noopener">
+                Revista
+              </a>
+            </li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <!-- Seção: Portais -->
+          <p class="sectionTitle">Portais</p>
+          <div class="portalGrid">
+            <a
+              class="btnOutline full"
+              href="https://faculdadefilos.jacad.com.br/academico/aluno-v2/login"
+              target="_blank"
+              rel="noopener"
+            >
+              Portal Aluno
+            </a>
+            <a
+              class="btnOutline full"
+              href="https://faculdadefilos.jacad.com.br/academico/professor/login"
+              target="_blank"
+              rel="noopener"
+            >
+              Portal Professor
+            </a>
+          </div>
+
+          <button
+            type="button"
+            class="btnPrimary full"
+            (click)="openInscricao(); navToggle.checked = false"
           >
-            Portal
-          </a>
-
-          <button (click)="openInscricao(); navToggle.checked = false" class="btnPrimary">
             Inscreva-se
           </button>
+
+          <p class="drawerHint">Atendimento: segunda a sexta, 14h às 22h • sábado, 8h às 12h</p>
         </div>
       </aside>
     </nav>

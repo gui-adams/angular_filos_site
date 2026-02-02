@@ -6,13 +6,18 @@
   background: #f6f7f9;
   border-bottom: 1px solid #e6e8ef;
   overflow: hidden;
+
+  /* ✅ respiro abaixo do header */
+  padding-top: 18px;
 }
 
-/* ✅ Centralização e equilíbrio do hero */
+
 .inner {
-  max-width: 1240px;
+  max-width: 1200px;        
   margin: 0 auto;
-  padding: 4.5rem 2rem;
+  padding: 0 20px;          
+
+  min-height: 520px;       
 
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
@@ -23,9 +28,10 @@
     grid-template-columns: 1fr;
     text-align: center;
     gap: 2.25rem;
-    padding: 3.25rem 1.25rem;
+    padding: 3rem 20px;     /* 🔥 mantém eixo lateral */
   }
 }
+
 
 /* ✅ Texto consistente com tema global */
 .copy {
