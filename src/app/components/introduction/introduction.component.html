@@ -1,21 +1,64 @@
 <section class="hero" id="Introduction" aria-labelledby="hero-title">
   <div class="inner">
     <div class="copy">
+      <span class="kicker">Cursos</span>
+
       <h1 id="hero-title">Faculdade Filos</h1>
-      <h2 class="lead">Ensino de qualidade para o seu futuro!</h2>
+      <p class="lead">Ensino de qualidade para o seu futuro!</p>
 
       <div class="actions">
-        <a href="https://wa.me/5561999061757?text=Olá! Gostaria de mais informações sobre a Faculdade Filos."
-          target="_blank" class="ctaPrimary">
+        <a
+          href="https://wa.me/5561999061757?text=Olá! Gostaria de mais informações sobre a Faculdade Filos."
+          target="_blank"
+          rel="noopener"
+          class="ctaPrimary"
+        >
           Vem ser Filos
         </a>
       </div>
     </div>
 
     <div class="media">
-      <div class="carousel-wrapper">
+      <div
+        class="carouselWrapper"
+        (touchstart)="onTouchStart($event)"
+        (touchmove)="onTouchMove($event)"
+        (touchend)="onTouchEnd()"
+        aria-label="Carrossel de destaques"
+      >
         @if (imageSrc) {
-        <img [ngSrc]="imageSrc" width="600" height="600" priority alt="Destaque Faculdade Filos" class="image" />
+          <img
+            [ngSrc]="imageSrc"
+            width="600"
+            height="600"
+            priority
+            alt="Destaque Faculdade Filos"
+            class="image"
+          />
+        }
+
+        @if (images.length > 1) {
+          <!-- setas clean -->
+          <button type="button" class="navBtn prev" (click)="prev()" aria-label="Imagem anterior">
+            <span class="chev" aria-hidden="true">‹</span>
+          </button>
+
+          <button type="button" class="navBtn next" (click)="next()" aria-label="Próxima imagem">
+            <span class="chev" aria-hidden="true">›</span>
+          </button>
+
+          <!-- dots -->
+          <div class="dots" aria-label="Navegação do carrossel">
+            @for (img of images; track $index) {
+              <button
+                type="button"
+                class="dot"
+                [class.active]="$index === currentIndex"
+                (click)="setSlide($index)"
+                [attr.aria-label]="'Ir para slide ' + ($index + 1)"
+              ></button>
+            }
+          </div>
         }
       </div>
     </div>

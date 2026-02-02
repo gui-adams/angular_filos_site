@@ -11,20 +11,41 @@
 </section>
 
 <section class="container">
-  <div class="mainGrid">
-    
-    <div class="mediaWrapper">
-      <img
-        ngSrc="assets/nos.png" 
-        alt="Equipe da Faculdade Filos"
-        width="600"
-        height="450"
-        priority
-        class="mainImage"
-        sizes="(max-width: 1024px) 100vw, 600px"
-      />
-    </div>
+  <div class="mainGrid noMedia">
 
+    <!-- Painel substitui a imagem -->
+    <aside class="highlightPanel" aria-label="Destaques da CPA">
+      <div class="panelHeader">
+        <div class="panelIcon">
+          <mat-icon>verified</mat-icon>
+        </div>
+        <div class="panelTitle">
+          <h2>Autoavaliação Institucional</h2>
+          <p>Transparência, evidências e melhoria contínua.</p>
+        </div>
+      </div>
+
+      <ul class="panelList">
+        <li>
+          <mat-icon class="liIcon">check_circle</mat-icon>
+          <span>Avalia ensino, infraestrutura e serviços</span>
+        </li>
+        <li>
+          <mat-icon class="liIcon">check_circle</mat-icon>
+          <span>Gera relatórios com diagnóstico e plano de ação</span>
+        </li>
+        <li>
+          <mat-icon class="liIcon">check_circle</mat-icon>
+          <span>Fortalece a participação da comunidade acadêmica</span>
+        </li>
+      </ul>
+
+      <div class="panelFooter">
+        <span class="badge">Relatórios 2023 e 2024 disponíveis</span>
+      </div>
+    </aside>
+
+    <!-- Cards que você já tinha -->
     <div class="infoColumn">
       <article class="infoCard">
         <div class="iconHeader">
@@ -57,24 +78,41 @@
 <section class="docsSection">
   <div class="container">
     <h2 class="sectionTitle">Relatórios de Autoavaliação</h2>
+
     <div class="docsGrid">
-      
-      <a href="assets/docs/relatorio-cpa-2023.pdf" class="docItem" target="_blank">
+      <!-- CPA 2023 -->
+      <a
+        href="https://drive.google.com/file/d/1oYripUq35QjX8YGA4m6J5fm-3q5dEXzA/view"
+        class="docItem"
+        target="_blank"
+        rel="noopener"
+      >
+        <mat-icon class="pdfIcon">picture_as_pdf</mat-icon>
+
         <div class="docText">
           <span class="docLabel">Relatório Integral</span>
-          <span class="docYear">Ano Base 2023</span>
+          <span class="docYear">CPA – Ano Base 2023</span>
         </div>
+
         <mat-icon class="downloadIcon">download</mat-icon>
       </a>
 
-      <a href="assets/docs/relatorio-cpa-2024.pdf" class="docItem" target="_blank">
+      <!-- CPA 2024 -->
+      <a
+        href="https://drive.google.com/file/d/1I46fXqVZS059bxrjgwKvf1a0cyO-UNA_/view"
+        class="docItem"
+        target="_blank"
+        rel="noopener"
+      >
+        <mat-icon class="pdfIcon">picture_as_pdf</mat-icon>
+
         <div class="docText">
           <span class="docLabel">Relatório Integral</span>
-          <span class="docYear">Ano Base 2024</span>
+          <span class="docYear">CPA – Ano Base 2024</span>
         </div>
+
         <mat-icon class="downloadIcon">download</mat-icon>
       </a>
-
     </div>
   </div>
 </section>

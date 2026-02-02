@@ -1,0 +1,430 @@
+/* --- Variáveis de Marca (padrão do seu site) --- */
+$brand-blue: #0b3a74;
+$text-slate: #0f172a;
+$muted-slate: #475569;
+$bg-light: #f6f7f9;
+
+/* --- Container Geral --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* --- Hero --- */
+.hero {
+  background-color: $bg-light;
+  padding: 5rem 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid #e6e8ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .heroContent {
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .kicker {
+    display: inline-block;
+    font-weight: 800;
+    color: $brand-blue;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    background: #eef2ff;
+    padding: 0.25rem 1rem;
+    border-radius: 999px;
+  }
+
+  .title {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    line-height: 1.1;
+    color: $brand-blue;
+    font-weight: 950;
+    margin: 0 0 1.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  .lead {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: $muted-slate;
+    max-width: 70ch;
+    margin: 0 auto;
+  }
+
+  .heroBadges {
+    margin-top: 1.75rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-weight: 850;
+    color: $brand-blue;
+    background: #ffffff;
+    border: 1px solid rgba(11, 58, 116, 0.14);
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.92rem;
+
+    mat-icon {
+      width: 18px;
+      height: 18px;
+      font-size: 18px;
+    }
+  }
+}
+
+/* --- Cabeçalho de Seções --- */
+.sectionHeader {
+  padding: 4rem 0 1.5rem;
+  text-align: left;
+
+  @media (max-width: 900px) {
+    padding-top: 3rem;
+  }
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 950;
+  color: $brand-blue;
+  margin: 0;
+}
+
+.sectionSubtitle {
+  margin: 0.6rem 0 0;
+  color: $muted-slate;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.center {
+  text-align: center;
+}
+
+/* --- Cards de Serviços --- */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  padding-bottom: 4rem;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.featureCard {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 1.5rem 1.4rem;
+  box-shadow: 0 20px 35px -20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba(11, 58, 116, 0.35);
+    box-shadow: 0 28px 45px -25px rgba(0, 0, 0, 0.14);
+  }
+
+  .cardIcon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: #eef2ff;
+    color: $brand-blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+
+    mat-icon {
+      width: 24px;
+      height: 24px;
+      font-size: 24px;
+    }
+  }
+
+  h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: $text-slate;
+  }
+
+  p {
+    margin: 0;
+    color: $muted-slate;
+    line-height: 1.7;
+    font-size: 1.02rem;
+  }
+}
+
+/* --- Seção Acesso Digital + Horário --- */
+.digitalSection {
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 4.5rem 0;
+}
+
+.digitalGrid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr;
+  gap: 2rem;
+  align-items: start;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.digitalText {
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 900;
+    color: $brand-blue;
+    background: #eef2ff;
+    border: 1px solid rgba(11, 58, 116, 0.16);
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+  }
+
+  h2 {
+    margin: 1rem 0 0.75rem;
+    font-size: 2rem;
+    font-weight: 950;
+    color: $text-slate;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    margin: 0;
+    color: $muted-slate;
+    font-size: 1.08rem;
+    line-height: 1.75;
+    max-width: 70ch;
+  }
+}
+
+.digitalBullets {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 0.75rem;
+
+  .bullet {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    color: $muted-slate;
+    font-size: 1.03rem;
+    line-height: 1.6;
+
+    mat-icon {
+      color: $brand-blue;
+      width: 20px;
+      height: 20px;
+      font-size: 20px;
+      transform: translateY(2px);
+    }
+  }
+}
+
+/* Botão CTA */
+.ctaPrimary {
+  margin-top: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.95rem 1.2rem;
+  background: $brand-blue;
+  color: #fff;
+  font-weight: 900;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.16s ease, filter 0.16s ease, box-shadow 0.16s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 12px 18px -8px rgba(11, 58, 116, 0.35);
+  }
+
+  mat-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+  }
+}
+
+/* Card de Horário */
+.hoursCard {
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 0 25px 50px -30px rgba(0, 0, 0, 0.18);
+  padding: 1.5rem;
+
+  .hoursHeader {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h3 {
+      margin: 0;
+      font-weight: 950;
+      color: $text-slate;
+      font-size: 1.25rem;
+    }
+    p {
+      margin: 0.25rem 0 0;
+      color: $muted-slate;
+      font-size: 0.98rem;
+    }
+  }
+
+  .hoursIcon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: #eef2ff;
+    color: $brand-blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    mat-icon {
+      width: 24px;
+      height: 24px;
+      font-size: 24px;
+    }
+  }
+
+  .hoursList {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1rem;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+
+    .day {
+      font-weight: 850;
+      color: $text-slate;
+    }
+    .time {
+      font-weight: 900;
+      color: $brand-blue;
+    }
+  }
+
+  .note {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    color: $muted-slate;
+    font-size: 0.98rem;
+    line-height: 1.5;
+
+    mat-icon {
+      width: 18px;
+      height: 18px;
+      font-size: 18px;
+      color: $brand-blue;
+      transform: translateY(2px);
+    }
+  }
+}
+
+/* --- Seção de Documentos --- */
+.docsSection {
+  background: #f8fafc;
+  padding: 5rem 0;
+}
+
+.docsGrid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.docItem {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $brand-blue;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1);
+
+    .downloadIcon {
+      color: $brand-blue;
+      transform: translateY(2px);
+    }
+  }
+
+  .pdfIcon {
+    color: #ef4444;
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    margin-right: 1.25rem;
+  }
+
+  .docText {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .docLabel {
+      font-weight: 950;
+      color: $text-slate;
+    }
+
+    .docYear {
+      font-size: 0.92rem;
+      color: #64748b;
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+  }
+
+  .downloadIcon {
+    color: #94a3b8;
+    transition: all 0.2s ease;
+  }
+}

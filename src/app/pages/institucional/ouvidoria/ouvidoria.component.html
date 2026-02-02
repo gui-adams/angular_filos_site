@@ -2,60 +2,136 @@
   <div class="heroContent">
     <span class="kicker">Atendimento</span>
     <h1 class="title">Ouvidoria</h1>
-    <p class="lead">Sua voz ajuda a construir uma Faculdade Filos cada vez melhor.</p>
+
+    <div class="leadWrapper">
+      <p class="lead">
+        Sua voz ajuda a construir uma Faculdade Filos cada vez melhor. Envie sugestões, elogios,
+        reclamações ou solicitações com segurança e sigilo.
+      </p>
+    </div>
+
+    <div class="heroBadges" aria-label="Destaques da Ouvidoria">
+      <span class="badge">
+        <mat-icon aria-hidden="true">verified_user</mat-icon>
+        Sigilo e imparcialidade
+      </span>
+      <span class="badge">
+        <mat-icon aria-hidden="true">schedule</mat-icon>
+        Atendimento ágil
+      </span>
+      <span class="badge">
+        <mat-icon aria-hidden="true">support_agent</mat-icon>
+        Canal institucional
+      </span>
+    </div>
   </div>
 </section>
 
 <section class="container">
   <div class="mainGrid">
+    <!-- COLUNA ESQUERDA -->
     <div class="infoColumn">
       <article class="infoCard">
         <div class="iconHeader">
-          <div class="iconCircle"><mat-icon>gavel</mat-icon></div>
+          <div class="iconCircle">
+            <mat-icon aria-hidden="true">gavel</mat-icon>
+          </div>
           <h2>Canal Ético</h2>
         </div>
-        <p>Atuamos de forma imparcial e sigilosa para mediar demandas acadêmicas e administrativas.</p>
+
+        <p>
+          Atuamos de forma imparcial e sigilosa para mediar demandas acadêmicas e administrativas,
+          contribuindo para a melhoria contínua dos serviços oferecidos.
+        </p>
       </article>
 
       <article class="infoCard">
         <div class="iconHeader">
-          <div class="iconCircle"><span class="wa-mask"></span></div>
-          <h2>Atendimento Ágil</h2>
+          <div class="iconCircle waCircle">
+            <mat-icon aria-hidden="true">chat</mat-icon>
+          </div>
+          <h2>Atendimento via WhatsApp</h2>
         </div>
-        <p>Para respostas imediatas, utilize nosso canal de atendimento via WhatsApp:</p>
+
+        <p>
+          Para respostas mais rápidas, utilize o canal oficial de atendimento da Ouvidoria.
+        </p>
+
         <div class="actions">
-          <a href="https://wa.me/5561999061757" target="_blank" class="ctaWa">WhatsApp Ouvidoria</a>
+          <a
+            href="https://wa.me/5561999061757"
+            target="_blank"
+            rel="noopener"
+            class="btnWhats"
+            aria-label="Abrir WhatsApp da Ouvidoria"
+          >
+            <span class="waIcon" aria-hidden="true"></span>
+            WhatsApp Ouvidoria
+          </a>
         </div>
+
+        <div class="miniNote">
+          <mat-icon aria-hidden="true">info</mat-icon>
+          <span>Se preferir, você também pode enviar sua mensagem pelo formulário ao lado.</span>
+        </div>
+      </article>
+
+      <article class="infoCard mini">
+        <div class="iconHeader">
+          <div class="iconCircle">
+            <mat-icon aria-hidden="true">lock</mat-icon>
+          </div>
+          <h2>Privacidade</h2>
+        </div>
+        <p>
+          As informações fornecidas serão utilizadas exclusivamente para fins de atendimento e
+          encaminhamento da demanda.
+        </p>
       </article>
     </div>
 
-    <div class="formWrapper">
+    <!-- COLUNA DIREITA (FORM) -->
+    <div class="formWrapper" aria-label="Formulário da Ouvidoria">
+      <div class="formHeader">
+        <h2>Enviar relato</h2>
+        <p>Preencha os campos abaixo e envie sua mensagem.</p>
+      </div>
+
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline" class="full-w">
           <mat-label>Nome</mat-label>
-          <input matInput formControlName="nome">
+          <input matInput formControlName="nome" autocomplete="name" />
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-w">
           <mat-label>E-mail</mat-label>
-          <input matInput formControlName="email" type="email">
+          <input matInput formControlName="email" type="email" autocomplete="email" />
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-w">
           <mat-label>Mensagem</mat-label>
-          <textarea matInput formControlName="mensagem" rows="4"></textarea>
+          <textarea matInput formControlName="mensagem" rows="5"></textarea>
         </mat-form-field>
 
-        <div class="captcha-box">
-          <re-captcha (resolved)="resolved($event)" siteKey="SUA_SITE_KEY" formControlName="recaptcha"></re-captcha>
+        <div class="captchaBox">
+          <re-captcha
+            (resolved)="resolved($event)"
+            siteKey="SUA_SITE_KEY"
+            formControlName="recaptcha"
+          ></re-captcha>
         </div>
 
-        <button mat-flat-button color="primary" class="btn-send" [disabled]="form.invalid || loading">
-          <span *ngIf="!loading">ENVIAR RELATO</span>
+        <button
+          mat-flat-button
+          color="primary"
+          class="btnSend"
+          [disabled]="form.invalid || loading"
+        >
+          <span *ngIf="!loading">ENVIAR</span>
           <mat-spinner *ngIf="loading" diameter="24"></mat-spinner>
         </button>
 
-        <div *ngIf="feedbackMsg" [className]="isSuccess ? 'msg-ok' : 'msg-err'">
+        <div *ngIf="feedbackMsg" class="msg" [class.ok]="isSuccess" [class.err]="!isSuccess">
           {{ feedbackMsg }}
         </div>
       </form>

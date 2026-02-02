@@ -1,0 +1,162 @@
+<section class="hero">
+  <div class="heroContent">
+    <span class="kicker">Acadêmico</span>
+    <h1 class="title">Biblioteca da Faculdade Filos</h1>
+
+    <div class="leadWrapper">
+      <p class="lead">
+        A Biblioteca da Faculdade Filos é um espaço dedicado ao apoio acadêmico, à pesquisa e ao
+        desenvolvimento intelectual de nossa comunidade. Com um acervo diversificado e atualizado,
+        buscamos oferecer recursos que atendam às necessidades de nossos alunos, professores e colaboradores.
+      </p>
+    </div>
+
+    <div class="heroBadges" aria-label="Destaques">
+      <span class="badge">
+        <mat-icon aria-hidden="true">menu_book</mat-icon>
+        Acervo atualizado
+      </span>
+      <span class="badge">
+        <mat-icon aria-hidden="true">school</mat-icon>
+        Apoio à pesquisa
+      </span>
+      <span class="badge">
+        <mat-icon aria-hidden="true">computer</mat-icon>
+        Acesso digital
+      </span>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="sectionHeader">
+    <h2 class="sectionTitle">Serviços disponíveis</h2>
+    <p class="sectionSubtitle">Recursos pensados para facilitar a sua vida acadêmica.</p>
+  </div>
+
+  <div class="cardsGrid">
+    <article class="featureCard">
+      <div class="cardIcon">
+        <mat-icon aria-hidden="true">inventory_2</mat-icon>
+      </div>
+      <h3>Empréstimo de materiais</h3>
+      <p>Livros, artigos e outros recursos para apoio às atividades acadêmicas.</p>
+    </article>
+
+    <article class="featureCard">
+      <div class="cardIcon">
+        <mat-icon aria-hidden="true">description</mat-icon>
+      </div>
+      <h3>Documentos institucionais</h3>
+      <p>Regulamentos, manuais e documentos importantes para a vida acadêmica.</p>
+    </article>
+
+    <article class="featureCard">
+      <div class="cardIcon">
+        <mat-icon aria-hidden="true">meeting_room</mat-icon>
+      </div>
+      <h3>Ambientes de estudo</h3>
+      <p>Espaços silenciosos e equipados para leitura, pesquisa e concentração.</p>
+    </article>
+
+    <article class="featureCard">
+      <div class="cardIcon">
+        <mat-icon aria-hidden="true">support_agent</mat-icon>
+      </div>
+      <h3>Atendimento personalizado</h3>
+      <p>Orientações sobre pesquisa bibliográfica e uso de recursos eletrônicos.</p>
+    </article>
+  </div>
+</section>
+
+<section class="digitalSection">
+  <div class="container">
+    <div class="digitalGrid">
+      <div class="digitalText">
+        <span class="pill">🌐 Acesso digital</span>
+        <h2>Conteúdos para estudar de onde estiver</h2>
+        <p>
+          Além do acervo físico, disponibilizamos uma plataforma digital com acesso a materiais complementares,
+          facilitando o aprendizado remoto e a consulta a conteúdos atualizados.
+        </p>
+
+        <div class="digitalBullets">
+          <div class="bullet">
+            <mat-icon aria-hidden="true">check_circle</mat-icon>
+            <span>Materiais complementares e referências</span>
+          </div>
+          <div class="bullet">
+            <mat-icon aria-hidden="true">check_circle</mat-icon>
+            <span>Consulta rápida e organizada</span>
+          </div>
+          <div class="bullet">
+            <mat-icon aria-hidden="true">check_circle</mat-icon>
+            <span>Suporte ao aluno e ao professor</span>
+          </div>
+        </div>
+
+        <!-- Se você tiver um link real para a plataforma, troque o href -->
+        <a class="ctaPrimary" href="https://bibliogratuita.curatoriaeditora.com.br/" target="_blank" rel="noopener">
+          <mat-icon aria-hidden="true">open_in_new</mat-icon>
+          Acessar plataforma digital
+        </a>
+      </div>
+
+      <aside class="hoursCard" aria-label="Horário de funcionamento">
+        <div class="hoursHeader">
+          <div class="hoursIcon">
+            <mat-icon aria-hidden="true">schedule</mat-icon>
+          </div>
+          <div>
+            <h3>Horário de funcionamento</h3>
+            <p>Atendimento presencial e virtual</p>
+          </div>
+        </div>
+
+        <div class="hoursList">
+          <div class="row">
+            <span class="day">Segunda a sexta-feira</span>
+            <span class="time">14h às 22h</span>
+          </div>
+          <div class="row">
+            <span class="day">Sábado</span>
+            <span class="time">8h às 12h</span>
+          </div>
+        </div>
+
+        <div class="note">
+          <mat-icon aria-hidden="true">info</mat-icon>
+          <span>Para dúvidas, procure a equipe da Biblioteca durante o horário de atendimento.</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="docsSection">
+  <div class="container">
+    <h2 class="sectionTitle center">Documentos da Biblioteca</h2>
+    <p class="sectionSubtitle center">
+      Acesse os documentos institucionais relacionados ao funcionamento da biblioteca.
+    </p>
+
+    <div class="docsGrid">
+      <a
+        *ngFor="let doc of docs"
+        class="docItem"
+        [href]="doc.href"
+        target="_blank"
+        rel="noopener"
+      >
+        <mat-icon class="pdfIcon" aria-hidden="true">picture_as_pdf</mat-icon>
+
+        <div class="docText">
+          <span class="docLabel">{{ doc.title }}</span>
+          <span class="docYear">{{ doc.subtitle }}</span>
+        </div>
+
+        <mat-icon class="downloadIcon" aria-hidden="true">download</mat-icon>
+      </a>
+    </div>
+  </div>
+</section>

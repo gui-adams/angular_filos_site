@@ -26,16 +26,29 @@
 }
 
 /* =================== Logo =================== */
-.brand, .brandMini {
+.brand,
+.brandMini {
   display: inline-flex;
   align-items: center;
 }
-.brand { justify-self: start; }
-.logo { width: 180px; height: auto; max-width: none; }
-.logoMini { width: 120px; height: auto; max-width: none; }
+.brand {
+  justify-self: start;
+}
+.logo {
+  width: 180px;
+  height: auto;
+  max-width: none;
+}
+.logoMini {
+  width: 120px;
+  height: auto;
+  max-width: none;
+}
 
 /* =================== Toggle drawer =================== */
-.toggle { display: none; }
+.toggle {
+  display: none;
+}
 
 /* =================== Burger =================== */
 .burger {
@@ -48,20 +61,33 @@
   color: var(--brand);
   z-index: 90;
 }
-.burger mat-icon { width: 26px; height: 26px; font-size: 26px; line-height: 26px; }
+.burger mat-icon {
+  width: 26px;
+  height: 26px;
+  font-size: 26px;
+  line-height: 26px;
+}
 
-.iconMenu { display: inline-flex; }
-.iconClose { display: none; }
+.iconMenu {
+  display: inline-flex;
+}
+.iconClose {
+  display: none;
+}
 
-.toggle:checked ~ .burger .iconMenu { display: none; }
-.toggle:checked ~ .burger .iconClose { display: inline-flex; }
+.toggle:checked ~ .burger .iconMenu {
+  display: none;
+}
+.toggle:checked ~ .burger .iconClose {
+  display: inline-flex;
+}
 
 /* =================== Desktop nav =================== */
 .navDesktop {
   align-self: stretch;
   display: flex;
   align-items: center;
-  justify-content: center; // Centraliza a lista de menus
+  justify-content: center;
 
   > ul {
     display: flex;
@@ -72,7 +98,8 @@
     padding: 0;
   }
 
-  a, .trigger {
+  a,
+  .trigger {
     color: var(--text);
     font-weight: 500;
     line-height: 72px;
@@ -81,28 +108,64 @@
     text-decoration: none;
     cursor: pointer;
 
-    &:hover { color: var(--brand-700); }
+    &:hover {
+      color: var(--brand-700);
+    }
   }
 }
 
-.hasDropdown { position: relative; }
-.trigger { display: inline-flex; align-items: center; gap: 6px; }
-.caret { font-size: 0.85em; transform: translateY(-1px); }
+/* =================== Dropdown Core =================== */
+.hasDropdown {
+  position: relative;
+}
 
-/* Dropdown (Ajustado para não ficar sempre aberto) */
+/* Se precisar subir acima de outros elementos, ajuda no hover */
+.hasDropdown:hover {
+  z-index: 2000;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.caret {
+  font-size: 0.85em;
+  transform: translateY(-1px);
+}
+
+/**
+ * IMPORTANTE:
+ * - dropdown encostado no elemento (top: 100%) => SEM GAP físico
+ * - animação com delay no "sumir" => evita fechar ao atravessar 1px
+ */
 .dropdown {
   position: absolute;
-  top: 64px;
+  top: 100%;                 /* << ENCOSTADO */
   left: 0;
+  margin-top: 0;             /* << SEM GAP */
   min-width: 220px;
   padding: 8px;
   border: 1px solid #e6e8ef;
   border-radius: 12px;
   background: var(--bg);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  display: none; // Escondido por padrão
-  z-index: 70;
   list-style: none;
+  z-index: 2100;
+
+  display: block;
+
+  /* Estado fechado */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  pointer-events: none;
+
+  /* Delay no esconder: visibility só fica hidden depois da animação */
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    visibility 0s linear 180ms;
 
   a {
     display: block;
@@ -111,6 +174,8 @@
     border-radius: 10px;
     color: var(--text);
     font-size: 0.9rem;
+    font-weight: 600;
+
     &:hover {
       background: #f2f5fb;
       color: var(--brand);
@@ -118,18 +183,43 @@
   }
 }
 
-// Lógica de Hover para abrir o menu
-.hasDropdown:hover .dropdown {
-  display: block;
+/* Abre no hover OU foco (clique/teclado) */
+.hasDropdown:hover .dropdown,
+.hasDropdown:focus-within .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(8px);
+  pointer-events: auto;
+
+  /* Sem delay ao abrir */
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    visibility 0s;
+}
+
+/* Ponte invisível (extra segurança) */
+.hasDropdown::after {
+  content: "";
+  position: absolute;
+  left: -6px;
+  right: -6px;
+  top: 100%;
+  height: 28px;             /* maior que antes */
+  z-index: 2050;
+  pointer-events: auto;
 }
 
 /* =================== Actions =================== */
 .actions {
   display: flex;
   gap: 12px;
+  align-items: center;
 }
 
-.btnPrimary, .btnOutline {
+/* Botões */
+.btnPrimary,
+.btnOutline {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -142,11 +232,13 @@
   cursor: pointer;
   font-family: inherit;
   transition: all 0.15s ease;
+  font-size: 1rem;
 }
 
 .btnPrimary {
   background: var(--brand);
-  color: #fff !important; // Garante texto branco
+  color: #fff !important;
+
   &:hover {
     transform: translateY(-1px);
     filter: brightness(1.2);
@@ -157,38 +249,96 @@
   background: var(--bg);
   color: var(--brand);
   border: 1.5px solid var(--brand);
+
   &:hover {
     transform: translateY(-1px);
     background: #f4f7ff;
   }
 }
 
+/* ======= Portais: mesma tipografia do Inscreva-se ======= */
+.actions .trigger {
+  font-weight: 800;
+  line-height: normal;
+  font-size: 1rem;
+}
+
+/* Dropdown de Portais alinhado à direita */
+.actions .hasDropdown .dropdown {
+  left: auto;
+  right: 0;
+}
+
 /* =================== Mobile drawer =================== */
-.mobileNav { display: none; }
+.mobileNav {
+  display: none;
+}
+
 .backdrop {
-  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5);
-  opacity: 0; visibility: hidden; transition: 0.2s;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s;
 }
 
 .drawer {
-  position: fixed; top: 0; right: 0; height: 100%; width: 85vw; max-width: 380px;
-  background: var(--bg); transform: translateX(100%); transition: 0.25s;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 85vw;
+  max-width: 380px;
+  background: var(--bg);
+  transform: translateX(100%);
+  transition: 0.25s;
   box-shadow: -12px 0 24px rgba(0, 0, 0, 0.12);
-  display: flex; flex-direction: column; padding: 16px; z-index: 80;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  z-index: 80;
 }
 
-.toggle:checked ~ .mobileNav .backdrop { opacity: 1; visibility: visible; }
-.toggle:checked ~ .mobileNav .drawer { transform: translateX(0); }
+.toggle:checked ~ .mobileNav .backdrop {
+  opacity: 1;
+  visibility: visible;
+}
+
+.toggle:checked ~ .mobileNav .drawer {
+  transform: translateX(0);
+}
 
 @media (max-width: 1024px) {
-  .navDesktop, .actions { display: none; }
-  .mobileNav { display: block; }
-  .burger { display: inline-flex; }
-  .inner { grid-template-columns: 1fr auto; }
+  .navDesktop,
+  .actions {
+    display: none;
+  }
+
+  .mobileNav {
+    display: block;
+  }
+
+  .burger {
+    display: inline-flex;
+  }
+
+  .inner {
+    grid-template-columns: 1fr auto;
+  }
+
   .brand {
-    position: absolute; left: 50%; top: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
   }
-  .logo { width: 170px; }
-  .burger { justify-self: end; }
+
+  .logo {
+    width: 170px;
+  }
+
+  .burger {
+    justify-self: end;
+  }
 }

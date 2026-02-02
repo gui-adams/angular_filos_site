@@ -62,6 +62,12 @@
             <li><a href="https://revistafaculdadefilos.com.br/index.php/ojs01" target="_blank">Revista</a></li>
             <li><a routerLink="/institucional/cpa">CPA</a></li>
             <li><a routerLink="/institucional/ouvidoria">Ouvidoria</a></li>
+<li>
+  <a routerLink="/institucional/biblioteca">
+     Biblioteca
+  </a>
+</li>
+
           </ul>
         </li>
 
@@ -78,12 +84,21 @@
 
     <div class="actions">
       <div class="hasDropdown">
-        <a class="btnOutline trigger">
+        <a class="btnOutline trigger" aria-haspopup="menu">
           Portais <span class="caret" aria-hidden="true">▾</span>
         </a>
-        <ul class="dropdown" style="left: auto; right: 0;">
-          <li><a href="https://faculdadefilos.jacad.com.br/academico/aluno-v2/login" target="_blank">Portal Aluno</a></li>
-          <li><a href="https://faculdadefilos.jacad.com.br/academico/professor/login" target="_blank">Portal Professor</a></li>
+
+        <ul class="dropdown" role="menu">
+          <li>
+            <a href="https://faculdadefilos.jacad.com.br/academico/aluno-v2/login" target="_blank">
+              Portal Aluno
+            </a>
+          </li>
+          <li>
+            <a href="https://faculdadefilos.jacad.com.br/academico/professor/login" target="_blank">
+              Portal Professor
+            </a>
+          </li>
         </ul>
       </div>
 
@@ -112,8 +127,17 @@
         </ul>
 
         <div class="mobileActions">
-          <a href="https://faculdadefilos.jacad.com.br/academico/aluno-v2/login" target="_blank" class="btnOutline">Portal do Aluno</a>
-          <button (click)="openInscricao(); navToggle.checked = false" class="btnPrimary">Inscreva-se</button>
+          <a
+            href="https://faculdadefilos.jacad.com.br/academico/aluno-v2/login"
+            target="_blank"
+            class="btnOutline"
+          >
+            Portal
+          </a>
+
+          <button (click)="openInscricao(); navToggle.checked = false" class="btnPrimary">
+            Inscreva-se
+          </button>
         </div>
       </aside>
     </nav>

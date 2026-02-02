@@ -53,6 +53,16 @@ export const routes: Routes = [
         (m) => m.OuvidoriaComponent
       ),
   },
+
+  // ✅ BIBLIOTECA (faltava isso)
+  {
+    path: 'institucional/biblioteca',
+    loadComponent: () =>
+      import('./pages/institucional/biblioteca/biblioteca.component').then(
+        (m) => m.BibliotecaComponent
+      ),
+  },
+
   {
     path: 'sobre-nos',
     loadComponent: () =>
