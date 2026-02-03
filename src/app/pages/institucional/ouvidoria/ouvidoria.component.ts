@@ -39,7 +39,7 @@ export class OuvidoriaComponent implements OnInit {
   feedbackMsg = '';
   isSuccess = false;
 
-  siteKey = '6LddwV8sAAAAAANaFQAY96X9ZVvDub23v5fv2zJH';
+  siteKey = '6LddwV8sAAAAANaFQAY9659XZVvDub23vf5v2zJH';
 
   private readonly serviceID = 'service_4xq0qtm';
 
