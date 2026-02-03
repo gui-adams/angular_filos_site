@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
 // Imports do Material
 import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -40,7 +41,7 @@ import emailjs from '@emailjs/browser';
 
     <mat-dialog-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        
+
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Nome Completo</mat-label>
           <input matInput formControlName="nome" placeholder="Seu nome">
@@ -55,6 +56,9 @@ import emailjs from '@emailjs/browser';
           <mat-error *ngIf="form.get('email')?.hasError('email')">
             E-mail inválido
           </mat-error>
+          <mat-error *ngIf="form.get('email')?.hasError('required')">
+            E-mail é obrigatório
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
@@ -68,20 +72,22 @@ import emailjs from '@emailjs/browser';
         <div class="recaptcha-container">
           <re-captcha
             (resolved)="resolved($event)"
-            siteKey="SUA_CHAVE_DO_SITE_AQUI"
+            [siteKey]="siteKey"
             formControlName="recaptcha">
           </re-captcha>
         </div>
 
         <div class="actions">
-          <button mat-raised-button color="primary" type="submit" 
+          <button mat-raised-button color="primary" type="submit"
                   [disabled]="form.invalid || loading">
             <span *ngIf="!loading">ENVIAR INSCRIÇÃO</span>
             <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
           </button>
         </div>
-        
-        <p *ngIf="feedbackMsg" [ngClass]="{'success': isSuccess, 'error': !isSuccess}" class="feedback">
+
+        <p *ngIf="feedbackMsg"
+           [ngClass]="{'success': isSuccess, 'error': !isSuccess}"
+           class="feedback">
           {{ feedbackMsg }}
         </p>
       </form>
@@ -91,22 +97,21 @@ import emailjs from '@emailjs/browser';
     .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 0; margin-bottom: 10px; }
     h2 { font-size: 1.2rem; margin: 0; color: #0c2d62; font-weight: 700; }
     .full-width { width: 100%; margin-bottom: 5px; }
-    
-    /* Centraliza e ajusta tamanho do Recaptcha para mobile */
-    .recaptcha-container { 
-      display: flex; 
-      justify-content: center; 
-      margin: 15px 0; 
-      transform: scale(0.9); 
+
+    .recaptcha-container {
+      display: flex;
+      justify-content: center;
+      margin: 15px 0;
+      transform: scale(0.9);
       transform-origin: center;
     }
-    
+
     .actions { display: flex; justify-content: flex-end; margin-top: 10px; }
-    
+
     .feedback { text-align: center; margin-top: 15px; font-weight: bold; font-size: 0.9rem; }
     .success { color: #166534; background: #dcfce7; padding: 10px; border-radius: 8px; }
     .error { color: #991b1b; background: #fee2e2; padding: 10px; border-radius: 8px; }
-    
+
     mat-spinner { margin-left: 10px; display: inline-block; }
   `]
 })
@@ -116,22 +121,28 @@ export class SubscriptionModalComponent {
   feedbackMsg = '';
   isSuccess = false;
 
+  siteKey = '6LddwV8sAAAAANaFQAY9659XZVvDub23vf5v2zJH';
+
+  private readonly serviceID = 'service_4xq0qtm';
+  private readonly templateID = 'template_m1e3hrq';
+  private readonly publicKey = 'JWUVW3xnAaDrSDV6b';
+
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<SubscriptionModalComponent>,
-    // Injetamos os dados passados pelo botão (Ex: { cursoInteresse: 'Direito' })
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.form = this.fb.group({
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       telefone: ['', Validators.required],
-      recaptcha: ['', Validators.required]
+      recaptcha: ['', Validators.required],
     });
   }
 
-  resolved(captchaResponse: string | null) {
-    console.log(`Captcha resolvido: ${captchaResponse}`);
+  resolved(token: string | null) {
+    this.form.get('recaptcha')?.setValue(token);
+    this.form.get('recaptcha')?.markAsTouched();
   }
 
   async onSubmit() {
@@ -140,34 +151,25 @@ export class SubscriptionModalComponent {
     this.loading = true;
     this.feedbackMsg = '';
 
-    // --- CONFIGURAÇÃO EMAILJS (PREENCHA AQUI) ---
-    const serviceID = 'service_ID_AQUI';   // Ex: service_g3d8s9
-    const templateID = 'template_ID_AQUI'; // Ex: template_x9s2z1
-    const publicKey = 'public_KEY_AQUI';   // Ex: user_k29dks92
-
-    // Prepara os dados para enviar
     const templateParams = {
       from_name: this.form.value.nome,
       from_email: this.form.value.email,
       phone: this.form.value.telefone,
-      
-      // AQUI ESTÁ A MÁGICA: Envia a origem do clique (Ex: Direito, Rodapé)
       interest_origin: this.data?.cursoInteresse || 'Geral/Não especificado',
-      
       message: 'Novo lead captado pelo site.',
-      'g-recaptcha-response': this.form.value.recaptcha
+      'g-recaptcha-response': this.form.value.recaptcha,
     };
 
     try {
-      await emailjs.send(serviceID, templateID, templateParams, publicKey);
-      
+      await emailjs.send(this.serviceID, this.templateID, templateParams, this.publicKey);
+
       this.isSuccess = true;
       this.feedbackMsg = 'Recebemos sua inscrição! Entraremos em contato em breve.';
       this.form.reset();
-      
-      // Fecha o modal automaticamente após 3 segundos
+
+      this.form.get('recaptcha')?.setValue('');
+
       setTimeout(() => this.dialogRef.close(), 3000);
-      
     } catch (error) {
       console.error('Erro ao enviar email:', error);
       this.isSuccess = false;
