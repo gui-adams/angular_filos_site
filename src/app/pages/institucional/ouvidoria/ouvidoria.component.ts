@@ -14,12 +14,19 @@ import emailjs from '@emailjs/browser';
   selector: 'app-ouvidoria',
   standalone: true,
   imports: [
-    CommonModule, NgOptimizedImage, MatIconModule, ReactiveFormsModule,
-    MatFormFieldModule, MatInputModule, MatButtonModule, 
-    MatProgressSpinnerModule, RecaptchaModule, RecaptchaFormsModule
+    CommonModule,
+    NgOptimizedImage,
+    MatIconModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
   ],
   templateUrl: './ouvidoria.component.html',
-  styleUrls: ['./ouvidoria.component.scss']
+  styleUrls: ['./ouvidoria.component.scss'],
 })
 export class OuvidoriaComponent implements OnInit {
   private title = inject(Title);
@@ -28,8 +35,17 @@ export class OuvidoriaComponent implements OnInit {
 
   form: FormGroup;
   loading = false;
+
   feedbackMsg = '';
   isSuccess = false;
+
+  siteKey = '6LddwV8sAAAAAANaFQAY96X9ZVvDub23v5fv2zJH';
+
+  private readonly serviceID = 'service_4xq0qtm';
+
+  private readonly templateID = 'template_hir47k6';
+
+  private readonly publicKey = 'JWUVW3xnAaDrSDV6b';
 
   constructor() {
     this.form = this.fb.group({
@@ -37,46 +53,62 @@ export class OuvidoriaComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       assunto: ['', Validators.required],
       mensagem: ['', [Validators.required, Validators.minLength(10)]],
-      recaptcha: ['', Validators.required] // Validação do Captcha
+      recaptcha: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
     this.title.setTitle('Ouvidoria | Faculdade Filos');
-    this.meta.updateTag({ 
-      name: 'description', 
-      content: 'Canal oficial de comunicação da Faculdade Filos para manifestações da comunidade.' 
+    this.meta.updateTag({
+      name: 'description',
+      content: 'Canal oficial de comunicação da Faculdade Filos para manifestações da comunidade.',
     });
   }
 
+  resolved(token: string | null) {
+    this.form.get('recaptcha')?.setValue(token);
+    this.form.get('recaptcha')?.markAsTouched();
+  }
+
   async onSubmit() {
-    if (this.form.invalid) return;
+    if (this.form.invalid || this.loading) return;
+
     this.loading = true;
     this.feedbackMsg = '';
+    this.isSuccess = false;
 
     const templateParams = {
       from_name: this.form.value.nome,
       from_email: this.form.value.email,
       subject: this.form.value.assunto,
       message: this.form.value.mensagem,
+
       'g-recaptcha-response': this.form.value.recaptcha,
-      origin: 'Ouvidoria Institucional'
+
+      origin: 'Ouvidoria Institucional',
     };
 
     try {
-      await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams, 'YOUR_PUBLIC_KEY');
-      this.isSuccess = true;
-      this.feedbackMsg = 'Manifestação enviada com sucesso!';
-      this.form.reset();
+      const res = await emailjs.send(this.serviceID, this.templateID, templateParams, this.publicKey);
+
+      if (res?.status === 200) {
+        this.isSuccess = true;
+        this.feedbackMsg =
+          '✅ Obrigado! Sua manifestação foi enviada com sucesso. Nossa equipe analisará e, se necessário, entraremos em contato.';
+        this.form.reset();
+        this.form.get('recaptcha')?.setValue('');
+      } else {
+        this.isSuccess = false;
+        this.feedbackMsg =
+          'Não foi possível enviar sua manifestação no momento. Tente novamente mais tarde.';
+      }
     } catch (error) {
+      console.error('Erro ao enviar ouvidoria:', error);
       this.isSuccess = false;
-      this.feedbackMsg = 'Não foi possível enviar sua manifestação no momento. Tente novamente mais tarde.';
+      this.feedbackMsg =
+        'Não foi possível enviar sua manifestação no momento. Por favor, tente novamente mais tarde.';
     } finally {
       this.loading = false;
     }
-  }
-
-  resolved(token: string | null) {
-    console.log('Captcha resolvido');
   }
 }
