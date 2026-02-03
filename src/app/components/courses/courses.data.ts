@@ -6,7 +6,7 @@ export const COURSES: Course[] = [
     title: 'Administração',
     level: 'graduacao',
     type: 'Bacharelado',
-    modality: 'EAD',
+    modality: 'Presencial',
     imageSrc: 'assets/cursos/administracao.webp',
     applyHref: '/admissions?curso=administracao',
     learnHref: '/cursos/administracao',

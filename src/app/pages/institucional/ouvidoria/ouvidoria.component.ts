@@ -70,7 +70,7 @@ export class OuvidoriaComponent implements OnInit {
       this.form.reset();
     } catch (error) {
       this.isSuccess = false;
-      this.feedbackMsg = 'Erro ao enviar. Tente o WhatsApp ou tente mais tarde.';
+      this.feedbackMsg = 'Não foi possível enviar sua manifestação no momento. Tente novamente mais tarde.';
     } finally {
       this.loading = false;
     }
