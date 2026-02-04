@@ -85,9 +85,9 @@
         <div class="captchaBox">
           <re-captcha
             (resolved)="resolved($event)"
-            siteKey="SUA_SITE_KEY"
-            formControlName="recaptcha"
-          ></re-captcha>
+            [siteKey]="siteKey"
+            formControlName="recaptcha">
+          </re-captcha>
         </div>
 
         <button

@@ -40,7 +40,7 @@ export class OuvidoriaComponent implements OnInit {
   feedbackMsg = '';
   isSuccess = false;
 
-  siteKey = '6LddwV8sAAAAANaFQAY9659XZVvDub23vf5v2zJH';
+  siteKey = environment.recaptcha.siteKey;
 
   private readonly serviceID = environment.emailjs.serviceID;
 
