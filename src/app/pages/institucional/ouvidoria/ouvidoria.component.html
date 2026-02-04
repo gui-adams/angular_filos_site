@@ -3,12 +3,10 @@
     <span class="kicker">Atendimento</span>
     <h1 class="title">Ouvidoria</h1>
 
-    <div class="leadWrapper">
-      <p class="lead">
-        Sua voz ajuda a construir uma Faculdade Filos cada vez melhor. Envie sugestões, elogios,
-        reclamações ou solicitações com segurança e sigilo.
-      </p>
-    </div>
+    <p class="lead">
+      Sua voz ajuda a construir uma Faculdade Filos cada vez melhor. Envie sugestões, elogios,
+      reclamações ou solicitações com segurança e sigilo.
+    </p>
 
     <div class="heroBadges" aria-label="Destaques da Ouvidoria">
       <span class="badge">
@@ -29,81 +27,109 @@
 
 <section class="container">
   <div class="mainGrid">
-    <!-- COLUNA ESQUERDA -->
-    <div class="infoColumn">
-      <article class="infoCard">
-        <div class="iconHeader">
-          <div class="iconCircle">
-            <mat-icon aria-hidden="true">gavel</mat-icon>
-          </div>
-          <h2>Canal Ético</h2>
-        </div>
-
-        <p>
-          Atuamos de forma imparcial e sigilosa para mediar demandas acadêmicas e administrativas,
-          contribuindo para a melhoria contínua dos serviços oferecidos.
-        </p>
-      </article>
-
-      <article class="infoCard mini">
-        <div class="iconHeader">
-          <div class="iconCircle">
-            <mat-icon aria-hidden="true">lock</mat-icon>
-          </div>
-          <h2>Privacidade</h2>
-        </div>
-        <p>
-          As informações fornecidas serão utilizadas exclusivamente para fins de atendimento e
-          encaminhamento da demanda.
-        </p>
-      </article>
-    </div>
-
-    <!-- COLUNA DIREITA (FORM) -->
-    <div class="formWrapper" aria-label="Formulário da Ouvidoria">
+    <!-- ESQUERDA: FORM -->
+    <div class="formWrapper">
       <div class="formHeader">
         <h2>Enviar relato</h2>
         <p>Preencha os campos abaixo e envie sua mensagem.</p>
       </div>
 
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="formGrid">
         <mat-form-field appearance="outline" class="full-w">
           <mat-label>Nome</mat-label>
-          <input matInput formControlName="nome" autocomplete="name" />
+          <input matInput formControlName="nome" placeholder="Seu nome completo" />
+          <mat-error *ngIf="form.get('nome')?.hasError('required')">Nome é obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-w">
           <mat-label>E-mail</mat-label>
-          <input matInput formControlName="email" type="email" autocomplete="email" />
+          <input matInput type="email" formControlName="email" placeholder="seu@email.com" />
+          <mat-error *ngIf="form.get('email')?.hasError('required')">E-mail é obrigatório</mat-error>
+          <mat-error *ngIf="form.get('email')?.hasError('email')">E-mail inválido</mat-error>
         </mat-form-field>
 
+        <!-- Assunto (obrigatório) -->
         <mat-form-field appearance="outline" class="full-w">
-          <mat-label>Mensagem</mat-label>
-          <textarea matInput formControlName="mensagem" rows="5"></textarea>
+          <mat-label>Assunto</mat-label>
+          <input
+            matInput
+            formControlName="assunto"
+            placeholder="Ex.: Sugestão, Reclamação, Elogio"
+            autocomplete="off"
+          />
+          <mat-error *ngIf="form.get('assunto')?.hasError('required')">Assunto é obrigatório</mat-error>
         </mat-form-field>
 
-        <div class="captchaBox">
+        <mat-form-field appearance="outline" class="full-w span-2">
+          <mat-label>Mensagem</mat-label>
+          <textarea
+            matInput
+            formControlName="mensagem"
+            rows="8"
+            placeholder="Descreva sua manifestação com o máximo de detalhes possível."
+          ></textarea>
+          <mat-error *ngIf="form.get('mensagem')?.hasError('required')">Mensagem é obrigatória</mat-error>
+          <mat-error *ngIf="form.get('mensagem')?.hasError('minlength')">
+            A mensagem deve ter pelo menos 10 caracteres
+          </mat-error>
+        </mat-form-field>
+
+        <div class="captchaBox span-2">
           <re-captcha
-            (resolved)="resolved($event)"
             [siteKey]="siteKey"
-            formControlName="recaptcha">
+            formControlName="recaptcha"
+            (resolved)="resolved($event)">
           </re-captcha>
         </div>
 
         <button
-          mat-flat-button
+          mat-raised-button
           color="primary"
-          class="btnSend"
+          type="submit"
+          class="btnSend span-2"
           [disabled]="form.invalid || loading"
         >
           <span *ngIf="!loading">ENVIAR</span>
-          <mat-spinner *ngIf="loading" diameter="24"></mat-spinner>
+          <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
         </button>
 
-        <div *ngIf="feedbackMsg" class="msg" [class.ok]="isSuccess" [class.err]="!isSuccess">
+        <div *ngIf="feedbackMsg" class="msg span-2" [ngClass]="isSuccess ? 'ok' : 'err'">
           {{ feedbackMsg }}
         </div>
       </form>
     </div>
+
+    <!-- DIREITA: INFO -->
+    <aside class="infoColumn">
+      <div class="infoCard">
+        <div class="iconHeader">
+          <div class="iconCircle">
+            <mat-icon aria-hidden="true">info</mat-icon>
+          </div>
+          <h2>Como funciona?</h2>
+        </div>
+
+        <ul class="infoList">
+          <li><mat-icon aria-hidden="true">lock</mat-icon> Suas informações são tratadas com confidencialidade.</li>
+          <li><mat-icon aria-hidden="true">rule</mat-icon> Relatos são encaminhados para análise e providências internas.</li>
+          <li><mat-icon aria-hidden="true">mark_email_read</mat-icon> Se necessário, entraremos em contato pelo e-mail informado.</li>
+        </ul>
+      </div>
+
+      <div class="infoCard mini">
+        <div class="iconHeader">
+          <div class="iconCircle">
+            <mat-icon aria-hidden="true">tips_and_updates</mat-icon>
+          </div>
+          <h2>Dicas para um bom relato</h2>
+        </div>
+
+        <ul class="infoList">
+          <li><mat-icon aria-hidden="true">check_circle</mat-icon> Informe datas, local, envolvidos e contexto.</li>
+          <li><mat-icon aria-hidden="true">check_circle</mat-icon> Seja objetivo e claro na descrição.</li>
+          <li><mat-icon aria-hidden="true">check_circle</mat-icon> Indique o assunto de forma direta (ex.: “Elogio”, “Reclamação”).</li>
+        </ul>
+      </div>
+    </aside>
   </div>
 </section>

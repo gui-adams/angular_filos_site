@@ -1,232 +1,187 @@
-/* --- Variáveis de Marca (igual CPA/Biblioteca) --- */
-$brand-blue: #0b3a74;
-$text-slate: #0f172a;
-$muted-slate: #475569;
-$bg-light: #f6f7f9;
+$blue: #0b3a74;
+$text: #0f172a;
+$muted: #475569;
+$bg: #f6f7f9;
+$bd: #e2e8f0;
 
-/* --- Hero (padrão premium do site) --- */
 .hero {
-  background-color: $bg-light;
-  padding: 5rem 1.5rem;
-  text-align: center;
+  background: $bg;
   border-bottom: 1px solid #e6e8ef;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 4.5rem 1.5rem;
+  text-align: center;
 
-  .heroContent {
-    max-width: 920px;
-    margin: 0 auto;
-  }
-
+  .heroContent { max-width: 920px; margin: 0 auto; }
   .kicker {
     display: inline-block;
-    font-weight: 800;
-    color: $brand-blue;
+    font: 800 0.85rem/1 system-ui;
+    letter-spacing: .1em;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.85rem;
-    margin-bottom: 1rem;
+    color: $blue;
     background: #eef2ff;
-    padding: 0.25rem 1rem;
+    padding: .25rem 1rem;
     border-radius: 999px;
+    margin-bottom: 1rem;
   }
-
   .title {
-    font-size: clamp(2.2rem, 5vw, 3.2rem);
-    line-height: 1.1;
-    color: $brand-blue;
+    margin: 0 0 1rem;
+    color: $blue;
     font-weight: 950;
-    margin: 0 0 1.25rem;
     letter-spacing: -0.02em;
+    font-size: clamp(2rem, 5vw, 3.1rem);
+    line-height: 1.1;
   }
-
   .lead {
-    font-size: 1.15rem;
-    line-height: 1.7;
-    color: $muted-slate;
-    max-width: 70ch;
     margin: 0 auto;
+    max-width: 70ch;
+    color: $muted;
+    font-size: 1.12rem;
+    line-height: 1.7;
   }
-
   .heroBadges {
-    margin-top: 1.75rem;
+    margin-top: 1.5rem;
     display: flex;
     justify-content: center;
-    gap: 0.75rem;
+    gap: .75rem;
     flex-wrap: wrap;
   }
-
   .badge {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    font-weight: 850;
-    color: $brand-blue;
-    background: #ffffff;
-    border: 1px solid rgba(11, 58, 116, 0.14);
-    padding: 0.45rem 0.8rem;
+    gap: .45rem;
+    padding: .45rem .8rem;
     border-radius: 999px;
-    font-size: 0.92rem;
+    background: #fff;
+    border: 1px solid rgba(11, 58, 116, .14);
+    color: $blue;
+    font-weight: 800;
+    font-size: .92rem;
 
-    mat-icon {
-      width: 18px;
-      height: 18px;
-      font-size: 18px;
-    }
+    mat-icon { font-size: 18px; width: 18px; height: 18px; }
   }
 }
 
-/* --- Container --- */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
 
-/* --- Grid principal (igual CPA/Biblioteca) --- */
 .mainGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  padding: 4rem 0;
+  gap: 2.5rem;
+  padding: 3.5rem 0;
+  grid-template-columns: 1.15fr .85fr;
   align-items: start;
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
-    gap: 2.25rem;
     padding: 3rem 0;
   }
 }
 
-/* --- Coluna esquerda --- */
-.infoColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-/* Cards */
-.infoCard {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 18px;
-  padding: 1.5rem;
-  box-shadow: 0 20px 35px -25px rgba(0, 0, 0, 0.12);
-
-  &.mini {
-    padding: 1.25rem 1.5rem;
-  }
-
-  .iconHeader {
-    display: flex;
-    align-items: center;
-    gap: 1.1rem;
-    margin-bottom: 0.75rem;
-
-    h2 {
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 900;
-      color: $text-slate;
-      letter-spacing: -0.01em;
-    }
-  }
-
-  .iconCircle {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-    background: #eef2ff;
-    color: $brand-blue;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    mat-icon {
-      width: 24px;
-      height: 24px;
-      font-size: 24px;
-    }
-  }
-
-
-
-  p {
-    margin: 0;
-    color: $muted-slate;
-    line-height: 1.75;
-    font-size: 1.06rem;
-  }
-}
-/* --- Form wrapper (igual padrão premium) --- */
+/* Form */
 .formWrapper {
   background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 20px;
-  padding: 1.75rem;
-  box-shadow: 0 25px 50px -30px rgba(0, 0, 0, 0.2);
+  border: 1px solid $bd;
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 45px -35px rgba(0,0,0,.25);
 
   .formHeader {
-    margin-bottom: 1.25rem;
-
-    h2 {
-      margin: 0;
-      font-size: 1.6rem;
-      font-weight: 950;
-      color: $text-slate;
-    }
-
-    p {
-      margin: 0.35rem 0 0;
-      color: $muted-slate;
-      line-height: 1.5;
-    }
-  }
-
-  .full-w {
-    width: 100%;
-  }
-
-  .captchaBox {
-    display: flex;
-    justify-content: center;
-    margin: 1rem 0 0.75rem;
-    transform: scale(0.9);
-
-    @media (max-width: 420px) {
-      transform: scale(0.82);
-      transform-origin: left;
-    }
-  }
-
-  .btnSend {
-    width: 100%;
-    height: 52px;
-    border-radius: 12px;
-    font-weight: 900;
-    letter-spacing: 0.02em;
+    margin-bottom: 1rem;
+    h2 { margin: 0; color: $text; font-weight: 950; font-size: 1.55rem; }
+    p { margin: .25rem 0 0; color: $muted; line-height: 1.5; }
   }
 }
 
-/* Mensagens */
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem 1rem;
+
+  @media (max-width: 720px) { grid-template-columns: 1fr; }
+}
+
+.full-w { width: 100%; }
+.span-2 { grid-column: 1 / -1; }
+
+.captchaBox {
+  display: flex;
+  justify-content: center;
+  margin: .25rem 0 .5rem;
+  transform: scale(.9);
+  transform-origin: center;
+
+  @media (max-width: 420px) {
+    transform: scale(.82);
+    transform-origin: left;
+  }
+}
+
+.btnSend {
+  width: 100%;
+  height: 52px;
+  border-radius: 12px;
+  font-weight: 900;
+  letter-spacing: .02em;
+}
+
+/* Feedback */
 .msg {
-  margin-top: 1rem;
-  padding: 0.85rem 0.95rem;
+  margin-top: .5rem;
+  padding: .85rem .95rem;
   border-radius: 12px;
   font-weight: 800;
   text-align: center;
   border: 1px solid transparent;
 
-  &.ok {
-    background: #dcfce7;
-    color: #166534;
-    border-color: rgba(22, 101, 52, 0.25);
+  &.ok { background: #dcfce7; color: #166534; border-color: rgba(22,101,52,.25); }
+  &.err { background: #fee2e2; color: #991b1b; border-color: rgba(153,27,27,.25); }
+}
+
+/* Cards */
+.infoColumn { display: grid; gap: 1.25rem; }
+
+.infoCard {
+  background: #fff;
+  border: 1px solid $bd;
+  border-radius: 18px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 20px 35px -25px rgba(0,0,0,.12);
+}
+
+.iconHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: .75rem;
+
+  h2 { margin: 0; color: $text; font-weight: 900; letter-spacing: -.01em; font-size: 1.25rem; }
+}
+
+.iconCircle {
+  width: 46px; height: 46px;
+  border-radius: 14px;
+  background: #eef2ff;
+  color: $blue;
+  display: grid;
+  place-items: center;
+
+  mat-icon { width: 22px; height: 22px; font-size: 22px; }
+}
+
+.infoList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: .75rem;
+
+  li {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: .6rem;
+    align-items: start;
+    color: $muted;
+    line-height: 1.55;
+    font-size: 1.02rem;
   }
 
-  &.err {
-    background: #fee2e2;
-    color: #991b1b;
-    border-color: rgba(153, 27, 27, 0.25);
-  }
+  mat-icon { color: $blue; font-size: 20px; width: 20px; height: 20px; margin-top: 2px; }
 }
