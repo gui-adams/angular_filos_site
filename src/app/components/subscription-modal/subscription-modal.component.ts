@@ -13,6 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // Imports Externos
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import emailjs from '@emailjs/browser';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-subscription-modal',
@@ -121,11 +122,11 @@ export class SubscriptionModalComponent {
   feedbackMsg = '';
   isSuccess = false;
 
-  siteKey = '6LddwV8sAAAAANaFQAY9659XZVvDub23vf5v2zJH';
+  siteKey = environment.recaptcha.siteKey;
 
-  private readonly serviceID = 'service_4xq0qtm';
-  private readonly templateID = 'template_m1e3hrq';
-  private readonly publicKey = 'JWUVW3xnAaDrSDV6b';
+  private readonly serviceID = environment.emailjs.serviceID;
+  private readonly templateID = environment.emailjs.templateID;
+  private readonly publicKey = environment.emailjs.publicKey;
 
   constructor(
     private fb: FormBuilder,

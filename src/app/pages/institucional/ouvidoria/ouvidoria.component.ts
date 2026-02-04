@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import emailjs from '@emailjs/browser';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-ouvidoria',
@@ -41,11 +42,11 @@ export class OuvidoriaComponent implements OnInit {
 
   siteKey = '6LddwV8sAAAAANaFQAY9659XZVvDub23vf5v2zJH';
 
-  private readonly serviceID = 'service_4xq0qtm';
+  private readonly serviceID = environment.emailjs.serviceID;
 
   private readonly templateID = 'template_hir47k6';
 
-  private readonly publicKey = 'JWUVW3xnAaDrSDV6b';
+  private readonly publicKey = environment.emailjs.publicKey;
 
   constructor() {
     this.form = this.fb.group({
