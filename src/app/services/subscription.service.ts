@@ -10,10 +10,11 @@ export class SubscriptionService {
 
   openForm(origem: string = 'Geral') {
     this.dialog.open(SubscriptionModalComponent, {
-      width: '450px',
-      maxWidth: '95vw',
+      width: '450px',       
+      maxWidth: '95vw',     
+      maxHeight: '90vh',    
       panelClass: 'subscription-dialog-container',
-      autoFocus: false,
+      autoFocus: false,    
       data: { cursoInteresse: origem }
     });
   }

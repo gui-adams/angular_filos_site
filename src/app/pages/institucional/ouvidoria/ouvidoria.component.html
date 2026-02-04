@@ -51,44 +51,26 @@
         <!-- Assunto (obrigatório) -->
         <mat-form-field appearance="outline" class="full-w">
           <mat-label>Assunto</mat-label>
-          <input
-            matInput
-            formControlName="assunto"
-            placeholder="Ex.: Sugestão, Reclamação, Elogio"
-            autocomplete="off"
-          />
+          <input matInput formControlName="assunto" placeholder="Ex.: Sugestão, Reclamação, Elogio"
+            autocomplete="off" />
           <mat-error *ngIf="form.get('assunto')?.hasError('required')">Assunto é obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-w span-2">
           <mat-label>Mensagem</mat-label>
-          <textarea
-            matInput
-            formControlName="mensagem"
-            rows="8"
-            placeholder="Descreva sua manifestação com o máximo de detalhes possível."
-          ></textarea>
+          <textarea matInput formControlName="mensagem" rows="8"
+            placeholder="Descreva sua manifestação com o máximo de detalhes possível."></textarea>
           <mat-error *ngIf="form.get('mensagem')?.hasError('required')">Mensagem é obrigatória</mat-error>
           <mat-error *ngIf="form.get('mensagem')?.hasError('minlength')">
             A mensagem deve ter pelo menos 10 caracteres
           </mat-error>
         </mat-form-field>
-
         <div class="captchaBox span-2">
-          <re-captcha
-            [siteKey]="siteKey"
-            formControlName="recaptcha"
-            (resolved)="resolved($event)">
+          <re-captcha formControlName="recaptcha" (resolved)="resolved($event)">
           </re-captcha>
         </div>
-
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          class="btnSend span-2"
-          [disabled]="form.invalid || loading"
-        >
+        <button mat-raised-button color="primary" type="submit" class="btnSend span-2"
+          [disabled]="form.invalid || loading">
           <span *ngIf="!loading">ENVIAR</span>
           <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
         </button>
@@ -111,8 +93,10 @@
 
         <ul class="infoList">
           <li><mat-icon aria-hidden="true">lock</mat-icon> Suas informações são tratadas com confidencialidade.</li>
-          <li><mat-icon aria-hidden="true">rule</mat-icon> Relatos são encaminhados para análise e providências internas.</li>
-          <li><mat-icon aria-hidden="true">mark_email_read</mat-icon> Se necessário, entraremos em contato pelo e-mail informado.</li>
+          <li><mat-icon aria-hidden="true">rule</mat-icon> Relatos são encaminhados para análise e providências
+            internas.</li>
+          <li><mat-icon aria-hidden="true">mark_email_read</mat-icon> Se necessário, entraremos em contato pelo e-mail
+            informado.</li>
         </ul>
       </div>
 
@@ -127,7 +111,8 @@
         <ul class="infoList">
           <li><mat-icon aria-hidden="true">check_circle</mat-icon> Informe datas, local, envolvidos e contexto.</li>
           <li><mat-icon aria-hidden="true">check_circle</mat-icon> Seja objetivo e claro na descrição.</li>
-          <li><mat-icon aria-hidden="true">check_circle</mat-icon> Indique o assunto de forma direta (ex.: “Elogio”, “Reclamação”).</li>
+          <li><mat-icon aria-hidden="true">check_circle</mat-icon> Indique o assunto de forma direta (ex.: “Elogio”,
+            “Reclamação”).</li>
         </ul>
       </div>
     </aside>

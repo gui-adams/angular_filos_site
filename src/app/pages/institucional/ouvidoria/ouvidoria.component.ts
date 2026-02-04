@@ -1,13 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+
+import { RecaptchaFormsModule, RecaptchaModule, RecaptchaComponent } from 'ng-recaptcha';
+
 import emailjs from '@emailjs/browser';
 import { environment } from '../../../../environments/environment';
 
@@ -16,15 +19,14 @@ import { environment } from '../../../../environments/environment';
   standalone: true,
   imports: [
     CommonModule,
-    NgOptimizedImage,
     MatIconModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    RecaptchaModule,
-    RecaptchaFormsModule,
+    RecaptchaModule,      
+    RecaptchaFormsModule, 
   ],
   templateUrl: './ouvidoria.component.html',
   styleUrls: ['./ouvidoria.component.scss'],
@@ -34,18 +36,15 @@ export class OuvidoriaComponent implements OnInit {
   private meta = inject(Meta);
   private fb = inject(FormBuilder);
 
+  @ViewChild(RecaptchaComponent) recaptchaCmp?: RecaptchaComponent;
+
   form: FormGroup;
   loading = false;
-
   feedbackMsg = '';
   isSuccess = false;
 
-  siteKey = environment.recaptcha.siteKey;
-
   private readonly serviceID = environment.emailjs.serviceID;
-
-  private readonly templateID = 'template_hir47k6';
-
+  private readonly templateID = environment.emailjs.templateIDouvidoria; // <--- USANDO A NOVA CHAVE
   private readonly publicKey = environment.emailjs.publicKey;
 
   constructor() {
@@ -67,8 +66,6 @@ export class OuvidoriaComponent implements OnInit {
   }
 
   resolved(token: string | null) {
-    this.form.get('recaptcha')?.setValue(token);
-    this.form.get('recaptcha')?.markAsTouched();
   }
 
   async onSubmit() {
@@ -83,31 +80,33 @@ export class OuvidoriaComponent implements OnInit {
       from_email: this.form.value.email,
       subject: this.form.value.assunto,
       message: this.form.value.mensagem,
-
       'g-recaptcha-response': this.form.value.recaptcha,
-
       origin: 'Ouvidoria Institucional',
     };
 
     try {
-      const res = await emailjs.send(this.serviceID, this.templateID, templateParams, this.publicKey);
+      const res = await emailjs.send(
+        this.serviceID, 
+        this.templateID, // Usa o template_hir47k6 definido acima
+        templateParams, 
+        this.publicKey
+      );
 
-      if (res?.status === 200) {
+      if (res.status === 200) {
         this.isSuccess = true;
-        this.feedbackMsg =
-          '✅ Obrigado! Sua manifestação foi enviada com sucesso. Nossa equipe analisará e, se necessário, entraremos em contato.';
+        this.feedbackMsg = '✅ Obrigado! Sua manifestação foi enviada com sucesso. Nossa equipe analisará e, se necessário, entraremos em contato.';
+        
         this.form.reset();
-        this.form.get('recaptcha')?.setValue('');
+        this.recaptchaCmp?.reset(); 
       } else {
-        this.isSuccess = false;
-        this.feedbackMsg =
-          'Não foi possível enviar sua manifestação no momento. Tente novamente mais tarde.';
+        throw new Error('Erro no status do envio');
       }
     } catch (error) {
       console.error('Erro ao enviar ouvidoria:', error);
       this.isSuccess = false;
-      this.feedbackMsg =
-        'Não foi possível enviar sua manifestação no momento. Por favor, tente novamente mais tarde.';
+      this.feedbackMsg = 'Não foi possível enviar sua manifestação no momento. Por favor, tente novamente mais tarde.';
+      
+      this.recaptchaCmp?.reset(); 
     } finally {
       this.loading = false;
     }

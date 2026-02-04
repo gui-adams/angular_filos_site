@@ -1,0 +1,223 @@
+// subscription-modal.component.scss
+
+// Variáveis
+$color-primary: #0c2d62; // Azul Filos
+$color-whatsapp: #25d366;
+$bg-whatsapp: #0c2d62; // Fundo do card do Whats (igual UDF)
+$radius-default: 8px;
+
+// Container principal do Dialog
+:host {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  max-width: 100vw; // Garante que não estoure a largura no mobile
+}
+
+// Botão Fechar (Posicionado de forma absoluta no topo do container do dialog)
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  z-index: 10;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  mat-icon {
+    font-size: 24px;
+  }
+
+  &:hover {
+    color: $color-primary;
+    background-color: rgba(0,0,0,0.05);
+    border-radius: 50%;
+  }
+}
+
+// Cabeçalho (Fixo ou parte do scroll, aqui deixei fora do content para ficar fixo se quiser)
+.header-section {
+  text-align: center;
+  padding: 20px 20px 5px 20px;
+
+  h2 {
+    color: $color-primary;
+    font-weight: 800;
+    font-size: 1.5rem;
+    margin: 0 0 5px 0;
+    line-height: 1.2;
+  }
+
+  p.subtitle {
+    color: #555;
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.4;
+  }
+}
+
+// Área Rolável (Crucial para Mobile)
+.scrollable-content {
+  max-height: 75vh; // Limita altura para garantir que caiba na tela
+  padding: 10px 20px 20px 20px;
+  
+  // Customização da scrollbar (opcional)
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 4px;
+  }
+}
+
+// Card do WhatsApp
+.whatsapp-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $bg-whatsapp;
+  color: white;
+  padding: 12px 15px;
+  border-radius: $radius-default;
+  text-decoration: none;
+  margin: 15px 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  .wa-icon-box mat-icon {
+    color: $color-whatsapp;
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .wa-text {
+    flex: 1;
+    padding-left: 12px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    .wa-label { font-size: 0.7rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.5px; }
+    .wa-title { font-weight: 700; font-size: 1.1rem; }
+  }
+
+  .wa-arrow mat-icon { font-size: 20px; opacity: 0.8; }
+}
+
+// Divisor "OU"
+.divider {
+  display: flex;
+  align-items: center;
+  color: $color-primary;
+  margin: 15px 0;
+  font-weight: 500;
+  font-size: 0.85rem;
+
+  &::before, &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  span { padding: 0 10px; }
+}
+
+.form-instruction {
+  text-align: center;
+  color: #444;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+// Ajustes de Campos do Material
+.custom-field {
+  width: 100%;
+  margin-bottom: 0px; // Remove margem extra padrão
+  font-size: 0.9rem;
+}
+
+// Texto Legal
+.legal-text {
+  font-size: 0.7rem;
+  color: #777;
+  text-align: justify;
+  line-height: 1.3;
+  margin: 10px 0 15px 0;
+  
+  a { color: #555; text-decoration: underline; }
+}
+
+// Recaptcha Container
+.recaptcha-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  transform-origin: center;
+  
+  // No mobile, diminui um pouco o recaptcha para não quebrar layout
+  transform: scale(0.85); 
+}
+
+// Botão Enviar
+.btn-submit {
+  width: 100%;
+  background-color: $color-primary;
+  color: white;
+  border-radius: 25px;
+  padding: 22px 0; // Altura boa para toque
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+// Mensagens de Feedback
+.feedback {
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.85rem;
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 10px;
+
+  &.success { background: #dcfce7; color: #166534; }
+  &.error { background: #fee2e2; color: #991b1b; }
+}
+
+// ==========================================
+// RESPONSIVIDADE (Mobile Ajustes Finos)
+// ==========================================
+@media (max-width: 480px) {
+  .header-section {
+    padding-top: 30px; // Espaço para não ficar colado no topo
+    h2 { font-size: 1.25rem; }
+    p.subtitle { font-size: 0.8rem; }
+  }
+
+  .close-btn {
+    top: 5px;
+    right: 5px;
+    padding: 10px; // Aumenta área de toque
+  }
+
+  .scrollable-content {
+    padding: 0 15px 15px 15px;
+    max-height: 70vh; // Aumenta chance de scroll em telas pequenas horizontais
+  }
+
+  .recaptcha-container {
+    transform: scale(0.77); // Reduz mais no mobile estreito
+    margin: 10px 0;
+  }
+}
