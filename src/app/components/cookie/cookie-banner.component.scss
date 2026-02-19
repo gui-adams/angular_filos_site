@@ -4,101 +4,123 @@
     left: 0;
     width: 100%;
     background: #ffffff;
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
-    z-index: 99999;
-    padding: 15px;
-    border-top: 4px solid #092662;
-    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+    z-index: 100000; // Garantir que fica sobre o footer
+    padding: 20px;
+    border-top: 5px solid #092662; // Azul oficial da Faculdade Filos
+    box-sizing: border-box;
+    animation: slideInUp 0.4s ease-out;
 }
 
 .cookie-wrapper {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    flex-direction: column; // Padrão mobile: empilhado
+    gap: 20px;
 
     @media (min-width: 992px) {
-        flex-direction: row;
+        flex-direction: row; // Desktop: lado a lado
         align-items: center;
         justify-content: space-between;
-        padding: 10px 20px;
     }
 }
 
 .cookie-info {
     display: flex;
-    align-items: center;
-    gap: 15px;
+    gap: 12px;
+    align-items: flex-start;
 
     .material-icons {
         color: #092662;
-        font-size: 35px;
+        font-size: 28px;
 
-        @media (max-width: 576px) {
-            display: none;
+        @media (max-width: 400px) {
+            display: none; // Remove ícone em telas muito pequenas para dar espaço ao texto
         }
     }
 
     .text-container {
         h3 {
-            margin: 0 0 4px 0;
+            margin: 0 0 6px 0;
             font-size: 16px;
-            color: #092662;
+            color: #333;
             font-weight: 700;
         }
 
         p {
             margin: 0;
             font-size: 13px;
-            color: #555;
-            line-height: 1.4;
+            color: #666;
+            line-height: 1.5;
         }
     }
 }
 
 .cookie-buttons {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; // Botões um em cima do outro no mobile
     gap: 10px;
-    width: 100%;
 
-    @media (min-width: 576px) {
-        flex-direction: row;
-        width: auto;
+    @media (min-width: 480px) {
+        flex-direction: row; // Botões lado a lado em tablets/celulares grandes
+        justify-content: flex-end;
     }
 
     button {
         cursor: pointer;
-        padding: 12px 25px;
-        border-radius: 6px;
-        font-weight: 500;
+        padding: 14px 20px;
+        border-radius: 8px;
         font-size: 14px;
+        font-weight: 600;
+        transition: all 0.2s ease;
         border: none;
-        transition: all 0.3s ease;
-        width: 100%;
+        width: 100%; // Largura total no mobile
 
-        @media (min-width: 576px) {
-            width: auto;
+        @media (min-width: 480px) {
+            width: auto; // Largura automática no desktop
         }
     }
 
     .btn-minimal {
-        background: #f0f0f0;
-        color: #444;
+        background: #f4f4f4;
+        color: #555;
+        order: 2; // No mobile, o recusar fica embaixo
+
+        @media (min-width: 480px) {
+            order: 1; // No desktop, o recusar fica à esquerda
+        }
 
         &:hover {
-            background: #e0e0e0;
+            background: #e8e8e8;
         }
     }
 
     .btn-primary {
         background: #092662;
         color: #ffffff;
+        order: 1;
+
+        @media (min-width: 480px) {
+            order: 2;
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
 
         &:hover {
             background: #061a44;
-            transform: translateY(-2px);
         }
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
     }
 }
