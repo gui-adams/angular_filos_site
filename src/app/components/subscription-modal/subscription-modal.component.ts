@@ -34,7 +34,7 @@ import { environment } from '../../../environments/environment';
     </button>
 
     <div class="header-section">
-      <h2>Quero me cadastrar!</h2>
+      <h2>Vem ser Filos!</h2>
       <p class="subtitle">
         Eu quero receber informações exclusivas da <strong>Faculdade Filos</strong>
       </p>

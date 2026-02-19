@@ -1,0 +1,18 @@
+<div class="cookie-overlay" *ngIf="mostrarBanner">
+  <div class="cookie-wrapper">
+    <div class="cookie-info">
+      <span class="material-icons">cookie</span>
+      <div class="text-container">
+        <h3>Privacidade na Faculdade Filos</h3>
+        <p>
+          Utilizamos cookies para melhorar sua experiência e analisar o tráfego do nosso portal. 
+          Ao clicar em "Aceitar Todos", você concorda com o uso de tecnologias de rastreamento de acordo com a LGPD.
+        </p>
+      </div>
+    </div>
+    <div class="cookie-buttons">
+      <button class="btn-minimal" (click)="recusarTodos()">Apenas Essenciais</button>
+      <button class="btn-primary" (click)="aceitarTodos()">Aceitar Todos</button>
+    </div>
+  </div>
+</div>

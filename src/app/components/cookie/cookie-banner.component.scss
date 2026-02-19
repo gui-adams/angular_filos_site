@@ -1,0 +1,104 @@
+.cookie-overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+    z-index: 99999;
+    padding: 15px;
+    border-top: 4px solid #092662;
+    font-family: 'Roboto', sans-serif;
+}
+
+.cookie-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    @media (min-width: 992px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+    }
+}
+
+.cookie-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .material-icons {
+        color: #092662;
+        font-size: 35px;
+
+        @media (max-width: 576px) {
+            display: none;
+        }
+    }
+
+    .text-container {
+        h3 {
+            margin: 0 0 4px 0;
+            font-size: 16px;
+            color: #092662;
+            font-weight: 700;
+        }
+
+        p {
+            margin: 0;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.4;
+        }
+    }
+}
+
+.cookie-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+
+    @media (min-width: 576px) {
+        flex-direction: row;
+        width: auto;
+    }
+
+    button {
+        cursor: pointer;
+        padding: 12px 25px;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 14px;
+        border: none;
+        transition: all 0.3s ease;
+        width: 100%;
+
+        @media (min-width: 576px) {
+            width: auto;
+        }
+    }
+
+    .btn-minimal {
+        background: #f0f0f0;
+        color: #444;
+
+        &:hover {
+            background: #e0e0e0;
+        }
+    }
+
+    .btn-primary {
+        background: #092662;
+        color: #ffffff;
+
+        &:hover {
+            background: #061a44;
+            transform: translateY(-2px);
+        }
+    }
+}

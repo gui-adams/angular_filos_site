@@ -7,11 +7,11 @@ import { NgcCookieConsentService, NgcStatusChangeEvent } from 'ngx-cookieconsent
 
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-
+import { CookieBannerComponent } from './components/cookie/app-cookie-banner';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, CookieBannerComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit, OnDestroy {
