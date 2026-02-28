@@ -3,6 +3,9 @@ import { RouterLink } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 
+import { COURSES } from '../../../components/courses/courses.data';
+import { Course } from '../../../components/courses/courses.model';
+
 @Component({
   selector: 'app-pedagogia',
   standalone: true,
@@ -14,13 +17,20 @@ export class PedagogiaComponent {
   private title = inject(Title);
   private meta = inject(Meta);
 
-  heroImg = 'assets/cursos/pedagogia.webp';
+  readonly course: Course | undefined = COURSES.find((c) => c.id === 'ped');
+
+  get heroImg(): string {
+    return this.course?.imageSrc ?? 'assets/cursos/placeholder.webp';
+  }
 
   constructor() {
-    this.title.setTitle('Curso de Pedagogia | Faculdade Filos');
+    const courseTitle = this.course?.title ?? 'Pedagogia';
+
+    this.title.setTitle(`Curso de ${courseTitle} | Faculdade Filos`);
     this.meta.updateTag({
       name: 'description',
-      content: 'Formar educadores comprometidos com a transformação social, a valorização da educação e a promoção da cidadania.',
+      content:
+        'Formar educadores comprometidos com a transformação social, a valorização da educação e a promoção da cidadania.',
     });
   }
 }

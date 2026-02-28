@@ -1,9 +1,11 @@
 <section class="hero">
   <div class="heroContent">
-    <span class="kicker">Graduação</span>
-
-    <h1 class="title">Tecnólogo em Radiologia</h1>
-
+    <span class="kicker">
+      {{ course?.level === 'graduacao' ? 'Graduação' : course?.level }}
+    </span>
+    <h1 class="title">
+      {{ course?.title ?? 'Radiologia' }}
+    </h1>
     <p class="lead">
       Formar profissionais capacitados para atuar de maneira ética e segura na realização de exames e procedimentos radiológicos, contribuindo para a promoção da saúde.
     </p>
@@ -28,14 +30,13 @@
   </div>
 
   <div class="heroMedia" aria-hidden="true">
-    <img
+   <img
       [ngSrc]="heroImg"
-      width="520"
-      height="360"
+      width="700"
+      height="700"
       priority
-      alt="Curso de Tecnólogo em Radiologia"
+      [alt]="'Curso de ' + (course?.title ?? 'Radiologia')"
       class="heroImg"
-      sizes="(max-width: 900px) 95vw, 50vw"
     />
   </div>
 </section>

@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { COURSES } from './courses.data';
 import { Course, CourseLevel } from './courses.model';
-// 1. Importe o serviço
 import { SubscriptionService } from '../../services/subscription.service'; 
 
 @Component({

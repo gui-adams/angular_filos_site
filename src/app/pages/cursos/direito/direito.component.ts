@@ -3,6 +3,9 @@ import { RouterLink } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 
+import { COURSES } from '../../../components/courses/courses.data';
+import { Course } from '../../../components/courses/courses.model';
+
 @Component({
   selector: 'app-direito',
   standalone: true,
@@ -14,15 +17,20 @@ export class DireitoComponent {
   private title = inject(Title);
   private meta = inject(Meta);
 
-  // Caminho da imagem otimizada no servidor
-  heroImg = 'assets/cursos/direito.webp';
+  readonly course: Course | undefined = COURSES.find((c) => c.id === 'dir'); // 👈 ajuste o id conforme seu COURSES
+
+  get heroImg(): string {
+    return this.course?.imageSrc ?? 'assets/cursos/placeholder.webp';
+  }
 
   constructor() {
-    // Configuração de SEO amigável para SSR (Server-Side Rendering)
-    this.title.setTitle('Curso de Direito | Faculdade Filos');
+    const courseTitle = this.course?.title ?? 'Direito';
+
+    this.title.setTitle(`Curso de ${courseTitle} | Faculdade Filos`);
     this.meta.updateTag({
       name: 'description',
-      content: 'Formar profissionais éticos, críticos e comprometidos com a promoção da justiça e da cidadania.',
+      content:
+        'Formar profissionais éticos, críticos e comprometidos com a promoção da justiça e da cidadania.',
     });
   }
 }

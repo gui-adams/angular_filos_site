@@ -1,8 +1,9 @@
 <section class="hero">
   <div class="heroContent">
-    <span class="kicker">Graduação</span>
-
-    <h1 class="title">Direito</h1>
+    <span class="kicker">
+      {{ course?.level === 'graduacao' ? 'Graduação' : course?.level }}
+    </span>
+    <h1 class="title">{{ course?.title ?? 'Direito' }}</h1>
 
     <p class="lead">
       Formar profissionais éticos, críticos e comprometidos com a promoção da justiça e da cidadania,
@@ -29,15 +30,14 @@
   </div>
 
   <div class="heroMedia" aria-hidden="true">
-    <img
-      [ngSrc]="heroImg"
-      width="520"
-      height="360"
-      priority
-      alt="Curso de Direito"
-      class="heroImg"
-      sizes="(max-width: 900px) 95vw, 50vw"
-    />
+<img
+  [ngSrc]="heroImg"
+  width="700"
+  height="700"
+  priority
+  [alt]="'Curso de ' + (course?.title ?? 'Direito')"
+  class="heroImg"
+/>
   </div>
 </section>
 

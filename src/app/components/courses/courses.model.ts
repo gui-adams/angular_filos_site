@@ -15,6 +15,7 @@ export interface Course {
   level: CourseLevel;
   type: CourseType;
   modality: CourseModality;
+  imageFront: string;
   imageSrc: string;
   applyHref: string;
   learnHref: string;

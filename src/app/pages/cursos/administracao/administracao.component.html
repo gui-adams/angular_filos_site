@@ -1,8 +1,10 @@
 <section class="hero">
   <div class="heroContent">
-    <span class="kicker">Graduação</span>
+      <span class="kicker">
+      {{ course?.level === 'graduacao' ? 'Graduação' : course?.level }}
+    </span>
 
-    <h1 class="title">Administração</h1>
+    <h1 class="title">{{ course?.title ?? 'Administração' }}</h1>
 
     <p class="lead">
       Formação de profissionais capazes de atuar de maneira estratégica, ética e inovadora na gestão de
@@ -29,15 +31,14 @@
   </div>
 
   <div class="heroMedia" aria-hidden="true">
-    <img
-      [ngSrc]="heroImg"
-      width="520"
-      height="360"
-      priority
-      alt="Curso de Administração"
-      class="heroImg"
-      sizes="(max-width: 900px) 95vw, 50vw"
-    />
+   <img
+  [ngSrc]="heroImg"
+  width="520"
+  height="360"
+  priority
+  [alt]="'Curso de ' + course.title"
+  class="heroImg"
+/>
   </div>
 </section>
 
