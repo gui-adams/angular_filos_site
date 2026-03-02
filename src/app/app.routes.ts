@@ -37,7 +37,17 @@ export const routes: Routes = [
         (m) => m.RadiologiaComponent
       ),
   },
+  {
+    path: 'faculdade-ads-aguas-lindas-go',
+    loadComponent: () =>
+        import('./pages/cursos/ads/lead-ads-lp.component').then(m => m.LeadAdsLpComponent),
+    },
 
+    // aliases (sinônimos) -> apontam para a canonical
+    { path: 'cursos/ti', redirectTo: 'faculdade-ads-aguas-lindas-go', pathMatch: 'full' },
+    { path: 'faculdade-ti-aguas-lindas-go', redirectTo: 'faculdade-ads-aguas-lindas-go', pathMatch: 'full' },
+    { path: 'curso-ti-aguas-lindas', redirectTo: 'faculdade-ads-aguas-lindas-go', pathMatch: 'full' },
+    
   // --- INSTITUCIONAL ---
   {
     path: 'institucional/cpa',
