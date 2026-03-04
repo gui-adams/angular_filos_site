@@ -9,7 +9,6 @@ import {
   RECAPTCHA_SETTINGS,
   RecaptchaSettings
 } from 'ng-recaptcha';
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-lead-ads-lp',
@@ -19,7 +18,7 @@ import { environment } from '../../../../environments/environment';
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {
-        siteKey: environment.recaptcha.siteKey,
+        siteKey: '6Le85H8sAAAAAOW-TQer2TAV8bDavtGnBjydN-S6',
       } as RecaptchaSettings,
     },
   ],
