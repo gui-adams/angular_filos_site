@@ -69,18 +69,19 @@ export const COURSES: Course[] = [
     content: {
       lead:
         'Formar profissionais capazes de atuar de forma estratégica na gestão de organizações públicas e privadas.',
-      coordinator: 'Coordenação do Curso de Administração',
-      matrixUrl: 'https://drive.google.com/',
+      coordinator: 'Professor José Dias',
+      matrixUrl: 'https://drive.google.com/file/d/1e7fJ_wK2NL96lDHu6J3L945j6qVelp3-/view',
       sections: {
         objetivos: [
-          'Desenvolver competências em gestão e liderança.',
-          'Preparar profissionais para atuar em empresas públicas e privadas.',
-          'Estimular visão estratégica e empreendedora.',
+          'Proporcionar uma formação sólida em gestão, liderança e tomada de decisão.',
+          'Desenvolver competências para planejar, organizar e dirigir processos.',
+          'Preparar profissionais para os desafios do mercado globalizado.',
+          'Estimular o empreendedorismo e a inovação.',
         ],
         estrutura: [
-          'Administração Financeira',
-          'Gestão de Pessoas',
-          'Marketing e Estratégia',
+          'Formação Básica: Economia, Contabilidade e Matemática.',
+          'Formação Profissional: Gestão de Pessoas, Marketing e Finanças.',
+          'Prática: Projetos integradores e estágios supervisionados.',
           'Empreendedorismo',
         ],
         diferenciais: [
@@ -109,7 +110,7 @@ export const COURSES: Course[] = [
       lead:
         'Formar profissionais éticos e críticos preparados para atuar nas diversas áreas do Direito.',
       coordinator: 'Professor Alef Guerra',
-      matrixUrl: 'https://drive.google.com/',
+      matrixUrl: 'https://drive.google.com/file/d/1uUE9CH9VdhcdiiaE6fSjqUp8HP63SxBO/view',
       sections: {
         objetivos: [
           'Formação jurídica sólida com visão crítica.',
@@ -147,7 +148,7 @@ export const COURSES: Course[] = [
       lead:
         'Formação de educadores preparados para atuar na educação básica e na gestão educacional.',
       coordinator: 'Coordenação de Pedagogia',
-      matrixUrl: 'https://drive.google.com/',
+      matrixUrl: 'https://drive.google.com/file/d/1YSCgVNylFvMcCxdPEw68ecNcEHLpry9r/view',
       sections: {
         objetivos: [
           'Formar profissionais comprometidos com a educação.',
@@ -171,7 +172,7 @@ export const COURSES: Course[] = [
       lead:
         'Formação tecnológica voltada para diagnóstico por imagem e práticas laboratoriais.',
       coordinator: 'Coordenação de Radiologia',
-      matrixUrl: 'https://drive.google.com/',
+      matrixUrl: 'https://faculdadefilos.edu.br/cursos/radiologia',
     },
   }),
 
@@ -197,7 +198,7 @@ export const COURSES: Course[] = [
     title: 'Direito Imobiliário e Regularização Fundiária',
     level: 'pos',
     type: 'Especialização',
-    modality: 'EAD',
+    modality: 'Presencial',
     imageFront: 'assets/cursos/modal/pos-direito-imobiliario.png',
     imageSrc: 'assets/cursos/rota/pos-direito-imobiliario.png',
     applyHref: '/admissions?curso=direito-imobiliario',
@@ -214,7 +215,7 @@ export const COURSES: Course[] = [
     title: 'Gestão de Operações',
     level: 'pos',
     type: 'Especialização',
-    modality: 'EAD',
+    modality: 'Presencial',
     imageFront: 'assets/cursos/modal/pos-gestao-operacoes.png',
     imageSrc: 'assets/cursos/rota/pos-gestao-operacoes.png',
     applyHref: '/admissions?curso=gestao-operacoes',
@@ -231,7 +232,7 @@ export const COURSES: Course[] = [
     title: 'Inteligência Artificial Aplicada aos Negócios',
     level: 'pos',
     type: 'Especialização',
-    modality: 'EAD',
+    modality: 'Presencial',
     imageFront: 'assets/cursos/modal/pos-ia-negocios.png',
     imageSrc: 'assets/cursos/rota/pos-ia-negocios.png',
     applyHref: '/admissions?curso=ia-negocios',
