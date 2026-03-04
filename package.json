@@ -7,11 +7,8 @@
     "start": "ng serve",
 
     "seo:gen": "node tools/generate-seo-files.mjs",
-
     "build": "npm run seo:gen && ng build",
-
     "build:prod": "npm run seo:gen && ng build --configuration production",
-
     "watch": "ng build --watch --configuration development",
 
     "test": "ng test",
