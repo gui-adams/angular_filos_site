@@ -4,10 +4,25 @@ import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Meta, Title } from '@angular/platform-browser';
 
+import {
+  RecaptchaModule,
+  RECAPTCHA_SETTINGS,
+  RecaptchaSettings
+} from 'ng-recaptcha';
+import { environment } from '../../../../environments/environment';
+
 @Component({
   selector: 'app-lead-ads-lp',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, RecaptchaModule],
+  providers: [
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: environment.recaptcha.siteKey,
+      } as RecaptchaSettings,
+    },
+  ],
   template: `
   <div class="page">
     <header class="hero">
@@ -20,7 +35,6 @@ import { Meta, Title } from '@angular/platform-browser';
         Cadastre-se para receber informações sobre modalidade, turno, valores e previsão de início.
       </p>
 
-      <!-- SEO content (texto escaneável com keywords locais) -->
       <div class="seoBlock" aria-label="Conteúdo informativo">
         <h2>Por que fazer ADS em Águas Lindas?</h2>
         <p>
@@ -103,6 +117,12 @@ import { Meta, Title } from '@angular/platform-browser';
           </label>
           <small *ngIf="showError('consent')">Você precisa aceitar para enviar.</small>
 
+          <!-- ✅ reCAPTCHA v2 checkbox -->
+          <div class="captcha">
+            <re-captcha (resolved)="onCaptchaResolved($event)"></re-captcha>
+            <small *ngIf="showError('recaptcha')">Confirme o reCAPTCHA.</small>
+          </div>
+
           <button class="cta" type="submit" [disabled]="loading">
             {{ loading ? 'Enviando...' : 'Quero receber informações' }}
           </button>
@@ -183,6 +203,7 @@ import { Meta, Title } from '@angular/platform-browser';
     small { color:#dc2626; }
     .check { display:flex; align-items:center; gap:10px; margin-top: 4px; }
     .check input { width: 18px; height: 18px; }
+    .captcha { margin-top: 6px; }
     .cta { margin-top: 4px; padding: 12px 14px; border:0; border-radius: 14px; background:#1d4ed8; color:white; font-weight: 700; cursor:pointer; }
     .cta:disabled { opacity:.65; cursor:not-allowed; }
     .privacy { color:#64748b; font-size: 12px; margin: 0; }
@@ -205,9 +226,9 @@ export class LeadAdsLpComponent implements OnInit {
   errorMsg = '';
   form: any;
 
-  private endpoint = 'https://SEU-ENDPOINT-AQUI/lead';
+  // ✅ seu endpoint pelo Nginx
+  private endpoint = 'https://faculdadefilos.edu.br/api/leads';
 
-  // ajuste para o seu domínio real
   private canonicalUrl = 'https://faculdadefilos.edu.br/faculdade-ads-aguas-lindas-go';
 
   constructor(
@@ -224,125 +245,56 @@ export class LeadAdsLpComponent implements OnInit {
       mode: ['Presencial', Validators.required],
       start: ['Imediato', Validators.required],
       consent: [false, Validators.requiredTrue],
+
+      // ✅ token recaptcha
+      recaptcha: [null, Validators.required],
     });
   }
 
-ngOnInit(): void {
-  const pageTitle = 'Faculdade de ADS em Águas Lindas (GO) | TI, Software e Games';
-  const description =
-    'Faculdade de Análise e Desenvolvimento de Sistemas (ADS) em Águas Lindas (GO). TI, tecnologia, informática, programação, desenvolvimento de software e games. Cadastre-se e receba informações.';
-  const canonical = 'https://SEU-DOMINIO.com/faculdade-ads-aguas-lindas-go';
+  ngOnInit(): void {
+    const pageTitle = 'Faculdade de ADS em Águas Lindas (GO) | TI, Software e Games';
+    const description =
+      'Faculdade de Análise e Desenvolvimento de Sistemas (ADS) em Águas Lindas (GO). TI, tecnologia, informática, programação, desenvolvimento de software e games. Cadastre-se e receba informações.';
+    const canonical = this.canonicalUrl;
 
-  // termos/keywords (variações locais)
-  const keywords = [
-    'TI em Águas Lindas',
-    'tecnologia em Águas Lindas',
-    'informática em Águas Lindas',
-    'faculdade de TI em Águas Lindas',
-    'Análise e Desenvolvimento de Sistemas Águas Lindas',
-    'ADS Águas Lindas GO',
-    'curso de programação Águas Lindas',
-    'desenvolvimento de software Águas Lindas',
-    'curso de informática Águas Lindas',
-    'desenvolvimento de sistemas',
-    'programação',
-    'desenvolvimento web',
-    'aplicativos',
-    'banco de dados',
-    'games',
-    'desenvolvimento de jogos'
-  ].join(', ');
+    const keywords = [
+      'TI em Águas Lindas',
+      'tecnologia em Águas Lindas',
+      'informática em Águas Lindas',
+      'faculdade de TI em Águas Lindas',
+      'Análise e Desenvolvimento de Sistemas Águas Lindas',
+      'ADS Águas Lindas GO',
+      'curso de programação Águas Lindas',
+      'desenvolvimento de software Águas Lindas',
+      'curso de informática Águas Lindas',
+      'desenvolvimento de sistemas',
+      'programação',
+      'desenvolvimento web',
+      'aplicativos',
+      'banco de dados',
+      'games',
+      'desenvolvimento de jogos'
+    ].join(', ');
 
-  // ✅ Title
-  this.title.setTitle(pageTitle);
+    this.title.setTitle(pageTitle);
+    this.meta.updateTag({ name: 'description', content: description });
+    this.meta.updateTag({ name: 'keywords', content: keywords });
+    this.meta.updateTag({ name: 'robots', content: 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' });
+    this.meta.updateTag({ name: 'viewport', content: 'width=device-width, initial-scale=1' });
 
-  // ✅ Básicas
-  this.meta.updateTag({ name: 'description', content: description });
-  this.meta.updateTag({ name: 'keywords', content: keywords });
-  this.meta.updateTag({ name: 'robots', content: 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' });
-  this.meta.updateTag({ name: 'viewport', content: 'width=device-width, initial-scale=1' });
+    this.meta.updateTag({ property: 'og:title', content: pageTitle });
+    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({ property: 'og:type', content: 'website' });
+    this.meta.updateTag({ property: 'og:url', content: canonical });
+    this.meta.updateTag({ property: 'og:locale', content: 'pt_BR' });
+    this.meta.updateTag({ property: 'og:site_name', content: 'Colégio e Faculdade Filos' });
 
-  // ✅ UX / browser
-  this.meta.updateTag({ name: 'theme-color', content: '#1d4ed8' });
-  this.meta.updateTag({ name: 'color-scheme', content: 'light' });
+    this.setCanonical(canonical);
+  }
 
-  // ✅ "Assunto" (ajuda em alguns crawlers/compartilhamento)
-  this.meta.updateTag({ name: 'author', content: 'Colégio e Faculdade Filos' });
-  this.meta.updateTag({ name: 'publisher', content: 'Colégio e Faculdade Filos' });
-  this.meta.updateTag({ name: 'category', content: 'Educação' });
-  this.meta.updateTag({ name: 'subject', content: 'Faculdade de TI, ADS, Desenvolvimento de Software, Games' });
-
-  // ✅ Open Graph
-  this.meta.updateTag({ property: 'og:title', content: pageTitle });
-  this.meta.updateTag({ property: 'og:description', content: description });
-  this.meta.updateTag({ property: 'og:type', content: 'website' });
-  this.meta.updateTag({ property: 'og:url', content: canonical });
-  this.meta.updateTag({ property: 'og:locale', content: 'pt_BR' });
-  this.meta.updateTag({ property: 'og:site_name', content: 'Colégio e Faculdade Filos' });
-
-  // Se tiver uma imagem (recomendado)
-  // this.meta.updateTag({ property: 'og:image', content: 'https://SEU-DOMINIO.com/assets/og/ads-aguas-lindas.jpg' });
-  // this.meta.updateTag({ property: 'og:image:width', content: '1200' });
-  // this.meta.updateTag({ property: 'og:image:height', content: '630' });
-
-  // ✅ Twitter
-  this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
-  this.meta.updateTag({ name: 'twitter:title', content: pageTitle });
-  this.meta.updateTag({ name: 'twitter:description', content: description });
-  // this.meta.updateTag({ name: 'twitter:image', content: 'https://SEU-DOMINIO.com/assets/og/ads-aguas-lindas.jpg' });
-
-  // ✅ Canonical
-  this.setCanonical(canonical);
-
-  // ✅ Opcional: alternate (se tiver versões)
-  // this.setAlternate('pt-BR', canonical);
-
-  // ✅ Geo (não “garante” ranking, mas é ok ter)
-  this.meta.updateTag({ name: 'geo.region', content: 'BR-GO' });
-  this.meta.updateTag({ name: 'geo.placename', content: 'Águas Lindas' });
-
-  // ✅ Schema JSON-LD (mais rico)
-  this.injectJsonLd({
-    "@context": "https://schema.org",
-    "@type": "EducationalOccupationalProgram",
-    "name": "Análise e Desenvolvimento de Sistemas (ADS)",
-    "description": "Faculdade de ADS em Águas Lindas (GO) com foco em TI, programação, desenvolvimento de software, projetos práticos e games.",
-    "provider": {
-      "@type": "CollegeOrUniversity",
-      "name": "Colégio e Faculdade Filos",
-      "url": "https://SEU-DOMINIO.com"
-    },
-    "educationalProgramMode": "Presencial/Semipresencial",
-    "areaServed": {
-      "@type": "City",
-      "name": "Águas Lindas",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Águas Lindas",
-        "addressRegion": "GO",
-        "addressCountry": "BR"
-      }
-    },
-    "teaches": [
-      "Programação",
-      "Desenvolvimento de Sistemas",
-      "Desenvolvimento Web",
-      "Banco de Dados",
-      "Desenvolvimento de Software",
-      "Desenvolvimento de Jogos"
-    ],
-    "occupationalCategory": "Software Developer",
-    "keywords": keywords,
-    "url": canonical,
-    "about": [
-      { "@type": "Thing", "name": "TI em Águas Lindas" },
-      { "@type": "Thing", "name": "Tecnologia em Águas Lindas" },
-      { "@type": "Thing", "name": "Informática em Águas Lindas" },
-      { "@type": "Thing", "name": "Desenvolvimento de Software" },
-      { "@type": "Thing", "name": "Games" }
-    ]
-  });
-}
+  onCaptchaResolved(token: string | null) {
+    this.form.patchValue({ recaptcha: token });
+  }
 
   private setCanonical(url: string) {
     let link: HTMLLinkElement | null = this.doc.querySelector('link[rel="canonical"]');
@@ -352,18 +304,6 @@ ngOnInit(): void {
       this.doc.head.appendChild(link);
     }
     link.setAttribute('href', url);
-  }
-
-  private injectJsonLd(schema: Record<string, any>) {
-    const id = 'jsonld-ads-aguas-lindas';
-    const existing = this.doc.getElementById(id);
-    if (existing) existing.remove();
-
-    const script = this.doc.createElement('script');
-    script.type = 'application/ld+json';
-    script.id = id;
-    script.text = JSON.stringify(schema);
-    this.doc.head.appendChild(script);
   }
 
   showError(controlName: string) {
@@ -379,12 +319,20 @@ ngOnInit(): void {
     }
 
     this.loading = true;
+
     const payload = {
-      ...this.form.value,
-      createdAt: new Date().toISOString(),
-      city: 'Águas Lindas (GO)',
-      course: 'Análise e Desenvolvimento de Sistemas (ADS)',
-      source: 'landing-page'
+      nome: (this.form.value.name || '').trim(),
+      whatsapp: (this.form.value.whatsapp || '').trim(),
+      email: (this.form.value.email || '').trim(),
+
+      // ✅ agora a API aceita Semipresencial também
+      preferencia: this.form.value.mode as 'Presencial' | 'Semipresencial' | 'EAD',
+
+      inicio: this.form.value.start,
+      consentimento: !!this.form.value.consent,
+
+      // ✅ token do recaptcha v2 checkbox
+      recaptchaToken: this.form.value.recaptcha,
     };
 
     this.http.post(this.endpoint, payload).subscribe({
@@ -392,10 +340,11 @@ ngOnInit(): void {
         this.submitted = true;
         this.loading = false;
       },
-      error: () => {
+      error: (err) => {
         this.loading = false;
-        console.log('LEAD (fallback):', payload);
-        this.submitted = true;
+        this.errorMsg = 'Erro ao enviar. Verifique o reCAPTCHA e tente novamente.';
+        // opcional: resetar recaptcha
+        this.form.patchValue({ recaptcha: null });
       }
     });
   }
@@ -409,6 +358,7 @@ ngOnInit(): void {
       mode: 'Presencial',
       start: 'Imediato',
       consent: false,
+      recaptcha: null,
     });
   }
 }
