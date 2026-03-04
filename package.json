@@ -3,10 +3,19 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+
     "start": "ng serve",
-    "build": "ng build",
+
+    "seo:gen": "node tools/generate-seo-files.mjs",
+
+    "build": "npm run seo:gen && ng build",
+
+    "build:prod": "npm run seo:gen && ng build --configuration production",
+
     "watch": "ng build --watch --configuration development",
+
     "test": "ng test",
+
     "serve:ssr:filos": "node dist/filos/server/server.mjs"
   },
   "private": true,

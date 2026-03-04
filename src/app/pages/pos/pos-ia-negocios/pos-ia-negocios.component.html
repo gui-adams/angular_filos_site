@@ -1,0 +1,83 @@
+<section class="hero">
+  <div class="heroContent">
+    <span class="kicker">Pós-graduação</span>
+    <h1 class="title">{{ course?.title ?? 'Inteligência Artificial Aplicada aos Negócios' }}</h1>
+
+    <p class="lead">
+      Especialização para aplicar IA em estratégias e processos, com foco em produtividade, análise de dados e decisões orientadas por tecnologia.
+    </p>
+
+    <p class="coordinator">
+      Coordenação: <strong>Professor(a) a definir</strong>
+    </p>
+
+    <div class="actions">
+      <a
+        class="ctaPrimary"
+        href="https://wa.me/5561999061757?text=Olá! Gostaria de informações sobre a Pós em Inteligência Artificial Aplicada aos Negócios."
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Vem ser Filos
+      </a>
+
+      <a class="ctaSecondary" href="#matriz">Matriz Curricular</a>
+    </div>
+  </div>
+
+  <div class="heroMedia" aria-hidden="true">
+    <img
+      [ngSrc]="heroImg"
+      width="700"
+      height="700"
+      priority
+      [alt]="'Pós-graduação em ' + (course?.title ?? 'Inteligência Artificial Aplicada aos Negócios')"
+      class="heroImg"
+    />
+  </div>
+</section>
+
+<section class="details">
+  <div class="detailGrid">
+    <article class="detailCard">
+      <h2 class="cardTitle">Objetivos do Curso</h2>
+      <ul class="list">
+        <li>Aplicar IA para aumentar eficiência e qualidade em processos.</li>
+        <li>Entender fundamentos de dados, modelos e uso responsável.</li>
+        <li>Identificar oportunidades de automação e ganho de produtividade.</li>
+        <li>Estruturar decisões com indicadores, experimentação e resultados.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard" id="matriz">
+      <h2 class="cardTitle">Estrutura Curricular</h2>
+      <p class="cardText">Eixos sugeridos:</p>
+      <ul class="list">
+        <li><strong>Fundamentos:</strong> dados, modelos, métricas e validação.</li>
+        <li><strong>Ferramentas:</strong> automação, copilotos, IA generativa e workflows.</li>
+        <li><strong>Negócios:</strong> casos de uso, ROI, governança e risco.</li>
+        <li><strong>Projetos:</strong> aplicação prática e entrega de solução.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard">
+      <h2 class="cardTitle">Diferenciais</h2>
+      <ul class="list">
+        <li>Conteúdo aplicado ao cenário real de negócios.</li>
+        <li>Foco em produtividade, automação e tomada de decisão.</li>
+        <li>Visão de governança, ética e uso responsável de IA.</li>
+        <li>Projetos práticos e direcionamento para carreira.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard">
+      <h2 class="cardTitle">Perfil do Egresso</h2>
+      <ul class="list">
+        <li>Profissional capaz de liderar iniciativas de IA com foco em resultado.</li>
+        <li>Compreensão crítica de dados, risco e governança.</li>
+        <li>Capaz de implementar automações e melhorias com tecnologia.</li>
+        <li>Preparado para inovação e competitividade no mercado.</li>
+      </ul>
+    </article>
+  </div>
+</section>

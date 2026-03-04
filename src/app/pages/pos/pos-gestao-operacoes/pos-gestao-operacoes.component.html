@@ -1,0 +1,83 @@
+<section class="hero">
+  <div class="heroContent">
+    <span class="kicker">Pós-graduação</span>
+    <h1 class="title">{{ course?.title ?? 'Gestão de Operações' }}</h1>
+
+    <p class="lead">
+      Especialização para liderar processos, produtividade e qualidade, com foco em eficiência operacional, indicadores e tomada de decisão.
+    </p>
+
+    <p class="coordinator">
+      Coordenação: <strong>Professor(a) a definir</strong>
+    </p>
+
+    <div class="actions">
+      <a
+        class="ctaPrimary"
+        href="https://wa.me/5561999061757?text=Olá! Gostaria de informações sobre a Pós em Gestão de Operações."
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Vem ser Filos
+      </a>
+
+      <a class="ctaSecondary" href="#matriz">Matriz Curricular</a>
+    </div>
+  </div>
+
+  <div class="heroMedia" aria-hidden="true">
+    <img
+      [ngSrc]="heroImg"
+      width="700"
+      height="700"
+      priority
+      [alt]="'Pós-graduação em ' + (course?.title ?? 'Gestão de Operações')"
+      class="heroImg"
+    />
+  </div>
+</section>
+
+<section class="details">
+  <div class="detailGrid">
+    <article class="detailCard">
+      <h2 class="cardTitle">Objetivos do Curso</h2>
+      <ul class="list">
+        <li>Capacitar para gestão e melhoria contínua de processos e operações.</li>
+        <li>Aplicar métricas, KPIs e métodos de produtividade.</li>
+        <li>Gerenciar qualidade, cadeia de suprimentos e capacidade.</li>
+        <li>Tomar decisões orientadas a dados em ambientes competitivos.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard" id="matriz">
+      <h2 class="cardTitle">Estrutura Curricular</h2>
+      <p class="cardText">Eixos sugeridos:</p>
+      <ul class="list">
+        <li><strong>Processos:</strong> mapeamento, padronização, Lean e melhoria contínua.</li>
+        <li><strong>Indicadores:</strong> KPIs, dashboards e performance operacional.</li>
+        <li><strong>Qualidade:</strong> gestão da qualidade, auditorias e conformidade.</li>
+        <li><strong>Operações:</strong> supply chain, logística, capacidade e projetos.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard">
+      <h2 class="cardTitle">Diferenciais</h2>
+      <ul class="list">
+        <li>Conteúdo prático aplicável ao dia a dia do trabalho.</li>
+        <li>Foco em gestão por indicadores e produtividade.</li>
+        <li>Integração com ferramentas e metodologias atuais.</li>
+        <li>Orientação para liderança e tomada de decisão.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard">
+      <h2 class="cardTitle">Perfil do Egresso</h2>
+      <ul class="list">
+        <li>Gestor capaz de otimizar processos e reduzir desperdícios.</li>
+        <li>Profissional orientado a dados e resultados.</li>
+        <li>Habilidade para liderar times e projetos operacionais.</li>
+        <li>Visão sistêmica de operações e melhoria contínua.</li>
+      </ul>
+    </article>
+  </div>
+</section>

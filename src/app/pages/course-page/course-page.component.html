@@ -1,0 +1,92 @@
+<div class="coursePage" *ngIf="course() as c">
+  <section class="hero">
+    <div class="heroContent">
+      <span class="kicker">{{ kicker() }}</span>
+
+      <h1 class="title">{{ c.title }}</h1>
+
+      <p class="lead">{{ c.content.lead }}</p>
+
+      <p class="coordinator" *ngIf="c.content.coordinator">
+        Coordenação: <strong>{{ c.content.coordinator }}</strong>
+      </p>
+
+      <div class="actions">
+        <a class="ctaPrimary" [href]="whatsAppLink()" target="_blank" rel="noopener noreferrer">
+          Vem ser Filos
+        </a>
+
+        <a
+          *ngIf="c.content.matrixUrl"
+          class="ctaSecondary"
+          [href]="c.content.matrixUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Matriz Curricular
+        </a>
+      </div>
+
+      <div class="actionsSecondary">
+        <button
+          type="button"
+          class="btnPrimary"
+          (click)="subscriptionService.openForm(c.title)"
+        >
+          INSCREVA-SE
+          <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="heroMedia" aria-hidden="true">
+      <img
+        [ngSrc]="heroImg()"
+        width="700"
+        height="700"
+        priority
+        [alt]="'Curso de ' + c.title"
+        class="heroImg"
+      />
+    </div>
+  </section>
+
+  <section class="details">
+    <div class="detailGrid">
+      <article class="detailCard" *ngIf="c.content.sections?.objetivos?.length">
+        <h2 class="cardTitle">Objetivos do Curso</h2>
+        <ul class="list">
+          <li *ngFor="let item of c.content.sections!.objetivos">{{ item }}</li>
+        </ul>
+      </article>
+
+      <article class="detailCard" *ngIf="c.content.sections?.estrutura?.length">
+        <h2 class="cardTitle">Estrutura Curricular</h2>
+        <ul class="list">
+          <li *ngFor="let item of c.content.sections!.estrutura">{{ item }}</li>
+        </ul>
+      </article>
+
+      <article class="detailCard" *ngIf="c.content.sections?.diferenciais?.length">
+        <h2 class="cardTitle">Diferenciais</h2>
+        <ul class="list">
+          <li *ngFor="let item of c.content.sections!.diferenciais">{{ item }}</li>
+        </ul>
+      </article>
+
+      <article class="detailCard" *ngIf="c.content.sections?.egresso?.length">
+        <h2 class="cardTitle">Perfil do Egresso</h2>
+        <ul class="list">
+          <li *ngFor="let item of c.content.sections!.egresso">{{ item }}</li>
+        </ul>
+      </article>
+
+      <article class="detailCard" *ngIf="!hasAnySections()">
+        <h2 class="cardTitle">Sobre o curso</h2>
+        <p class="cardText">
+          Em breve, mais detalhes sobre objetivos, estrutura curricular, diferenciais e perfil do egresso.
+        </p>
+      </article>
+    </div>
+  </section>
+</div>

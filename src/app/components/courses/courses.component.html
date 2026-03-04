@@ -14,24 +14,50 @@
     </div>
 
     <div class="tabs" role="tablist" aria-label="Categorias de cursos">
-      <button type="button" role="tab" class="tabBtn" [class.active]="activeTab === 'graduacao'"
-        (click)="setTab('graduacao')" [attr.aria-selected]="activeTab === 'graduacao'">
+      <button
+        type="button"
+        role="tab"
+        class="tabBtn"
+        id="tab-graduacao"
+        [class.active]="activeTab === 'graduacao'"
+        [attr.aria-selected]="activeTab === 'graduacao'"
+        aria-controls="panel-cursos"
+        (click)="setTab('graduacao')"
+      >
         Graduação
+      </button>
+
+      <button
+        type="button"
+        role="tab"
+        class="tabBtn"
+        id="tab-pos"
+        [class.active]="activeTab === 'pos'"
+        [attr.aria-selected]="activeTab === 'pos'"
+        aria-controls="panel-cursos"
+        (click)="setTab('pos')"
+      >
+        Pós-graduação
       </button>
     </div>
   </div>
 
-  <ul id="cursos-grid" class="grid">
+  <ul
+    id="panel-cursos"
+    class="grid"
+    role="tabpanel"
+    [attr.aria-labelledby]="activeTab === 'graduacao' ? 'tab-graduacao' : 'tab-pos'"
+  >
     <li *ngFor="let c of filteredCourses; trackBy: trackById" class="card">
       <div class="media">
-       <img
-            [ngSrc]="c.imageFront"
-            [alt]="c.title"
-            width="220"
-            height="120"
-            class="image"
-            sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, (max-width: 1200px) 30vw, 25vw"
-          />
+        <img
+          [ngSrc]="c.imageFront"
+          [alt]="c.title"
+          width="220"
+          height="120"
+          class="image"
+          sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, (max-width: 1200px) 30vw, 25vw"
+        />
       </div>
 
       <div class="badges">
@@ -42,13 +68,18 @@
       <h3 class="cardTitle">{{ c.title }}</h3>
 
       <div class="actions">
-        <button 
-          type="button" 
-          class="btnPrimary" 
-          (click)="subscriptionService.openForm(c.title)"> Inscreva-se <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+        <button
+          type="button"
+          class="btnPrimary"
+          (click)="subscriptionService.openForm(c.title)"
+        >
+          Inscreva-se
+          <mat-icon aria-hidden="true">arrow_forward</mat-icon>
         </button>
 
-        <a class="linkMore" [routerLink]="c.learnHref">Saiba mais</a>
+<a class="linkMore" [routerLink]="['/', c.seoSlug]">
+  Saiba mais
+</a>
       </div>
     </li>
   </ul>

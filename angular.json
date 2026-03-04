@@ -25,7 +25,7 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
+                        "assets": [
               {
                 "glob": "**/*",
                 "input": "src/assets",
@@ -35,6 +35,16 @@
                 "glob": "**/*",
                 "input": "public",
                 "output": ""
+              },
+              {
+                "glob": "sitemap.xml",
+                "input": "src",
+                "output": "/"
+              },
+              {
+                "glob": "robots.txt",
+                "input": "src",
+                "output": "/"
               }
             ],
             "styles": [
@@ -43,7 +53,10 @@
             ],
             "scripts": [],
             "server": "src/main.server.ts",
-            "prerender": true,
+            "prerender": {
+  "discoverRoutes": false,
+  "routesFile": "prerender-routes.txt"
+},
             "ssr": {
               "entry": "server.ts"
             }

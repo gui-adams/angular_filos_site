@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
+  // HOME
   {
     path: '',
     pathMatch: 'full',
@@ -8,47 +9,27 @@ export const routes: Routes = [
       import('./pages/home/home.component').then((m) => m.HomeComponent),
   },
 
-  // --- GRADUAÇÃO (CURSOS) ---
-  {
-    path: 'cursos/administracao',
-    loadComponent: () =>
-      import('./pages/cursos/administracao/administracao.component').then(
-        (m) => m.AdministracaoComponent
-      ),
-  },
-  {
-    path: 'cursos/direito',
-    loadComponent: () =>
-      import('./pages/cursos/direito/direito.component').then(
-        (m) => m.DireitoComponent
-      ),
-  },
-  {
-    path: 'cursos/pedagogia',
-    loadComponent: () =>
-      import('./pages/cursos/pedagogia/pedagogia.component').then(
-        (m) => m.PedagogiaComponent
-      ),
-  },
-  {
-    path: 'cursos/radiologia',
-    loadComponent: () =>
-      import('./pages/cursos/radiologia/radiologia.component').then(
-        (m) => m.RadiologiaComponent
-      ),
-  },
+  // LANDING PAGE ADS (mantém separado)
   {
     path: 'faculdade-ads-aguas-lindas-go',
     loadComponent: () =>
-        import('./pages/cursos/ads/lead-ads-lp.component').then(m => m.LeadAdsLpComponent),
-    },
+      import('./pages/cursos/ads/lead-ads-lp.component').then(
+        (m) => m.LeadAdsLpComponent
+      ),
+  },
 
-    // aliases (sinônimos) -> apontam para a canonical
-    { path: 'cursos/ti', redirectTo: 'faculdade-ads-aguas-lindas-go', pathMatch: 'full' },
-    { path: 'faculdade-ti-aguas-lindas-go', redirectTo: 'faculdade-ads-aguas-lindas-go', pathMatch: 'full' },
-    { path: 'curso-ti-aguas-lindas', redirectTo: 'faculdade-ads-aguas-lindas-go', pathMatch: 'full' },
-    
-  // --- INSTITUCIONAL ---
+  // -------- ROTAS ANTIGAS → REDIRECT SEO --------
+  { path: 'cursos/direito', redirectTo: 'graduacao-direito-aguas-lindas-go', pathMatch: 'full' },
+  { path: 'cursos/administracao', redirectTo: 'graduacao-administracao-aguas-lindas-go', pathMatch: 'full' },
+  { path: 'cursos/pedagogia', redirectTo: 'graduacao-pedagogia-aguas-lindas-go', pathMatch: 'full' },
+  { path: 'cursos/radiologia', redirectTo: 'graduacao-radiologia-aguas-lindas-go', pathMatch: 'full' },
+
+  // aliases TI
+  { path: 'cursos/ti', redirectTo: 'faculdade-ads-aguas-lindas-go', pathMatch: 'full' },
+  { path: 'faculdade-ti-aguas-lindas-go', redirectTo: 'faculdade-ads-aguas-lindas-go', pathMatch: 'full' },
+  { path: 'curso-ti-aguas-lindas', redirectTo: 'faculdade-ads-aguas-lindas-go', pathMatch: 'full' },
+
+  // -------- INSTITUCIONAL --------
   {
     path: 'institucional/cpa',
     loadComponent: () =>
@@ -63,8 +44,6 @@ export const routes: Routes = [
         (m) => m.OuvidoriaComponent
       ),
   },
-
-  // ✅ BIBLIOTECA (faltava isso)
   {
     path: 'institucional/biblioteca',
     loadComponent: () =>
@@ -72,7 +51,6 @@ export const routes: Routes = [
         (m) => m.BibliotecaComponent
       ),
   },
-
   {
     path: 'sobre-nos',
     loadComponent: () =>
@@ -81,6 +59,15 @@ export const routes: Routes = [
       ),
   },
 
-  // Wildcard: Redireciona qualquer rota não encontrada para a Home
+  // -------- CURSOS DINÂMICOS (CANÔNICO + SEO) --------
+  {
+    path: ':slug',
+    loadComponent: () =>
+      import('./pages/course-page/course-page.component').then(
+        (m) => m.CoursePageComponent
+      ),
+  },
+
+  // fallback
   { path: '**', redirectTo: '' },
 ];

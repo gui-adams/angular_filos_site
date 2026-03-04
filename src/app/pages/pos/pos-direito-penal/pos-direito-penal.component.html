@@ -1,0 +1,90 @@
+<section class="hero">
+  <div class="heroContent">
+    <span class="kicker">Pós-graduação</span>
+    <h1 class="title">{{ course?.title ?? 'Direito Penal e Processo Penal' }}</h1>
+
+    <p class="lead">
+      Especialização voltada à atuação prática e estratégica no sistema penal, com base doutrinária sólida e atualização legislativa e jurisprudencial.
+    </p>
+
+    <p class="coordinator">
+      Coordenação: <strong>Professor(a) a definir</strong>
+    </p>
+
+    <div class="actions">
+      <a
+        class="ctaPrimary"
+        href="https://wa.me/5561999061757?text=Olá! Gostaria de informações sobre a Pós em Direito Penal e Processo Penal."
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Vem ser Filos
+      </a>
+
+      <a
+        class="ctaSecondary"
+        href="#matriz"
+      >
+        Matriz Curricular
+      </a>
+    </div>
+  </div>
+
+  <div class="heroMedia" aria-hidden="true">
+    <img
+      [ngSrc]="heroImg"
+      width="700"
+      height="700"
+      priority
+      [alt]="'Pós-graduação em ' + (course?.title ?? 'Direito Penal e Processo Penal')"
+      class="heroImg"
+    />
+  </div>
+</section>
+
+<section class="details">
+  <div class="detailGrid">
+
+    <article class="detailCard">
+      <h2 class="cardTitle">Objetivos do Curso</h2>
+      <ul class="list">
+        <li>Aprofundar fundamentos do Direito Penal e do Processo Penal com enfoque prático.</li>
+        <li>Desenvolver capacidade de argumentação e estratégia defensiva/acusatória.</li>
+        <li>Atualizar o aluno quanto a reformas legislativas e entendimentos dos tribunais.</li>
+        <li>Conectar teoria, prática forense e ética profissional.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard" id="matriz">
+      <h2 class="cardTitle">Estrutura Curricular</h2>
+      <p class="cardText">Eixos sugeridos para a especialização:</p>
+      <ul class="list">
+        <li><strong>Teoria do crime:</strong> tipicidade, ilicitude, culpabilidade e concurso de pessoas.</li>
+        <li><strong>Processo penal:</strong> provas, prisão e medidas cautelares, procedimentos e recursos.</li>
+        <li><strong>Jurisprudência:</strong> temas atuais do STF/STJ e precedentes relevantes.</li>
+        <li><strong>Prática:</strong> peças, audiência, estratégia e casos simulados.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard">
+      <h2 class="cardTitle">Diferenciais</h2>
+      <ul class="list">
+        <li>Foco em aplicação prática e estudo de casos.</li>
+        <li>Atualização contínua em legislação e jurisprudência.</li>
+        <li>Docentes com experiência acadêmica e prática.</li>
+        <li>Networking e orientação profissional.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard">
+      <h2 class="cardTitle">Perfil do Egresso</h2>
+      <ul class="list">
+        <li>Capaz de atuar com segurança técnica em demandas penais.</li>
+        <li>Leitura crítica de provas e decisões judiciais.</li>
+        <li>Atuação estratégica e ética na defesa, acusação ou consultoria.</li>
+        <li>Preparado para desafios do contencioso e da pesquisa aplicada.</li>
+      </ul>
+    </article>
+
+  </div>
+</section>

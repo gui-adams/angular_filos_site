@@ -1,0 +1,83 @@
+<section class="hero">
+  <div class="heroContent">
+    <span class="kicker">Pós-graduação</span>
+    <h1 class="title">{{ course?.title ?? 'Direito Imobiliário e Regularização Fundiária' }}</h1>
+
+    <p class="lead">
+      Especialização voltada à prática imobiliária, contratos, registros e regularização fundiária, conectando teoria e demandas reais do mercado.
+    </p>
+
+    <p class="coordinator">
+      Coordenação: <strong>Professor(a) a definir</strong>
+    </p>
+
+    <div class="actions">
+      <a
+        class="ctaPrimary"
+        href="https://wa.me/5561999061757?text=Olá! Gostaria de informações sobre a Pós em Direito Imobiliário e Regularização Fundiária."
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Vem ser Filos
+      </a>
+
+      <a class="ctaSecondary" href="#matriz">Matriz Curricular</a>
+    </div>
+  </div>
+
+  <div class="heroMedia" aria-hidden="true">
+    <img
+      [ngSrc]="heroImg"
+      width="700"
+      height="700"
+      priority
+      [alt]="'Pós-graduação em ' + (course?.title ?? 'Direito Imobiliário e Regularização Fundiária')"
+      class="heroImg"
+    />
+  </div>
+</section>
+
+<section class="details">
+  <div class="detailGrid">
+    <article class="detailCard">
+      <h2 class="cardTitle">Objetivos do Curso</h2>
+      <ul class="list">
+        <li>Capacitar para atuação em contratos, registros e negócios imobiliários.</li>
+        <li>Entender a estrutura registral e os impactos jurídicos do imóvel.</li>
+        <li>Aprofundar regularização fundiária e soluções para informalidade.</li>
+        <li>Desenvolver visão prática para consultoria, advocacia e gestão.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard" id="matriz">
+      <h2 class="cardTitle">Estrutura Curricular</h2>
+      <p class="cardText">Eixos sugeridos:</p>
+      <ul class="list">
+        <li><strong>Contratos:</strong> compra e venda, locação, garantias e due diligence.</li>
+        <li><strong>Registros:</strong> matrícula, averbações, usucapião, retificação e títulos.</li>
+        <li><strong>Regularização:</strong> Reurb, parcelamento do solo e políticas urbanas.</li>
+        <li><strong>Contencioso:</strong> ações possessórias, condomínio, responsabilidade civil.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard">
+      <h2 class="cardTitle">Diferenciais</h2>
+      <ul class="list">
+        <li>Abordagem prática com estudo de casos e documentos reais.</li>
+        <li>Foco em regularização e mercado imobiliário contemporâneo.</li>
+        <li>Integração entre direito civil, urbanístico e registral.</li>
+        <li>Aplicação imediata no trabalho e na consultoria.</li>
+      </ul>
+    </article>
+
+    <article class="detailCard">
+      <h2 class="cardTitle">Perfil do Egresso</h2>
+      <ul class="list">
+        <li>Capaz de orientar negócios imobiliários com segurança jurídica.</li>
+        <li>Domina fundamentos registral e estratégias de regularização.</li>
+        <li>Atua com prevenção de litígios e solução de conflitos.</li>
+        <li>Preparado para consultoria, advocacia e gestão imobiliária.</li>
+      </ul>
+    </article>
+  </div>
+</section>
