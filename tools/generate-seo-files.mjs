@@ -146,7 +146,7 @@ function main() {
     "/institucional/cpa",
     "/institucional/ouvidoria",
     "/institucional/biblioteca",
-    "/faculdade-ads-aguas-lindas-go",
+    "/programcaojava",
   ];
 
   const outSitemap = path.resolve(root, "src/sitemap.xml");

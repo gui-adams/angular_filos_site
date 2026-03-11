@@ -4,10 +4,6 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-// Importações do Recaptcha
-import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
-
-// Importações do Cookie Consent
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 
 import { routes } from './app.routes';
@@ -57,14 +53,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(), 
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
-
-    importProvidersFrom(RecaptchaModule),
-    {
-      provide: RECAPTCHA_SETTINGS,
-      useValue: {
-        siteKey: environment.recaptcha.siteKey, 
-      } as RecaptchaSettings,
-    },
 
     importProvidersFrom(NgcCookieConsentModule.forRoot(cookieConfig)),
   ]

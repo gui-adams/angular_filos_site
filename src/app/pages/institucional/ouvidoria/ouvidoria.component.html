@@ -72,7 +72,7 @@
           </mat-error>
         </mat-form-field>
 
-        <div class="captchaBox span-2">
+<div class="captchaBox span-2">
           <div class="ouvidoriaEmail">
             <mat-icon aria-hidden="true">mail</mat-icon>
             <span>
@@ -80,7 +80,11 @@
             <a href="mailto:ouvidoria@faculdadefilos.com.br">ouvidoria&#64;faculdadefilos.com.br</a> </span>
           </div>
 
-          <re-captcha formControlName="recaptcha" (resolved)="resolved($event)"></re-captcha>
+          <div class="g-recaptcha" [attr.data-sitekey]="recaptchaSiteKey"></div>
+          
+          <mat-error *ngIf="showError('recaptcha')" style="display: block; margin-top: 8px; font-size: 12px;">
+            Por favor, confirme que você não é um robô.
+          </mat-error>
         </div>
 
         <button
@@ -88,7 +92,7 @@
           color="primary"
           type="submit"
           class="btnSend span-2"
-          [disabled]="form.invalid || loading"
+          [disabled]="loading"
         >
           <span *ngIf="!loading">ENVIAR</span>
           <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>

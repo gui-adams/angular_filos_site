@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
@@ -9,10 +9,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { RecaptchaFormsModule, RecaptchaModule, RecaptchaComponent } from 'ng-recaptcha';
-
 import emailjs from '@emailjs/browser';
 import { environment } from '../../../../environments/environment';
+
+declare const grecaptcha: any;
 
 @Component({
   selector: 'app-ouvidoria',
@@ -25,8 +25,6 @@ import { environment } from '../../../../environments/environment';
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    RecaptchaModule,      
-    RecaptchaFormsModule, 
   ],
   templateUrl: './ouvidoria.component.html',
   styleUrls: ['./ouvidoria.component.scss'],
@@ -36,16 +34,18 @@ export class OuvidoriaComponent implements OnInit {
   private meta = inject(Meta);
   private fb = inject(FormBuilder);
 
-  @ViewChild(RecaptchaComponent) recaptchaCmp?: RecaptchaComponent;
-
   form: FormGroup;
   loading = false;
   feedbackMsg = '';
   isSuccess = false;
 
   private readonly serviceID = environment.emailjs.serviceID;
-  private readonly templateID = environment.emailjs.templateIDouvidoria; // <--- USANDO A NOVA CHAVE
+  private readonly templateID = environment.emailjs.templateIDouvidoria;
   private readonly publicKey = environment.emailjs.publicKey;
+
+  // ATENÇÃO: Esta chave deve ser OBRIGATORIAMENTE uma chave gerada para o reCAPTCHA v3.
+  // Chaves do v2 não funcionam no script do v3.
+  readonly recaptchaSiteKey = environment.recaptcha.siteKey;
 
   constructor() {
     this.form = this.fb.group({
@@ -53,7 +53,7 @@ export class OuvidoriaComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       assunto: ['', Validators.required],
       mensagem: ['', [Validators.required, Validators.minLength(10)]],
-      recaptcha: ['', Validators.required],
+      // O campo "recaptcha" foi removido daqui pois a validação agora é invisível
     });
   }
 
@@ -65,50 +65,75 @@ export class OuvidoriaComponent implements OnInit {
     });
   }
 
-  resolved(token: string | null) {
+  showError(controlName: string): boolean {
+    const control = this.form.get(controlName);
+    return !!control && control.invalid && (control.touched || control.dirty);
   }
 
   async onSubmit() {
-    if (this.form.invalid || this.loading) return;
+    if (this.loading) return;
 
-    this.loading = true;
     this.feedbackMsg = '';
     this.isSuccess = false;
 
-    const templateParams = {
-      from_name: this.form.value.nome,
-      from_email: this.form.value.email,
-      subject: this.form.value.assunto,
-      message: this.form.value.mensagem,
-      'g-recaptcha-response': this.form.value.recaptcha,
-      origin: 'Ouvidoria Institucional',
-    };
+    // Apenas valida os campos normais do formulário
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      this.feedbackMsg = 'Preencha os campos obrigatórios.';
+      return;
+    }
+
+    this.loading = true;
 
     try {
-      const res = await emailjs.send(
-        this.serviceID, 
-        this.templateID, // Usa o template_hir47k6 definido acima
-        templateParams, 
-        this.publicKey
-      );
+      grecaptcha.ready(async () => {
+        try {
+          const token = await grecaptcha.execute(this.recaptchaSiteKey, { action: 'enviar_ouvidoria' });
 
-      if (res.status === 200) {
-        this.isSuccess = true;
-        this.feedbackMsg = '✅ Obrigado! Sua manifestação foi enviada com sucesso. Nossa equipe analisará e, se necessário, entraremos em contato.';
-        
-        this.form.reset();
-        this.recaptchaCmp?.reset(); 
-      } else {
-        throw new Error('Erro no status do envio');
-      }
+          const templateParams = {
+            from_name: this.form.value.nome,
+            from_email: this.form.value.email,
+            subject: this.form.value.assunto,
+            message: this.form.value.mensagem,
+            'g-recaptcha-response': token, 
+            origin: 'Ouvidoria Institucional',
+          };
+
+          // 4. Dispara o e-mail
+          const res = await emailjs.send(
+            this.serviceID,
+            this.templateID,
+            templateParams,
+            this.publicKey
+          );
+
+          if (res.status === 200) {
+            this.isSuccess = true;
+            this.feedbackMsg =
+              '✅ Obrigado! Sua manifestação foi enviada com sucesso. Nossa equipe analisará e, se necessário, entraremos em contato.';
+
+            this.form.reset({
+              nome: '',
+              email: '',
+              assunto: '',
+              mensagem: '',
+            });
+          } else {
+            throw new Error('Erro no status do envio');
+          }
+        } catch (error) {
+          console.error('Erro ao enviar ouvidoria:', error);
+          this.isSuccess = false;
+          this.feedbackMsg =
+            'Não foi possível enviar sua manifestação no momento. Por favor, tente novamente mais tarde.';
+        } finally {
+          this.loading = false;
+        }
+      });
     } catch (error) {
-      console.error('Erro ao enviar ouvidoria:', error);
-      this.isSuccess = false;
-      this.feedbackMsg = 'Não foi possível enviar sua manifestação no momento. Por favor, tente novamente mais tarde.';
-      
-      this.recaptchaCmp?.reset(); 
-    } finally {
+      console.error('Erro fatal ao iniciar o reCAPTCHA:', error);
       this.loading = false;
+      this.feedbackMsg = 'Erro interno ao validar a segurança. Tente recarregar a página.';
     }
   }
 }

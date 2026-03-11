@@ -3,29 +3,20 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Meta, Title } from '@angular/platform-browser';
+import { environment } from '../../../../environments/environment';
 
-import {
-  RecaptchaModule,
-  RECAPTCHA_SETTINGS,
-  RecaptchaSettings
-} from 'ng-recaptcha';
+// 1. Declaramos o grecaptcha globalmente
+declare const grecaptcha: any;
 
 @Component({
   selector: 'app-lead-ads-lp',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, RecaptchaModule],
-  providers: [
-    {
-      provide: RECAPTCHA_SETTINGS,
-      useValue: {
-        siteKey: '6Le85H8sAAAAAOW-TQer2TAV8bDavtGnBjydN-S6',
-      } as RecaptchaSettings,
-    },
-  ],
+  // 2. Removemos o RecaptchaModule das importações e os providers
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   template: `
   <div class="page">
     <header class="hero">
-      <div class="brand">Você quer uma Faculdade de Tecnologia em Águas Lindas? </div>
+      <div class="brand">Você quer um curso de extensão em Águas Lindas? </div>
 
       <h1>O Caminho Ninja para o <span class="highlight">Mundo Tech</span></h1>
 
@@ -133,11 +124,6 @@ import {
           </label>
           <small *ngIf="showError('consent')">Você precisa aceitar para enviar.</small>
 
-          <div class="captcha-wrapper">
-            <re-captcha (resolved)="onCaptchaResolved($event)"></re-captcha>
-            <small *ngIf="showError('recaptcha')">Confirme o reCAPTCHA.</small>
-          </div>
-
           <button class="cta-neon" type="submit" [disabled]="loading || form.invalid">
             {{ loading ? 'ENVIANDO SINAL...' : 'REIVINDICAR MEU DESTINO' }}
           </button>
@@ -164,7 +150,6 @@ import {
   </div>
   `,
   styles: [`
-    /* (mantive suas styles — se quiser eu recoloco 100% igual ao seu original) */
     :host { display:block; font-family: 'Inter', sans-serif; }
     .page { background: #050507; color: #e2e8f0; min-height: 100vh; }
     .hero { padding: 60px 20px; text-align: center; max-width: 1000px; margin: 0 auto; }
@@ -202,18 +187,8 @@ import {
     input, select { padding: 16px; border: 2px solid #e2e8f0; border-radius: 14px; font-size: 1.05rem; width: 100%; box-sizing: border-box; transition: 0.3s; background: #f8fafc; }
     input:focus, select:focus { border-color: #00d4ff; outline: none; box-shadow: 0 0 0 5px rgba(0, 212, 255, 0.1); background: #fff; }
     .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .row-2 .input-group label {
-  min-height: 44px; /* ajuste: 40~52 dependendo da sua fonte */
-  display: flex;
-  align-items: flex-end;
-  line-height: 1.15;
-}
-
-@media (max-width: 650px) {
-  .row-2 { grid-template-columns: 1fr; }
-  .row-2 .input-group label { min-height: auto; }
-}
-    @media (max-width: 650px) { .row-2 { grid-template-columns: 1fr; } }
+    .row-2 .input-group label { min-height: 44px; display: flex; align-items: flex-end; line-height: 1.15; }
+    @media (max-width: 650px) { .row-2 { grid-template-columns: 1fr; } .row-2 .input-group label { min-height: auto; } }
     .check { display:flex; gap:10px; align-items:flex-start; color:#334155; font-weight: 700; }
     .check input { width: 18px; height: 18px; margin-top: 2px; }
     .captcha-wrapper { display: flex; flex-direction: column; align-items: center; min-height: 80px; margin: 10px 0; overflow: hidden; }
@@ -236,8 +211,10 @@ export class LeadAdsLpComponent implements OnInit {
   errorMsg = '';
   form: any;
 
+  // 4. Utilizando a sua chave do v3
+  readonly recaptchaSiteKey = environment.recaptcha.siteKey;
   private endpoint = 'https://faculdadefilos.edu.br/api/leads';
-  private canonicalUrl = 'https://faculdadefilos.edu.br/faculdade-ads-aguas-lindas-go';
+  private canonicalUrl = 'https://faculdadefilos.edu.br/curso-programacao';
 
   constructor(
     private fb: FormBuilder,
@@ -253,7 +230,7 @@ export class LeadAdsLpComponent implements OnInit {
       mode: ['Presencial', Validators.required],
       start: ['Imediato', Validators.required],
       consent: [false, Validators.requiredTrue],
-      recaptcha: [null, Validators.required],
+      // Campo recaptcha removido
     });
   }
 
@@ -264,10 +241,6 @@ export class LeadAdsLpComponent implements OnInit {
     this.title.setTitle(pageTitle);
     this.meta.updateTag({ name: 'description', content: description });
     this.setCanonical(this.canonicalUrl);
-  }
-
-  onCaptchaResolved(token: string | null) {
-    this.form.patchValue({ recaptcha: token });
   }
 
   private setCanonical(url: string) {
@@ -295,29 +268,44 @@ export class LeadAdsLpComponent implements OnInit {
 
     this.loading = true;
 
-    const payload = {
-      nome: (this.form.value.name || '').trim(),
-      whatsapp: (this.form.value.whatsapp || '').trim(),
-      email: (this.form.value.email || '').trim(),
-      preferencia: this.form.value.mode,
-      inicio: this.form.value.start,
-      consentimento: !!this.form.value.consent,
-      recaptchaToken: this.form.value.recaptcha,
-    };
+    try {
+      // 5. Chamada invisível do reCAPTCHA v3
+      grecaptcha.ready(async () => {
+        try {
+          const token = await grecaptcha.execute(this.recaptchaSiteKey, { action: 'lead_ads_lp' });
 
-    this.http.post(this.endpoint, payload).subscribe({
-      next: () => {
-        this.submitted = true;
-        this.loading = false;
-      },
-      error: (err) => {
-        this.loading = false;
-        const apiMsg = err?.error?.error || err?.error?.message;
-        this.errorMsg = apiMsg ? String(apiMsg) : 'Erro ao enviar. Verifique o reCAPTCHA e tente novamente.';
-        // força o usuário marcar de novo
-        this.form.patchValue({ recaptcha: null });
-      },
-    });
+          const payload = {
+            nome: (this.form.value.name || '').trim(),
+            whatsapp: (this.form.value.whatsapp || '').trim(),
+            email: (this.form.value.email || '').trim(),
+            preferencia: this.form.value.mode,
+            inicio: this.form.value.start,
+            consentimento: !!this.form.value.consent,
+            recaptchaToken: token, // Enviando o token gerado para sua API
+          };
+
+          this.http.post(this.endpoint, payload).subscribe({
+            next: () => {
+              this.submitted = true;
+              this.loading = false;
+            },
+            error: (err) => {
+              this.loading = false;
+              const apiMsg = err?.error?.error || err?.error?.message;
+              this.errorMsg = apiMsg ? String(apiMsg) : 'Erro ao enviar. Tente novamente.';
+            },
+          });
+        } catch (error) {
+          console.error('Erro na geração do token reCAPTCHA:', error);
+          this.loading = false;
+          this.errorMsg = 'Erro de segurança ao validar os dados. Tente novamente.';
+        }
+      });
+    } catch (error) {
+      console.error('Erro fatal do reCAPTCHA:', error);
+      this.loading = false;
+      this.errorMsg = 'Serviço de segurança indisponível. Recarregue a página.';
+    }
   }
 
   reset() {
@@ -331,7 +319,6 @@ export class LeadAdsLpComponent implements OnInit {
       mode: 'Presencial',
       start: 'Imediato',
       consent: false,
-      recaptcha: null,
     });
   }
 }

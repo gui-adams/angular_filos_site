@@ -3,16 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-
     "start": "ng serve",
-
     "seo:gen": "node tools/generate-seo-files.mjs",
     "build": "npm run seo:gen && ng build",
     "build:prod": "npm run seo:gen && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-
     "test": "ng test",
-
     "serve:ssr:filos": "node dist/filos/server/server.mjs"
   },
   "private": true,
@@ -32,7 +28,6 @@
     "@emailjs/browser": "^4.4.1",
     "express": "^4.18.2",
     "lucide-angular": "^0.563.0",
-    "ng-recaptcha": "^13.2.1",
     "ngx-cookieconsent": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

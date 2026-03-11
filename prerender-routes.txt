@@ -3,4 +3,4 @@
 /institucional/cpa
 /institucional/ouvidoria
 /institucional/biblioteca
-/faculdade-ads-aguas-lindas-go
+/programcaojava

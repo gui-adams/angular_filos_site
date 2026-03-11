@@ -1,7 +1,6 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
 import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -9,9 +8,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { RecaptchaModule, RecaptchaFormsModule, RecaptchaComponent } from 'ng-recaptcha';
 import emailjs from '@emailjs/browser';
 import { environment } from '../../../environments/environment';
+
+// 1. Declaramos a variável global do script do Google
+declare const grecaptcha: any;
 
 @Component({
   selector: 'app-subscription-modal',
@@ -25,8 +26,6 @@ import { environment } from '../../../environments/environment';
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    RecaptchaModule,
-    RecaptchaFormsModule,
   ],
   template: `
     <button class="close-btn" (click)="close()" type="button" aria-label="Fechar">
@@ -41,7 +40,6 @@ import { environment } from '../../../environments/environment';
     </div>
 
     <mat-dialog-content class="scrollable-content">
-      
       <a href="https://wa.me/5561999061757?text=Olá! Gostaria de mais informações sobre a Faculdade Filos."
          target="_blank"
          class="whatsapp-card">
@@ -81,11 +79,7 @@ import { environment } from '../../../environments/environment';
           Estou de acordo com a <a href="#">Política de Privacidade</a> e autorizo o envio de conteúdos da Faculdade Filos.
         </p>
 
-        <div class="recaptcha-container">
-          <re-captcha formControlName="recaptcha" (resolved)="resolved($event)"></re-captcha>
-        </div>
-
-        <button mat-flat-button type="submit" class="btn-submit" [disabled]="form.invalid || loading">
+        <button mat-flat-button type="submit" class="btn-submit" [disabled]="loading">
           <span *ngIf="!loading">Enviar</span>
           <mat-spinner *ngIf="loading" diameter="20" color="accent"></mat-spinner>
         </button>
@@ -94,10 +88,9 @@ import { environment } from '../../../environments/environment';
           {{ feedbackMsg }}
         </p>
       </form>
-
     </mat-dialog-content>
   `,
-  styleUrls: ['./subscription-modal.component.scss'] // <--- Link para o arquivo SCSS criado
+  styleUrls: ['./subscription-modal.component.scss']
 })
 export class SubscriptionModalComponent {
   form: FormGroup;
@@ -105,12 +98,13 @@ export class SubscriptionModalComponent {
   feedbackMsg = '';
   isSuccess = false;
 
-  @ViewChild(RecaptchaComponent) recaptchaCmp?: RecaptchaComponent;
-
   private readonly serviceID = environment.emailjs.serviceID;
   private readonly templateID = environment.emailjs.templateID;
   private readonly publicKey = environment.emailjs.publicKey;
 
+  // 2. Adicionamos a sua chave do reCAPTCHA v3
+  readonly recaptchaSiteKey = environment.recaptcha.siteKey;
+  
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<SubscriptionModalComponent>,
@@ -120,41 +114,63 @@ export class SubscriptionModalComponent {
       nome: ['', Validators.required],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      recaptcha: ['', Validators.required],
     });
   }
 
-  resolved(token: string | null) { }
-
   async onSubmit() {
-    if (this.form.invalid) return;
+    if (this.loading) return;
+
+    this.feedbackMsg = '';
+    this.isSuccess = false;
+
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
     this.loading = true;
-    this.feedbackMsg = '';
-
-    const templateParams = {
-      from_name: this.form.value.nome,
-      from_email: this.form.value.email,
-      phone: this.form.value.telefone,
-      interest_origin: this.data?.cursoInteresse || 'Geral',
-      message: 'Novo lead (Modal UDF Style)',
-      'g-recaptcha-response': this.form.value.recaptcha,
-    };
 
     try {
-      await emailjs.send(this.serviceID, this.templateID, templateParams, this.publicKey);
-      this.isSuccess = true;
-      this.feedbackMsg = 'Recebemos seu contato!';
-      this.form.reset();
-      this.recaptchaCmp?.reset();
-      setTimeout(() => this.dialogRef.close(), 3000);
+      // 3. Preparamos o reCAPTCHA
+      grecaptcha.ready(async () => {
+        try {
+          // 4. Executamos a verificação invisível (ação: modal_lead)
+          const token = await grecaptcha.execute(this.recaptchaSiteKey, { action: 'modal_lead' });
+
+          // 5. Incluímos o token no envio do EmailJS
+          const templateParams = {
+            from_name: this.form.value.nome,
+            from_email: this.form.value.email,
+            phone: this.form.value.telefone,
+            interest_origin: this.data?.cursoInteresse || 'Geral',
+            message: 'Novo lead (Modal UDF Style)',
+            'g-recaptcha-response': token, 
+          };
+
+          await emailjs.send(this.serviceID, this.templateID, templateParams, this.publicKey);
+          
+          this.isSuccess = true;
+          this.feedbackMsg = 'Recebemos seu contato!';
+
+          this.form.reset({
+            nome: '',
+            telefone: '',
+            email: '',
+          });
+
+          setTimeout(() => this.dialogRef.close(), 3000);
+        } catch (error) {
+          console.error('Erro no EmailJS ou na geração do token:', error);
+          this.isSuccess = false;
+          this.feedbackMsg = 'Erro ao enviar. Tente novamente.';
+        } finally {
+          this.loading = false;
+        }
+      });
     } catch (error) {
-      console.error(error);
-      this.isSuccess = false;
-      this.feedbackMsg = 'Erro ao enviar. Tente novamente.';
-      this.recaptchaCmp?.reset();
-    } finally {
+      console.error('Erro fatal ao iniciar o reCAPTCHA:', error);
       this.loading = false;
+      this.feedbackMsg = 'Erro interno de segurança. Tente recarregar a página.';
     }
   }
 

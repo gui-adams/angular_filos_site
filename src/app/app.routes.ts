@@ -11,7 +11,7 @@ export const routes: Routes = [
 
   // LANDING PAGE ADS (mantém separado)
   {
-    path: 'faculdade-ads-aguas-lindas-go',
+    path: 'curso-programacao',
     loadComponent: () =>
       import('./pages/cursos/ads/lead-ads-lp.component').then(
         (m) => m.LeadAdsLpComponent

@@ -2,7 +2,7 @@ export const environment = {
   production: true,
 
   recaptcha: {
-    siteKey: '6LddwV8sAAAAANaFQAY9659XZVvDub23vf5v2zJH',
+    siteKey: '6Ld_YIcsAAAAAKSdRyDk5mKl9MexhglYnk7SEFWR',
   },
 
   emailjs: {
