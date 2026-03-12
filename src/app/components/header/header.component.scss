@@ -88,6 +88,7 @@
 .iconMenu {
   display: inline-flex;
 }
+
 .iconClose {
   display: none;
 }
@@ -95,6 +96,7 @@
 .toggle:checked ~ .burger .iconMenu {
   display: none;
 }
+
 .toggle:checked ~ .burger .iconClose {
   display: inline-flex;
 }
@@ -118,7 +120,7 @@
   a,
   .trigger {
     color: var(--text);
-    font-weight: 500; /* ✅ sem negrito no desktop */
+    font-weight: 500;
     line-height: 72px;
     display: inline-flex;
     align-items: center;
@@ -136,7 +138,6 @@
   position: relative;
 }
 
-/* Sobe acima de outros elementos no hover */
 .hasDropdown:hover {
   z-index: 2000;
 }
@@ -152,11 +153,6 @@
   transform: translateY(-1px);
 }
 
-/**
- * Dropdown com:
- * - encostado (top:100%) => sem gap
- * - delay para sumir => evita fechar quando move o mouse
- */
 .dropdown {
   position: absolute;
   top: 100%;
@@ -177,46 +173,130 @@
 
   opacity: 0;
   visibility: hidden;
-  transform: translateY(8px);
+  transform: translateY(0);
   pointer-events: none;
 
   transition: opacity 160ms ease, transform 160ms ease, visibility 0s linear 180ms;
+}
 
-  a {
-    display: block;
-    padding: 10px 12px;
-    line-height: 1.2;
-    border-radius: 10px;
-    color: var(--text);
-    font-size: 0.92rem;
-    font-weight: 600;
+.dropdown a {
+  display: block;
+  padding: 8px 10px;
+  line-height: 1.25;
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
 
-    &:hover {
-      background: #f2f5fb;
-      color: var(--brand);
-    }
+  &:hover {
+    background: #f2f5fb;
+    color: var(--brand);
   }
 }
 
-.hasDropdown:hover .dropdown,
-.hasDropdown:focus-within .dropdown {
+.hasDropdown:hover .dropdown {
   opacity: 1;
   visibility: visible;
-  transform: translateY(8px);
+  transform: translateY(0);
   pointer-events: auto;
   transition: opacity 160ms ease, transform 160ms ease, visibility 0s;
 }
 
-/* Ponte invisível p/ mouse não "cair" no meio */
+/* ponte invisível para evitar sumir ao descer o mouse */
 .hasDropdown::after {
-  content: "";
+  content: '';
   position: absolute;
   left: -6px;
   right: -6px;
   top: 100%;
-  height: 28px;
+  height: 24px;
   z-index: 2050;
   pointer-events: auto;
+}
+
+/* =================== Mega dropdown de cursos =================== */
+.hasMegaDropdown {
+  position: static;
+}
+
+.megaDropdown {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%) translateY(0);
+
+  width: min(820px, calc(100vw - 40px));
+  min-width: 680px;
+
+  padding: 28px 32px;
+  border: 1px solid #e6e8ef;
+  border-radius: 0 0 18px 18px;
+  background: var(--bg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  list-style: none;
+  z-index: 2100;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition: opacity 160ms ease, visibility 0s linear 180ms;
+}
+
+.hasMegaDropdown:hover .megaDropdown {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+  transition: opacity 160ms ease, visibility 0s;
+}
+
+.hasMegaDropdown::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 32px;
+  z-index: 2050;
+  pointer-events: auto;
+}
+
+.dropdownColumn {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.megaTitle {
+  margin: 0 0 14px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--brand);
+  line-height: 1.2;
+}
+
+.megaDropdown a {
+  display: block;
+  padding: 4px 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 0.98rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.megaDropdown a:hover {
+  background: transparent;
+  color: var(--brand);
 }
 
 /* =================== Actions =================== */
@@ -266,14 +346,12 @@
   }
 }
 
-/* Portais: tipografia consistente */
 .actions .trigger {
-  font-weight: 800; /* (menos pesado que 900) */
+  font-weight: 800;
   line-height: normal;
   font-size: 1rem;
 }
 
-/* Dropdown Portais alinhado à direita */
 .actions .hasDropdown .dropdown {
   left: auto;
   right: 0;
@@ -321,7 +399,7 @@
   transform: translateX(0);
 }
 
-/* ✅ Quando o drawer abre, esconde o burger (evita dois X) */
+/* quando abre o drawer, esconde burger */
 @media (max-width: 1024px) {
   .toggle:checked ~ .burger {
     opacity: 0;
@@ -342,7 +420,6 @@
   border-bottom: 1px solid #e6e8ef;
 }
 
-/* Botão de fechar */
 .closeBtn {
   width: 44px;
   height: 44px;
@@ -365,14 +442,12 @@
   background: rgba(9, 38, 98, 0.09);
 }
 
-/* Corpo do Drawer com scroll */
 .drawerBody {
   padding: 16px;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-/* Títulos das seções */
 .sectionTitle {
   margin: 14px 0 8px;
   font-size: 0.78rem;
@@ -382,7 +457,6 @@
   color: rgba(30, 41, 59, 0.7);
 }
 
-/* Lista limpa */
 .menuList {
   list-style: none;
   padding: 0;
@@ -422,14 +496,12 @@
   margin: 14px 0;
 }
 
-/* Portais em grid */
 .portalGrid {
   display: grid;
   gap: 10px;
   margin-bottom: 12px;
 }
 
-/* ✅ Botões full width no mobile (menores e sem cortar) */
 .full {
   width: 100%;
   height: 42px;
@@ -443,7 +515,6 @@
   text-overflow: ellipsis;
 }
 
-/* telas muito pequenas */
 @media (max-width: 360px) {
   .full {
     height: 40px;
@@ -452,12 +523,21 @@
   }
 }
 
-/* Hint do rodapé */
 .drawerHint {
   margin: 14px 0 0;
   font-size: 0.92rem;
   color: rgba(30, 41, 59, 0.7);
   line-height: 1.5;
+}
+
+/* =================== Ajustes intermediários =================== */
+@media (max-width: 1200px) {
+  .megaDropdown {
+    width: min(720px, calc(100vw - 32px));
+    min-width: unset;
+    gap: 28px;
+    padding: 24px 24px;
+  }
 }
 
 /* =================== Breakpoint =================== */
@@ -492,5 +572,13 @@
 
   .burger {
     justify-self: end;
+  }
+
+  /* garante que dropdown desktop não interfira no mobile */
+  .dropdown,
+  .megaDropdown,
+  .hasDropdown::after,
+  .hasMegaDropdown::after {
+    display: none !important;
   }
 }

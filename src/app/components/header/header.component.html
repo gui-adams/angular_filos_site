@@ -2,7 +2,6 @@
 
 <header class="header">
   <div class="inner">
-    <!-- Logo -->
     <a routerLink="/" class="brand" aria-label="Página inicial - Faculdade Filos">
       <img
         [ngSrc]="logoSrc"
@@ -14,16 +13,13 @@
       />
     </a>
 
-    <!-- Toggle -->
     <input id="nav-toggle" #navToggle type="checkbox" class="toggle" aria-hidden="true" />
 
-    <!-- Burger -->
     <label for="nav-toggle" class="burger" aria-label="Abrir menu" aria-controls="mobile-drawer">
       <mat-icon class="iconMenu" aria-hidden="true">menu</mat-icon>
       <mat-icon class="iconClose" aria-hidden="true">close</mat-icon>
     </label>
 
-    <!-- Desktop nav -->
     <nav class="navDesktop" aria-label="Menu principal">
       <ul>
         <li>
@@ -32,17 +28,27 @@
           </a>
         </li>
 
-        <li class="hasDropdown">
-          <a class="trigger" aria-haspopup="menu">
-            Cursos <span class="caret" aria-hidden="true">▾</span>
-          </a>
-          <ul class="dropdown" role="menu">
-            <li><a routerLink="/cursos/administracao">Administração</a></li>
-            <li><a routerLink="/cursos/direito">Direito</a></li>
-            <li><a routerLink="/cursos/pedagogia">Pedagogia</a></li>
-            <li><a routerLink="/cursos/radiologia">Radiologia</a></li>
-          </ul>
-        </li>
+      <li class="hasDropdown hasMegaDropdown">
+  <a class="trigger" aria-haspopup="menu">
+    Cursos <span class="caret" aria-hidden="true">▾</span>
+  </a>
+
+  <ul class="dropdown megaDropdown" role="menu">
+    <li class="dropdownColumn">
+      <p class="megaTitle">Graduação</p>
+      <a *ngFor="let course of graduationCourses" [routerLink]="course.link">
+        {{ course.label }}
+      </a>
+    </li>
+
+    <li class="dropdownColumn">
+      <p class="megaTitle">Pós-Graduação</p>
+      <a *ngFor="let course of postGraduationCourses" [routerLink]="course.link">
+        {{ course.label }}
+      </a>
+    </li>
+  </ul>
+</li>
 
         <li class="hasDropdown">
           <a class="trigger" aria-haspopup="menu">
@@ -59,8 +65,11 @@
           </a>
           <ul class="dropdown" role="menu">
             <li>
-              <a href="https://revistafaculdadefilos.com.br/index.php/ojs01"
-                 target="_blank" rel="noopener">
+              <a
+                href="https://revistafaculdadefilos.com.br/index.php/ojs01"
+                target="_blank"
+                rel="noopener"
+              >
                 Revista
               </a>
             </li>
@@ -76,8 +85,7 @@
           </a>
           <ul class="dropdown" role="menu">
             <li>
-              <a href="https://colegiofilos.com.br/"
-                 target="_blank" rel="noopener">
+              <a href="https://colegiofilos.com.br/" target="_blank" rel="noopener">
                 Colégio Filos
               </a>
             </li>
@@ -86,7 +94,6 @@
       </ul>
     </nav>
 
-    <!-- Desktop actions -->
     <div class="actions">
       <div class="hasDropdown">
         <a class="btnOutline trigger" aria-haspopup="menu">
@@ -94,23 +101,31 @@
         </a>
         <ul class="dropdown" role="menu">
           <li>
-            <a href="https://faculdadefilos.jacad.com.br/academico/aluno-v2/login"
-               target="_blank" rel="noopener">
+            <a
+              href="https://faculdadefilos.jacad.com.br/academico/aluno-v2/login"
+              target="_blank"
+              rel="noopener"
+            >
               Portal Aluno
             </a>
           </li>
 
           <li>
-            <a href="https://faculdadefilos.jacad.com.br/academico/professor/login"
-               target="_blank" rel="noopener">
+            <a
+              href="https://faculdadefilos.jacad.com.br/academico/professor/login"
+              target="_blank"
+              rel="noopener"
+            >
               Portal Professor
             </a>
           </li>
 
-          <!-- NOVO LINK AVA -->
           <li>
-            <a href="https://ava-faculdadefilos.bashsolutions.com.br/login/index.php"
-               target="_blank" rel="noopener">
+            <a
+              href="https://ava-faculdadefilos.bashsolutions.com.br/login/index.php"
+              target="_blank"
+              rel="noopener"
+            >
               AVA
             </a>
           </li>
@@ -122,16 +137,24 @@
       </button>
     </div>
 
-    <!-- Mobile drawer -->
     <nav class="mobileNav" aria-label="Menu móvel">
       <label for="nav-toggle" class="backdrop" aria-hidden="true"></label>
 
       <aside id="mobile-drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Menu">
         <div class="drawerHeader">
-          <a routerLink="/" class="brandMini" (click)="navToggle.checked = false"
-             aria-label="Página inicial">
-            <img [ngSrc]="logoSrc" width="120" height="32"
-                 alt="Faculdade Filos" class="logoMini" />
+          <a
+            routerLink="/"
+            class="brandMini"
+            (click)="navToggle.checked = false"
+            aria-label="Página inicial"
+          >
+            <img
+              [ngSrc]="logoSrc"
+              width="120"
+              height="32"
+              alt="Faculdade Filos"
+              class="logoMini"
+            />
           </a>
 
           <label for="nav-toggle" class="closeBtn" aria-label="Fechar menu">
@@ -148,12 +171,24 @@
 
           <div class="divider"></div>
 
-          <p class="sectionTitle">Cursos</p>
+          <p class="sectionTitle">Graduação</p>
           <ul class="menuList">
-            <li><a routerLink="/cursos/administracao" (click)="navToggle.checked = false">Administração</a></li>
-            <li><a routerLink="/cursos/direito" (click)="navToggle.checked = false">Direito</a></li>
-            <li><a routerLink="/cursos/pedagogia" (click)="navToggle.checked = false">Pedagogia</a></li>
-            <li><a routerLink="/cursos/radiologia" (click)="navToggle.checked = false">Radiologia</a></li>
+            <li *ngFor="let course of graduationCourses">
+              <a [routerLink]="course.link" (click)="navToggle.checked = false">
+                {{ course.label }}
+              </a>
+            </li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <p class="sectionTitle">Pós-graduação</p>
+          <ul class="menuList">
+            <li *ngFor="let course of postGraduationCourses">
+              <a [routerLink]="course.link" (click)="navToggle.checked = false">
+                {{ course.label }}
+              </a>
+            </li>
           </ul>
 
           <div class="divider"></div>
@@ -161,11 +196,22 @@
           <p class="sectionTitle">Institucional</p>
           <ul class="menuList">
             <li><a routerLink="/institucional/cpa" (click)="navToggle.checked = false">CPA</a></li>
-            <li><a routerLink="/institucional/ouvidoria" (click)="navToggle.checked = false">Ouvidoria</a></li>
-            <li><a routerLink="/institucional/biblioteca" (click)="navToggle.checked = false">Biblioteca</a></li>
             <li>
-              <a href="https://revistafaculdadefilos.com.br/index.php/ojs01"
-                 target="_blank" rel="noopener">
+              <a routerLink="/institucional/ouvidoria" (click)="navToggle.checked = false">
+                Ouvidoria
+              </a>
+            </li>
+            <li>
+              <a routerLink="/institucional/biblioteca" (click)="navToggle.checked = false">
+                Biblioteca
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://revistafaculdadefilos.com.br/index.php/ojs01"
+                target="_blank"
+                rel="noopener"
+              >
                 Revista
               </a>
             </li>
@@ -175,29 +221,39 @@
 
           <p class="sectionTitle">Portais</p>
           <div class="portalGrid">
-            <a class="btnOutline full"
-               href="https://faculdadefilos.jacad.com.br/academico/aluno-v2/login"
-               target="_blank" rel="noopener">
+            <a
+              class="btnOutline full"
+              href="https://faculdadefilos.jacad.com.br/academico/aluno-v2/login"
+              target="_blank"
+              rel="noopener"
+            >
               Portal Aluno
             </a>
 
-            <a class="btnOutline full"
-               href="https://faculdadefilos.jacad.com.br/academico/professor/login"
-               target="_blank" rel="noopener">
+            <a
+              class="btnOutline full"
+              href="https://faculdadefilos.jacad.com.br/academico/professor/login"
+              target="_blank"
+              rel="noopener"
+            >
               Portal Professor
             </a>
 
-            <!-- AVA MOBILE -->
-            <a class="btnOutline full"
-               href="https://ava-faculdadefilos.bashsolutions.com.br/login/index.php"
-               target="_blank" rel="noopener">
+            <a
+              class="btnOutline full"
+              href="https://ava-faculdadefilos.bashsolutions.com.br/login/index.php"
+              target="_blank"
+              rel="noopener"
+            >
               AVA
             </a>
           </div>
 
-          <button type="button"
-                  class="btnPrimary full"
-                  (click)="openInscricao(); navToggle.checked = false">
+          <button
+            type="button"
+            class="btnPrimary full"
+            (click)="openInscricao(); navToggle.checked = false"
+          >
             Inscreva-se
           </button>
 
