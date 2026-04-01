@@ -39,6 +39,19 @@
       >
         Pós-graduação
       </button>
+
+      <button
+        type="button"
+        role="tab"
+        class="tabBtn"
+        id="tab-extensao"
+        [class.active]="activeTab === 'extensao'"
+        [attr.aria-selected]="activeTab === 'extensao'"
+        aria-controls="panel-cursos"
+        (click)="setTab('extensao')"
+      >
+        Extensão
+      </button>
     </div>
   </div>
 
@@ -46,7 +59,7 @@
     id="panel-cursos"
     class="grid"
     role="tabpanel"
-    [attr.aria-labelledby]="activeTab === 'graduacao' ? 'tab-graduacao' : 'tab-pos'"
+    [attr.aria-labelledby]="activeTab === 'graduacao' ? 'tab-graduacao' : (activeTab === 'pos' ? 'tab-pos' : 'tab-extensao')"
   >
     <li *ngFor="let c of filteredCourses; trackBy: trackById" class="card">
       <div class="media">
@@ -77,9 +90,9 @@
           <mat-icon aria-hidden="true">arrow_forward</mat-icon>
         </button>
 
-<a class="linkMore" [routerLink]="['/', c.seoSlug]">
-  Saiba mais
-</a>
+        <a class="linkMore" [routerLink]="['/', c.seoSlug]">
+          Saiba mais
+        </a>
       </div>
     </li>
   </ul>

@@ -28,27 +28,35 @@
           </a>
         </li>
 
-      <li class="hasDropdown hasMegaDropdown">
-  <a class="trigger" aria-haspopup="menu">
-    Cursos <span class="caret" aria-hidden="true">▾</span>
-  </a>
+        <li class="hasMegaDropdown"> <a class="trigger" aria-haspopup="menu">
+          Cursos <span class="caret" aria-hidden="true">▾</span>
+        </a>
 
-  <ul class="dropdown megaDropdown" role="menu">
-    <li class="dropdownColumn">
-      <p class="megaTitle">Graduação</p>
-      <a *ngFor="let course of graduationCourses" [routerLink]="course.link">
-        {{ course.label }}
-      </a>
-    </li>
+        <ul class="megaDropdown" role="menu">
+          <li class="dropdownColumn">
+            <p class="megaTitle">Graduação</p>
+            <a *ngFor="let course of graduationCourses" [routerLink]="course.link">
+              {{ course.label }}
+            </a>
+          </li>
 
-    <li class="dropdownColumn">
-      <p class="megaTitle">Pós-Graduação</p>
-      <a *ngFor="let course of postGraduationCourses" [routerLink]="course.link">
-        {{ course.label }}
-      </a>
-    </li>
-  </ul>
-</li>
+          <li class="dropdownColumn">
+            <p class="megaTitle">Pós-Graduação</p>
+            <a *ngFor="let course of postGraduationCourses" [routerLink]="course.link">
+              {{ course.label }}
+            </a>
+          </li>
+
+          <li class="dropdownColumn">
+            <p class="megaTitle">Cursos Extensionistas</p>
+            <div class="scrollColumn">
+              <a *ngFor="let course of extensionCourses" [routerLink]="course.link">
+                {{ course.label }}
+              </a>
+            </div>
+          </li>
+        </ul>
+        </li>
 
         <li class="hasDropdown">
           <a class="trigger" aria-haspopup="menu">
@@ -185,6 +193,17 @@
           <p class="sectionTitle">Pós-graduação</p>
           <ul class="menuList">
             <li *ngFor="let course of postGraduationCourses">
+              <a [routerLink]="course.link" (click)="navToggle.checked = false">
+                {{ course.label }}
+              </a>
+            </li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <p class="sectionTitle">Cursos Extensionistas</p>
+          <ul class="menuList scrollColumn">
+            <li *ngFor="let course of extensionCourses">
               <a [routerLink]="course.link" (click)="navToggle.checked = false">
                 {{ course.label }}
               </a>

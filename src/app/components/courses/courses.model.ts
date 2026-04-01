@@ -1,11 +1,12 @@
-export type CourseLevel = 'graduacao' | 'pos' | 'mba';
+export type CourseLevel = 'graduacao' | 'pos' | 'mba' | 'extensao';
 
 export type CourseType =
   | 'Bacharelado'
   | 'Tecnólogo'
   | 'Licenciatura'
   | 'Especialização'
-  | 'MBA';
+  | 'MBA'
+  | 'Extensão';
 
 export type CourseModality = 'EAD' | 'Presencial';
 
