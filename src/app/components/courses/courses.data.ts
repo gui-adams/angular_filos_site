@@ -164,8 +164,8 @@ export const COURSES: Course[] = [
     level: 'graduacao',
     type: 'Tecnólogo',
     modality: 'Presencial',
-    imageFront: 'assets/cursos/modal/radiologia.webp',
-    imageSrc: 'assets/cursos/rota/radio.webp',
+    imageFront: 'assets/cursos/modal/radiologia.jpg',
+    imageSrc: 'assets/cursos/rota/radiologia.jpg',
     applyHref: '/admissions?curso=radiologia',
 
     content: {
